@@ -97,6 +97,17 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
 
   // Reset form after successful submission and close
   const handleClose = useCallback(() => {
+    // Track form abandonment if closed without submitting
+    if (!isSuccess && currentSlide > 0) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const w = window as any;
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({
+        event: "form_abandon",
+        form_type: "contact",
+        abandon_slide: currentSlide + 1,
+      });
+    }
     if (isSuccess) {
       setCurrentSlide(0);
       setIsSuccess(false);
@@ -116,13 +127,17 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
       });
     }
     closeModal();
-  }, [isSuccess, closeModal]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isSuccess, currentSlide, closeModal]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Body scroll lock
+  // Body scroll lock + dataLayer tracking
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    w.dataLayer = w.dataLayer || [];
     if (isOpen) {
       document.body.style.overflow = "hidden";
       mountTime.current = Date.now();
+      w.dataLayer.push({ event: "form_open", form_type: "contact" });
     } else {
       document.body.style.overflow = "";
     }
@@ -228,6 +243,15 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
         websiteRegion: region,
         submittedAt: new Date().toISOString(),
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const w = window as any;
+      w.dataLayer = w.dataLayer || [];
+      w.dataLayer.push({
+        event: "form_submit",
+        form_type: "contact",
+        plan_selected: formData.plan,
+        business_type: formData.businessType,
       });
       setIsSuccess(true);
     } catch {

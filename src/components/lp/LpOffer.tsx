@@ -68,6 +68,8 @@ export function LpOffer({ title, features, priceAnchor, ctaLabel, ctaAction, scr
 
           <button
             onClick={handleCta}
+            data-track="offer-cta"
+            data-track-label={ctaLabel}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand text-dark rounded-sm px-8 py-4 font-sans font-medium text-fluid-main transition-all hover:brightness-110 min-h-[52px]"
             style={{ transitionDuration: "0.3s" }}
           >

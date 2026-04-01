@@ -40,6 +40,8 @@ export function LpNav({ ctaLabel, ctaAction, scrollTarget }: LpNavProps) {
         </span>
         <button
           onClick={handleCta}
+          data-track="nav-cta"
+          data-track-label={ctaLabel}
           className="bg-brand text-dark rounded-sm px-5 py-3 font-sans font-medium text-sm transition-all hover:brightness-110 min-h-[44px]"
           style={{ transitionDuration: "0.3s" }}
         >

@@ -109,6 +109,8 @@ export function Pricing({ region, slug }: { region: string; slug: string }) {
               </ul>
               <button
                 onClick={() => openModal()}
+                data-track="pricing-cta"
+                data-track-label={tier.name}
                 className={tier.featured ? "btn justify-center" : "btn-secondary"}
                 style={{ width: "100%" }}
               >

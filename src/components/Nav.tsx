@@ -135,6 +135,8 @@ export function Nav({ brandName }: { brandName: string }) {
           <div className="hidden md:block">
             <button
               onClick={() => openModal()}
+              data-track="nav-cta"
+              data-track-label="Book a Free Strategy Call"
               className="btn"
               style={{
                 background: '#ff9500',
@@ -158,6 +160,7 @@ export function Nav({ brandName }: { brandName: string }) {
           <button
             className="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
             onClick={() => setMobileOpen(!mobileOpen)}
+            data-track="nav-hamburger"
             aria-label="Toggle menu"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -197,6 +200,8 @@ export function Nav({ brandName }: { brandName: string }) {
         )}
         <button
           onClick={() => { setMobileOpen(false); openModal(); }}
+          data-track="nav-mobile-cta"
+          data-track-label="Book a Free Strategy Call"
           className="btn-secondary text-base"
         >
           Book a Free Strategy Call

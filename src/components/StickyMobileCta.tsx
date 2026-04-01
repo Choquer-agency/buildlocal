@@ -10,6 +10,8 @@ export function StickyMobileCta() {
       <div className="flex items-center gap-3 px-4 py-3">
         <button
           onClick={() => openModal()}
+          data-track="sticky-mobile-cta"
+          data-track-label="Get Started"
           className="w-full flex items-center justify-center gap-2 bg-brand text-dark rounded-lg py-3.5 font-sans font-medium text-sm"
         >
           Get Started

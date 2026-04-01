@@ -46,6 +46,8 @@ export function CtaBanner() {
           </p>
           <button
             onClick={() => openModal()}
+            data-track="cta-banner"
+            data-track-label="Book a Free Strategy Call"
             className="inline-flex items-center gap-3 bg-brand text-dark rounded-sm px-8 py-4 font-sans font-medium text-fluid-main transition-all hover:brightness-110"
             style={{ transitionDuration: "0.3s" }}
           >

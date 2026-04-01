@@ -16,6 +16,8 @@ export function FinalCta() {
         </p>
         <button
           onClick={handleClick}
+          data-track="final-cta"
+          data-track-label="Get My Free Mockup"
           className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand text-dark rounded-sm px-8 py-4 font-sans font-medium text-fluid-main transition-all hover:brightness-110 min-h-[52px]"
           style={{ transitionDuration: "0.3s" }}
         >

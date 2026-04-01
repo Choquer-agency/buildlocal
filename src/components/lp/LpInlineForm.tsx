@@ -5,6 +5,13 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-register";
 import { submitForm } from "@/lib/form";
 
+function pushDataLayer(data: Record<string, unknown>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const w = window as any;
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push(data);
+}
+
 export function LpInlineForm() {
   const ref = useRef<HTMLElement>(null);
   const [loading, setLoading] = useState(false);
@@ -12,6 +19,7 @@ export function LpInlineForm() {
   const [error, setError] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const loadedAt = useRef(Date.now());
+  const formStarted = useRef(false);
 
   useGSAP(
     () => {
@@ -54,6 +62,7 @@ export function LpInlineForm() {
         submittedAt: new Date().toISOString(),
         _gotcha: "",
       });
+      pushDataLayer({ event: "form_submit", form_type: "free-mockup" });
       setSuccess(true);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -125,6 +134,12 @@ export function LpInlineForm() {
                   type="text"
                   required
                   placeholder="John Smith"
+                  onFocus={() => {
+                    if (!formStarted.current) {
+                      formStarted.current = true;
+                      pushDataLayer({ event: "form_start", form_type: "free-mockup" });
+                    }
+                  }}
                   className="w-full border border-dark/15 rounded-lg px-4 py-3 font-sans text-sm text-dark placeholder:text-dark/30 focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-colors"
                 />
               </div>
@@ -165,6 +180,8 @@ export function LpInlineForm() {
             <button
               type="submit"
               disabled={loading}
+              data-track="form-submit-cta"
+              data-track-label="Get My Free Mockup"
               className="w-full mt-6 inline-flex items-center justify-center gap-3 bg-brand text-dark rounded-lg px-8 py-4 font-sans font-medium text-fluid-main transition-all hover:brightness-110 min-h-[52px] disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ transitionDuration: "0.3s" }}
             >
