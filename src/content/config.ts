@@ -150,7 +150,7 @@ export const defaultConfig: DomainConfig = {
     region: "AZ",
     country: "US",
   },
-  telephone: "+17782374700",
+  // telephone removed
   email: "hello@buildlocal.agency",
   geoCoordinates: {
     latitude: 33.4484,

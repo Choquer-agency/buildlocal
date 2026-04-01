@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function middleware(_request: NextRequest) {
   // www → non-www redirect is handled by Vercel domain config.
-  // Do NOT redirect here — it conflicts with Vercel's own redirects
-  // and causes ERR_TOO_MANY_REDIRECTS.
   return NextResponse.next();
 }
 

@@ -192,11 +192,6 @@ export function Footer({ brandName }: { brandName: string }) {
                   </button>
                 </li>
                 <li>
-                  <a href="tel:+17782374700" className="font-sans text-sm opacity-60 hover:opacity-100 transition-opacity" style={{ transitionDuration: "0.2s" }}>
-                    (778) 237-4700
-                  </a>
-                </li>
-                <li>
                   <a href="mailto:hello@buildlocal.agency" className="font-sans text-sm opacity-60 hover:opacity-100 transition-opacity" style={{ transitionDuration: "0.2s" }}>
                     hello@buildlocal.agency
                   </a>

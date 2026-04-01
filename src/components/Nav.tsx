@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { clsx } from "clsx";
 import { useContactForm } from "@/context/ContactFormContext";
 
-const PHONE_NUMBER = "+17782374700";
-const PHONE_DISPLAY = "(778) 237-4700";
 
 const navLinks = [
   { label: "Industries", href: "/industries/roofing", isPage: true, isDropdown: true },
@@ -133,16 +131,8 @@ export function Nav({ brandName }: { brandName: string }) {
             )}
           </div>
 
-          {/* Desktop CTA + Phone */}
-          <div className="hidden md:flex items-center gap-4">
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              className="flex items-center gap-2 text-sm font-sans font-medium opacity-70 hover:opacity-100 transition-opacity"
-              style={{ transitionDuration: "0.35s" }}
-            >
-              <Phone size={14} />
-              {PHONE_DISPLAY}
-            </a>
+          {/* Desktop CTA */}
+          <div className="hidden md:block">
             <button
               onClick={() => openModal()}
               className="btn"
@@ -164,23 +154,14 @@ export function Nav({ brandName }: { brandName: string }) {
             </button>
           </div>
 
-          {/* Mobile Phone + Hamburger */}
-          <div className="md:hidden flex items-center gap-2">
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-brand"
-              aria-label="Call us"
-            >
-              <Phone size={22} />
-            </a>
-            <button
-              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
       </nav>
 
@@ -214,14 +195,6 @@ export function Nav({ brandName }: { brandName: string }) {
             </button>
           )
         )}
-        <a
-          href={`tel:${PHONE_NUMBER}`}
-          className="flex items-center gap-3 bg-dark text-white rounded-sm px-8 py-4 font-sans font-medium text-base"
-          onClick={() => setMobileOpen(false)}
-        >
-          <Phone size={18} />
-          Call {PHONE_DISPLAY}
-        </a>
         <button
           onClick={() => { setMobileOpen(false); openModal(); }}
           className="btn-secondary text-base"

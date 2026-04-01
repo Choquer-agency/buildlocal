@@ -209,12 +209,6 @@ export default function ComparePage({ params }: ComparePageProps) {
               {comparison.verdict}
             </p>
             <div className="flex flex-wrap gap-4">
-              <a
-                href="tel:+17782374700"
-                className="inline-flex items-center gap-3 bg-dark text-white rounded-sm px-8 py-4 font-sans font-medium text-fluid-main"
-              >
-                Call (778) 237-4700
-              </a>
               <Link
                 href="/pricing"
                 className="inline-flex items-center gap-3 bg-brand text-dark rounded-sm px-8 py-4 font-sans font-medium text-fluid-main hover:brightness-110 transition-all"
