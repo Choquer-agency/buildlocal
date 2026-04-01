@@ -55,14 +55,13 @@ export function LpInlineForm() {
     try {
       await submitForm({
         name: data.get("name"),
-        email: data.get("email"),
         phone: data.get("phone"),
-        formType: "free-mockup",
+        formType: "free-call",
         pageUrl: window.location.href,
         submittedAt: new Date().toISOString(),
         _gotcha: "",
       });
-      pushDataLayer({ event: "form_submit", form_type: "free-mockup" });
+      pushDataLayer({ event: "form_submit", form_type: "free-call" });
       setSuccess(true);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -73,7 +72,7 @@ export function LpInlineForm() {
 
   if (success) {
     return (
-      <section id="mockup-form" className="py-16 md:py-20" style={{ background: "linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 50%, #FFCC80 100%)" }}>
+      <section id="callback-form" className="py-16 md:py-20" style={{ background: "linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 50%, #FFCC80 100%)" }}>
         <div className="u-container">
           <div className="max-w-[32rem] mx-auto text-center">
             <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
@@ -82,10 +81,10 @@ export function LpInlineForm() {
               </svg>
             </div>
             <h2 className="font-sans font-medium text-fluid-h3 text-dark mb-4">
-              Your mockup is on its way!
+              We&apos;ll be in touch soon!
             </h2>
             <p className="font-sans text-fluid-main text-dark opacity-60 leading-relaxed">
-              We&apos;ll design a custom homepage mockup and send it to you within 48 hours. Keep an eye on your inbox.
+              Someone from our team will call you within 24 hours. We&apos;ll keep it quick — no pressure, just answers.
             </p>
           </div>
         </div>
@@ -95,7 +94,7 @@ export function LpInlineForm() {
 
   return (
     <section
-      id="mockup-form"
+      id="callback-form"
       ref={ref}
       className="py-16 md:py-20"
       style={{ background: "linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 50%, #FFCC80 100%)" }}
@@ -104,10 +103,10 @@ export function LpInlineForm() {
         <div className="lp-form-content max-w-[32rem] mx-auto">
           <div className="text-center mb-10">
             <h2 className="font-sans font-medium text-fluid-h3 leading-[1.1] text-dark mb-3">
-              Get your free mockup
+              Drop your info. We&apos;ll call you.
             </h2>
             <p className="font-sans text-fluid-main text-dark opacity-60">
-              Takes 30 seconds. We&apos;ll send your custom design within 48 hours.
+              Takes 10 seconds. Our team will reach out within 24 hours — no pitch, just a real conversation.
             </p>
           </div>
 
@@ -137,7 +136,7 @@ export function LpInlineForm() {
                   onFocus={() => {
                     if (!formStarted.current) {
                       formStarted.current = true;
-                      pushDataLayer({ event: "form_start", form_type: "free-mockup" });
+                      pushDataLayer({ event: "form_start", form_type: "free-call" });
                     }
                   }}
                   className="w-full border border-dark/15 rounded-lg px-4 py-3 font-sans text-sm text-dark placeholder:text-dark/30 focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-colors"
@@ -145,22 +144,8 @@ export function LpInlineForm() {
               </div>
 
               <div>
-                <label htmlFor="lp-email" className="font-sans text-sm font-medium text-dark mb-1.5 block">
-                  Email
-                </label>
-                <input
-                  id="lp-email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="john@company.com"
-                  className="w-full border border-dark/15 rounded-lg px-4 py-3 font-sans text-sm text-dark placeholder:text-dark/30 focus:outline-none focus:ring-2 focus:ring-brand/40 focus:border-brand transition-colors"
-                />
-              </div>
-
-              <div>
                 <label htmlFor="lp-phone" className="font-sans text-sm font-medium text-dark mb-1.5 block">
-                  Phone
+                  Phone number
                 </label>
                 <input
                   id="lp-phone"
@@ -181,7 +166,7 @@ export function LpInlineForm() {
               type="submit"
               disabled={loading}
               data-track="form-submit-cta"
-              data-track-label="Get My Free Mockup"
+              data-track-label="Have Our Team Call Me"
               className="w-full mt-6 inline-flex items-center justify-center gap-3 bg-brand text-dark rounded-lg px-8 py-4 font-sans font-medium text-fluid-main transition-all hover:brightness-110 min-h-[52px] disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ transitionDuration: "0.3s" }}
             >
@@ -189,16 +174,16 @@ export function LpInlineForm() {
                 <span className="inline-block w-5 h-5 border-2 border-dark/30 border-t-dark rounded-full animate-spin" />
               ) : (
                 <>
-                  Get My Free Mockup
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M2 14L14 2M14 2H5M14 2V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  Have Our Team Call Me
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </>
               )}
             </button>
 
             <p className="font-sans text-xs text-dark opacity-40 text-center mt-3">
-              100% free. No credit card. No obligation.
+              No spam. No pressure. Just a quick call from a real person.
             </p>
           </form>
         </div>

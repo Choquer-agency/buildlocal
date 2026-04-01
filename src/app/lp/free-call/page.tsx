@@ -13,9 +13,9 @@ import { LpFooterMinimal } from "@/components/lp/LpFooterMinimal";
 import { LpDataLayer } from "./LpDataLayer";
 
 export const metadata: Metadata = {
-  title: "Free Website Mockup — BuildLocal",
+  title: "Get a Free Call — BuildLocal",
   description:
-    "See what your new website could look like — for free. Tell us about your business and we'll design a custom homepage mockup within 48 hours.",
+    "Skip the research. Drop your name and number and our team will call you within 24 hours. We build websites for trades businesses — $0 setup, no contracts.",
 };
 
 const painPoints = [
@@ -47,41 +47,41 @@ const offerFeatures = [
 
 const faqs = [
   {
-    question: "Is the mockup really free?",
+    question: "What happens after I submit my info?",
     answer:
-      "Yes, 100% free. We'll design a custom homepage mockup for your business at no cost. No credit card, no commitment, no strings attached.",
+      "Someone from our team will call you within 24 hours. We'll ask about your business, what you need, and walk you through how we can help. No pressure, no hard sell — just a real conversation.",
   },
   {
-    question: "What happens after I get my mockup?",
+    question: "Is the call really free?",
     answer:
-      "You'll review the mockup and if you love it, we can have your full site live within a week. If it's not for you, no hard feelings — the mockup is yours to keep.",
+      "Yes, 100% free. No credit card, no commitment. We just want to learn about your business and see if we're a good fit.",
   },
   {
-    question: "How long does the mockup take?",
+    question: "How long is the call?",
     answer:
-      "We'll send your custom mockup within 48 hours of receiving your submission. Most are delivered within 24 hours.",
+      "About 10-15 minutes. We respect your time — we'll keep it quick and focused on what matters to you.",
   },
   {
     question: "Do I have to commit to anything?",
     answer:
-      "No. The mockup is completely free with zero obligation. If you decide to move forward, plans start at $195/mo with no setup fees and no contracts.",
+      "No. The call is completely free with zero obligation. If you decide to move forward, plans start at $195/mo with no setup fees and no contracts.",
   },
 ];
 
-export default function FreeMockupPage() {
+export default function FreeCallPage() {
   return (
     <>
-      <LpDataLayer variant="free-mockup" />
-      <LpNav ctaLabel="See Your Free Mockup" ctaAction="scroll" scrollTarget="#mockup-form" />
+      <LpDataLayer variant="free-call" />
+      <LpNav ctaLabel="Get a Free Call" ctaAction="scroll" scrollTarget="#callback-form" />
       <LpHero
-        eyebrow="Free custom mockup"
-        h1="See what your new website could look like — for free."
-        subhead="Tell us about your business and we'll design a custom homepage mockup. No cost, no commitment."
-        ctaLabel="Get My Free Mockup"
+        eyebrow="Skip the research"
+        h1="We'll call you. No pitch, no pressure — just answers."
+        subhead="Drop your name and number. Our team will reach out within 24 hours to talk about your business and how a new website can get you more calls."
+        ctaLabel="Have Our Team Call Me"
         ctaAction="scroll"
-        scrollTarget="#mockup-form"
-        microCopy="Takes 30 seconds. We'll send your mockup within 48 hours."
-        badges={["100% Free", "No Commitment", "48-Hour Delivery"]}
+        scrollTarget="#callback-form"
+        microCopy="Takes 10 seconds. We'll call you within 24 hours."
+        badges={["100% Free", "No Commitment", "Real Person, Not a Bot"]}
       />
       <MockupPreview />
       <LpSocialProof />
@@ -93,12 +93,12 @@ export default function FreeMockupPage() {
         painPoints={painPoints}
       />
       <LpOffer
-        title="When you're ready to go live, here's what's included"
+        title="When you're ready, here's what's included"
         features={offerFeatures}
         priceAnchor="Plans start at $195/mo — no setup fees, no contracts."
-        ctaLabel="Get My Free Mockup"
+        ctaLabel="Have Our Team Call Me"
         ctaAction="scroll"
-        scrollTarget="#mockup-form"
+        scrollTarget="#callback-form"
       />
       <LpFaqCompact faqs={faqs} />
       <FinalCta />

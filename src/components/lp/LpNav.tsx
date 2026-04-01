@@ -37,6 +37,7 @@ export function LpNav({ ctaLabel, ctaAction, scrollTarget }: LpNavProps) {
         <span className="flex items-center gap-2 cursor-default">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/logo.svg" alt="BuildLocal" className="h-7" />
+          <span className="font-sans font-medium text-base tracking-tight text-dark">BuildLocal</span>
         </span>
         <button
           onClick={handleCta}
