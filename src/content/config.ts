@@ -157,4 +157,5 @@ export const defaultConfig: DomainConfig = {
     longitude: -112.074,
   },
   geoRegionCode: "US-AZ",
+  gtmId: "GTM-N33FLLHL",
 };
