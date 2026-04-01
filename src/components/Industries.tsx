@@ -9,40 +9,48 @@ import { getAllIndustrySlugs } from "@/content/industries";
 import {
   Heart,
   Building,
-  Plane,
-  Cpu,
+  Building2,
+  Home,
+  Sun,
+  Factory,
+  Wrench,
+  DollarSign,
+  Brain,
+  Stethoscope,
+  Users,
+  HandHeart,
   Briefcase,
-  ShoppingBag,
+  Scale,
+  UtensilsCrossed,
   type LucideIcon,
 } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
   Heart,
   Building,
-  Plane,
-  Cpu,
+  Building2,
+  Home,
+  Sun,
+  Factory,
+  Wrench,
+  DollarSign,
+  Brain,
+  Stethoscope,
+  Users,
+  HandHeart,
   Briefcase,
-  ShoppingBag,
+  Scale,
+  UtensilsCrossed,
 };
 
 /* Map cluster industry names → industry page slugs */
 const nameToSlug: Record<string, string> = {
   "Healthcare & Medical": "healthcare",
-  "Biotech & Healthtech": "healthcare",
-  "Construction & Trades": "trades",
-  "SaaS & Technology": "saas",
-  "SaaS & Startups": "saas",
-  "Technology & SaaS": "saas",
-  "DTC & E-Commerce": "ecommerce",
-  "E-Commerce & Retail": "ecommerce",
-  "E-Commerce & DTC": "ecommerce",
-  "Luxury & Retail": "ecommerce",
-  "Luxury & Fashion": "ecommerce",
-  "Hospitality & Tourism": "hospitality",
-  "Tourism & Hospitality": "hospitality",
-  "F&B & Hospitality": "hospitality",
+  "Legal Services": "legal",
+  "Home Services": "home-services",
+  "Real Estate": "real-estate",
+  "Restaurants & Hospitality": "hospitality",
   "Professional Services": "professional-services",
-  "Legal & Professional Services": "professional-services",
 };
 
 const industrySlugs = new Set(getAllIndustrySlugs());
@@ -93,12 +101,12 @@ export function Industries({ locality, region, slug }: IndustriesProps) {
         <div className="text-center mb-16">
           <p className="ind-heading eyebrow text-brand mb-4">Who We Help</p>
           <h2 className="ind-heading font-sans font-medium text-fluid-h2 leading-[1.1] text-white max-w-[28ch] mx-auto mb-6">
-            Webflow websites for {locality} businesses{" "}
-            <span className="opacity-40">in every industry</span>
+            SEO that drives results{" "}
+            <span className="opacity-40">for {locality.toLowerCase()}</span>
           </h2>
           <p className="ind-heading font-sans text-fluid-main text-white opacity-50 leading-relaxed max-w-[55ch] mx-auto">
-            We have built Webflow sites for businesses across {region} — from
-            healthcare to hospitality, trades to SaaS.
+            We&apos;ve driven organic growth for businesses across {region} — with
+            strategies tailored to each market&apos;s unique search landscape.
           </p>
         </div>
 

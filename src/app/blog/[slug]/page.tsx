@@ -1,20 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDomainConfig } from "@/lib/getDomainConfig";
+import { getStaticDomainConfig } from "@/lib/getStaticDomainConfig";
 import { getBlogPostBySlug, getBlogPostsByRegion } from "@/content/blog";
 import { generateBlogPostSchema } from "@/lib/schema-blog";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
-
-export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: { slug: string };
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const config = getDomainConfig();
+  const config = getStaticDomainConfig();
   const post = await getBlogPostBySlug(params.slug);
 
   if (!post || post.region !== config.region) {
@@ -28,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: post.title,
       description: post.excerpt,
       url: `https://${config.domain}/blog/${post.slug}`,
-      siteName: `${config.locality} Webflow Agency`,
+      siteName: config.brandName,
       type: "article",
       publishedTime: post.date,
       modifiedTime: post.modifiedDate,
@@ -51,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const config = getDomainConfig();
+  const config = getStaticDomainConfig();
   const post = await getBlogPostBySlug(params.slug);
 
   if (!post || post.region !== config.region) {
@@ -68,7 +66,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <>
-    <Nav locality={config.locality} />
+    <Nav brandName={config.brandName} />
     <main className="pt-32 pb-20">
       {/* Schema.org JSON-LD */}
       <script
@@ -240,7 +238,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
       </article>
     </main>
-    <Footer locality={config.locality} />
+    <Footer brandName={config.brandName} />
     </>
   );
 }

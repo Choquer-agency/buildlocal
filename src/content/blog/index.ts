@@ -37,12 +37,12 @@ export interface BlogPost {
 
 export const authors: Record<string, AuthorProfile> = {
   bryce: {
-    name: "Bryce Choquer",
-    role: "Founder & Lead Developer",
-    bio: "Bryce has 8 years of experience building high-performance websites with Webflow. He has delivered 150+ projects across 50+ industries and is a certified Webflow Expert Partner.",
+    name: "BuildLocal Team",
+    role: "Web Design Agency",
+    bio: "BuildLocal has 8+ years of experience building high-performance websites for small businesses and trades companies. 175+ projects delivered, making professional websites affordable for everyone.",
     image: "/images/authors/bryce.jpg",
     socials: {
-      linkedin: "https://linkedin.com/in/brycechoquer",
+      linkedin: "https://linkedin.com/in/buildlocal",
     },
   },
 };
@@ -78,7 +78,7 @@ async function parsePost(filePath: string): Promise<BlogPost> {
     date: data.date,
     modifiedDate: data.modifiedDate || data.date,
     region: data.region,
-    category: data.category || "webflow",
+    category: data.category || "small-business",
     tags: data.tags || [],
     featuredImage: data.featuredImage,
     readingTime: getReadingTime(content),

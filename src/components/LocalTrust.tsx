@@ -24,12 +24,12 @@ export function LocalTrust({ locality, stateCode, region, nearbyAreas }: LocalTr
     },
     {
       icon: Users,
-      label: `50+ ${region} businesses served`,
+      label: `60+ websites managed across ${region}`,
       color: warmPalette[4],
     },
     {
       icon: Handshake,
-      label: "In-person strategy sessions available",
+      label: "Fully managed — we handle everything",
       color: warmPalette[3],
     },
   ];
@@ -79,23 +79,23 @@ export function LocalTrust({ locality, stateCode, region, nearbyAreas }: LocalTr
 
             <div className="local-content space-y-5">
               <p className="font-sans text-fluid-main text-dark opacity-60 leading-relaxed">
-                {locality} is one of the fastest-growing business markets in the
-                country — and the competition for online visibility is fierce.
-                Whether you are a healthcare practice, a real estate
-                firm, or a SaaS startup in {locality}, your website
-                is often the first impression customers have of your business.
+                {locality} is one of the fastest-growing markets in the country,
+                and small businesses need a strong online presence to keep up.
+                Whether you&apos;re a roofer, a cleaning company, or a local
+                restaurant in {locality}, your website is often the first
+                impression customers have of your business.
               </p>
               <p className="font-sans text-fluid-main text-dark opacity-60 leading-relaxed">
-                As a Webflow agency rooted in {region}, we understand the local
-                market dynamics that drive results for businesses across the area.
-                We build websites that are tuned to how {region} customers search, browse,
-                and buy.
+                BuildLocal understands the businesses that make {region} run —
+                trades companies, local services, retail shops, and professional
+                firms. We build websites tuned to how {region} customers search,
+                browse, and buy.
               </p>
               <p className="font-sans text-fluid-main text-dark opacity-60 leading-relaxed">
-                We combine Webflow specialization with deep {locality}-area market
-                knowledge — giving your business a website that is not just
-                beautifully designed, but strategically built to rank in local
-                search results across {nearbyAreas}.
+                We combine professional web design with local market knowledge —
+                giving your business a website that is not just beautifully
+                designed, but strategically built to generate leads and rank in
+                local search results across {nearbyAreas}.
               </p>
             </div>
           </div>

@@ -3,7 +3,14 @@ export interface DomainConfig {
   domain: string;
   region: string;
   regionAdjective: string;
-  country: "US" | "CA" | "UK" | "EU" | "AU" | "NZ" | "SG" | "HK" | "NO" | "CH" | "FR" | "BE" | "NL" | "SE";
+  country: "US";
+
+  // Domain type
+  domainType: "agency";
+  targetIndustry?: string;
+
+  // Branding
+  brandName: string;
 
   // SEO
   metaTitle: string;
@@ -15,9 +22,9 @@ export interface DomainConfig {
   heroSubhead: string;
 
   // Location details
-  locality: string; // e.g. "Phoenix", "Portland", "Singapore"
-  stateCode: string; // e.g. "AZ", "OR", "SG"
-  nearbyAreas: string; // e.g. "Scottsdale, Tempe, Mesa, Chandler, and Gilbert"
+  locality: string;
+  stateCode: string;
+  nearbyAreas: string;
 
   // Schema.org
   schemaAddress?: {
@@ -36,7 +43,6 @@ export interface DomainConfig {
     longitude: number;
   };
 
-  // Geo region code for meta tags (e.g. "US-AZ", "US-CA", "SG")
   geoRegionCode?: string;
 
   // Google Tag Manager
@@ -52,10 +58,10 @@ export interface DomainConfig {
 export interface FAQItem {
   question: string;
   answer: string;
-  category: "webflow" | "pricing" | "process" | "local" | "general";
+  category: "service" | "pricing" | "process" | "billing" | "website" | "general";
 }
 
-export interface WebflowService {
+export interface AgencyService {
   slug: string;
   title: string;
   description: string;
@@ -65,9 +71,9 @@ export interface WebflowService {
 
 export interface ComparisonRow {
   feature: string;
-  webflow: string | boolean;
-  wordpress: string | boolean;
-  customCode: string | boolean;
+  buildLocal: string | boolean;
+  diyBuilder: string | boolean;
+  freelancer: string | boolean;
 }
 
 export interface IndustryItem {
@@ -80,10 +86,12 @@ export interface IndustryItem {
 export interface PricingTier {
   name: string;
   priceRange: string;
+  monthlyPrice: number;
   description: string;
   includes: string[];
   color: string;
   featured?: boolean;
+  popular?: boolean;
 }
 
 export interface Testimonial {
@@ -121,31 +129,32 @@ export interface ProcessStep {
 }
 
 export const defaultConfig: DomainConfig = {
-  slug: "arizona",
-  domain: "webflowarizona.com",
+  slug: "buildlocal",
+  domain: "buildlocal.agency",
   region: "Arizona",
   regionAdjective: "Arizona-based",
   country: "US",
-  metaTitle: "Webflow Design Company Phoenix AZ | Arizona Agency",
+  domainType: "agency",
+  brandName: "BuildLocal",
+  metaTitle: "BuildLocal | Professional Managed Websites for Trades & Small Businesses",
   metaDescription:
-    "Phoenix AZ Webflow design company. We build high-performance websites for Arizona businesses. Certified Webflow Expert. Free strategy call.",
+    "We design, build, and manage high-performance websites for trades businesses and small companies in Arizona. No setup fees, no contracts. Fully managed from $195/month. 175+ websites built.",
   locality: "Phoenix",
   stateCode: "AZ",
-  nearbyAreas: "Scottsdale, Tempe, Mesa, Chandler, and Gilbert",
-  heroH1: "Phoenix AZ's Webflow Design Agency",
+  nearbyAreas: "Phoenix, Scottsdale, Mesa, Tempe, Chandler, Gilbert, and cities across Arizona",
+  heroH1: "More than an agency — we build websites that convert.",
   heroSubhead:
-    "Webflow sites that rank on Google, convert visitors into leads, and grow your business \u2014 built by a certified Webflow Expert Partner.",
+    "We design, optimize, and manage high-performance websites for trades businesses and small companies. Every site is built with SEO, conversion, and growth at its core. No setup fees, no contracts.",
   schemaAddress: {
     locality: "Phoenix",
     region: "AZ",
     country: "US",
   },
   telephone: "+17782374700",
-  email: "bryce@choquer.agency",
+  email: "hello@buildlocal.agency",
   geoCoordinates: {
     latitude: 33.4484,
     longitude: -112.074,
   },
   geoRegionCode: "US-AZ",
-  gtmId: "GTM-MG2LRHKS",
 };

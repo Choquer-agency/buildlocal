@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getDomainConfig } from "@/lib/getDomainConfig";
+import { getStaticDomainConfig } from "@/lib/getStaticDomainConfig";
 import { getBlogPostsByRegion } from "@/content/blog";
+import { generateBlogIndexSchema } from "@/lib/schema-blog";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata(): Promise<Metadata> {
-  const config = getDomainConfig();
-  const title = `Blog | ${config.locality} Webflow Agency`;
-  const description = `Web design insights, Webflow tips, and digital marketing strategies for ${config.region} businesses. Expert advice from ${config.locality}'s premier Webflow agency.`;
+  const config = getStaticDomainConfig();
+  const title = `Blog | ${config.brandName}`;
+  const description = `SEO insights, strategies, and growth tips for ${config.region} businesses. Expert advice from ${config.brandName}.`;
 
   return {
     title,
@@ -19,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url: `https://${config.domain}/blog`,
-      siteName: `${config.locality} Webflow Agency`,
+      siteName: config.brandName,
       images: [
         {
           url: `https://${config.domain}/images/og-default.jpg`,
@@ -41,12 +40,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogIndex() {
-  const config = getDomainConfig();
+  const config = getStaticDomainConfig();
   const posts = await getBlogPostsByRegion(config.region);
+  const blogIndexSchema = generateBlogIndexSchema(posts, config);
 
   return (
     <>
-    <Nav locality={config.locality} />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(blogIndexSchema) }}
+    />
+    <Nav brandName={config.brandName} />
     <main className="pt-32 pb-20" style={{ backgroundColor: "#FFF9F0" }}>
       <div className="u-container max-w-4xl">
         <p className="eyebrow text-brand mb-4">Blog</p>
@@ -54,7 +58,7 @@ export default async function BlogIndex() {
           Insights from {config.locality}
         </h1>
         <p className="font-sans text-fluid-main text-dark opacity-60 leading-relaxed mb-16 max-w-[55ch]">
-          Web design strategies, Webflow tips, and growth insights for {config.region} businesses.
+          SEO strategies, growth insights, and search optimization tips for {config.region} businesses.
         </p>
 
         {posts.length === 0 ? (
@@ -106,7 +110,7 @@ export default async function BlogIndex() {
         </div>
       </div>
     </main>
-    <Footer locality={config.locality} />
+    <Footer brandName={config.brandName} />
     </>
   );
 }

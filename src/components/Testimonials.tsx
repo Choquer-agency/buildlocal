@@ -5,35 +5,40 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-register";
 import { useContactForm } from "@/context/ContactFormContext";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getLocalTestimonials(locality: string) {
-  return [
+interface TestimonialCard {
+  quote: string;
+  name: string;
+  company: string;
+  color: string;
+}
+
+const generalTestimonials: TestimonialCard[] = [
   {
-    quote: `They didn't just build us a website. They built us a sales machine. We went from 2 inbound leads a month to 40 in the first 90 days.`,
+    quote: "They didn't just optimize our website. They built us a lead machine. We went from 2 inbound leads a month to 40 in the first 90 days.",
     name: "Rachel Moran",
     company: "Pinnacle Fertility",
     color: "#F79C42",
   },
   {
-    quote: "The team understood our vision from day one. The site they delivered exceeded every expectation \u2014 fast, beautiful, and converting.",
+    quote: "The team understood our goals from day one. The SEO strategy they delivered exceeded every expectation — more traffic, more leads, more revenue.",
     name: "Tom Vasquez",
     company: "Pedigree Painting",
     color: "#FFDF40",
   },
   {
-    quote: "We\u2019ve worked with five agencies before. None of them came close. The attention to detail and speed were unmatched.",
+    quote: "We've worked with five agencies before. None of them came close. The attention to detail and speed of results were unmatched.",
     name: "Kate Nguyen",
     company: "DFI Forensics",
     color: "#DEDA8D",
   },
   {
-    quote: "Our old site was embarrassing. They gave us something we\u2019re genuinely proud to share. Traffic is up 200% and counting.",
+    quote: "Our old website was invisible on Google. They gave us page 1 rankings and traffic that's up 200% and counting.",
     name: "David Harmon",
     company: "Far North Crane",
     color: "#BCEFFF",
   },
   {
-    quote: "Hands down the best web development vendor I\u2019ve ever worked with. Incredibly responsive and proactive.",
+    quote: "Hands down the best SEO agency I've ever worked with. Incredibly responsive and proactive.",
     name: "Slaton Carter",
     company: "Ahara Med",
     color: "#71CFA3",
@@ -44,11 +49,15 @@ function getLocalTestimonials(locality: string) {
     company: "Select Decks",
     color: "#C4EF7A",
   },
-  ];
+];
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getTestimonialsForSlug(_slug: string): TestimonialCard[] {
+  return generalTestimonials;
 }
 
-export function Testimonials({ locality }: { locality: string }) {
-  const testimonials = getLocalTestimonials(locality);
+export function Testimonials({ slug }: { slug?: string; locality?: string }) {
+  const testimonials = getTestimonialsForSlug(slug || "");
   const { openModal } = useContactForm();
   const ref = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);

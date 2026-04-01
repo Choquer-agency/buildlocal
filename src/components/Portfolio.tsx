@@ -3,11 +3,12 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap-register";
-import { portfolioProjects } from "@/content/shared";
+import { getPortfolioProjects } from "@/content/shared";
 import { PortfolioProject } from "@/content/config";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export function Portfolio() {
+export function Portfolio({ slug }: { slug?: string }) {
+  const portfolioProjects = getPortfolioProjects(slug);
   const ref = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);

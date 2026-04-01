@@ -1,23 +1,20 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDomainConfig } from "@/lib/getDomainConfig";
+import { getStaticDomainConfig } from "@/lib/getStaticDomainConfig";
 import { getServiceConfig, getAllServiceSlugs } from "@/content/services";
 import { generateServiceSchema } from "@/lib/schema-service";
 import { ClientLayout } from "@/components/ClientLayout";
 import { Nav } from "@/components/Nav";
 import { ServiceHero } from "@/components/ServiceHero";
 import { ServiceProblem } from "@/components/ServiceProblem";
-import { WebflowVsWordPress } from "@/components/WebflowVsWordPress";
+import { ServiceComparison } from "@/components/SEOComparison";
 import { ServiceProcess } from "@/components/ServiceProcess";
 import { Portfolio } from "@/components/Portfolio";
 import { Testimonials } from "@/components/Testimonials";
-import { MigrationPricing } from "@/components/MigrationPricing";
 import { ServiceFAQ } from "@/components/ServiceFAQ";
 import { CtaBanner } from "@/components/CtaBanner";
 import { MobileCta } from "@/components/MobileCta";
 import { Footer } from "@/components/Footer";
-
-export const dynamic = "force-dynamic";
 
 interface ServicePageProps {
   params: { slug: string };
@@ -30,7 +27,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: ServicePageProps): Promise<Metadata> {
-  const config = getDomainConfig();
+  const config = getStaticDomainConfig();
   const service = getServiceConfig(params.slug);
 
   if (!service) return {};
@@ -45,7 +42,7 @@ export async function generateMetadata({
       title,
       description,
       url: `https://${config.domain}/services/${service.slug}`,
-      siteName: `${config.locality} Webflow Agency`,
+      siteName: config.brandName,
       type: "website",
     },
     twitter: {
@@ -60,7 +57,7 @@ export async function generateMetadata({
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const config = getDomainConfig();
+  const config = getStaticDomainConfig();
   const service = getServiceConfig(params.slug);
 
   if (!service) {
@@ -75,7 +72,7 @@ export default function ServicePage({ params }: ServicePageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <Nav locality={config.locality} />
+      <Nav brandName={config.brandName} />
       <ServiceHero
         h1={service.heroH1(config.locality, config.region)}
         subhead={service.heroSubhead(config.locality, config.region)}
@@ -89,24 +86,17 @@ export default function ServicePage({ params }: ServicePageProps) {
         heading={service.problemHeading}
       />
       <MobileCta />
-      {service.showComparison && <WebflowVsWordPress slug={config.slug} />}
+      {service.showComparison && <ServiceComparison slug={config.slug} />}
       <ServiceProcess steps={service.processSteps} heading={service.processHeading} />
-      {service.showPortfolio && <Portfolio />}
-      <Testimonials locality={config.locality} />
-      {service.migrationPackages && (
-        <MigrationPricing
-          packages={service.migrationPackages}
-          region={config.region}
-          slug={config.slug}
-        />
-      )}
+      {service.showPortfolio && <Portfolio slug={config.slug} />}
+      <Testimonials slug={config.slug} />
       <MobileCta />
       <ServiceFAQ
         faqs={service.faqs(config.locality, config.region)}
         serviceTitle={service.title}
       />
       <CtaBanner />
-      <Footer locality={config.locality} />
+      <Footer brandName={config.brandName} />
     </ClientLayout>
   );
 }

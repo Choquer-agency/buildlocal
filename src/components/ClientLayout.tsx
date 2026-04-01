@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { ContactFormProvider } from "@/context/ContactFormContext";
 import { ContactFormModal } from "@/components/ContactForm";
+import { StickyMobileCta } from "@/components/StickyMobileCta";
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ export function ClientLayout({ children, domain, region }: ClientLayoutProps) {
     <ContactFormProvider>
       {children}
       <ContactFormModal domain={domain} region={region} />
+      <StickyMobileCta />
     </ContactFormProvider>
   );
 }

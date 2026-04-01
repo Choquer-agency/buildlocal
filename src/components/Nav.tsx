@@ -1,18 +1,35 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { clsx } from "clsx";
 import { useContactForm } from "@/context/ContactFormContext";
 
+const PHONE_NUMBER = "+17782374700";
+const PHONE_DISPLAY = "(778) 237-4700";
+
 const navLinks = [
-  { label: "Services", href: "#webflow-services" },
-  { label: "Work", href: "#portfolio" },
-  { label: "Blog", href: "/blog", isPage: true },
+  { label: "Industries", href: "/industries/roofing", isPage: true, isDropdown: true },
+  { label: "Our Work", href: "/portfolio", isPage: true },
+  { label: "Pricing", href: "/pricing", isPage: true },
   { label: "About", href: "/about", isPage: true },
+  { label: "Blog", href: "/blog", isPage: true },
 ];
 
-export function Nav({ locality }: { locality: string }) {
+const industryDropdownLinks = [
+  { label: "Roofing", href: "/industries/roofing" },
+  { label: "HVAC", href: "/industries/hvac" },
+  { label: "Plumbing", href: "/industries/plumbing" },
+  { label: "Electrical", href: "/industries/electrical" },
+  { label: "Foundation Repair", href: "/industries/foundation-repair" },
+  { label: "Landscaping", href: "/industries/landscaping" },
+  { label: "Painting", href: "/industries/painting" },
+  { label: "Concrete", href: "/industries/concrete-hardscaping" },
+  { label: "Fencing", href: "/industries/fencing" },
+  { label: "General Contracting", href: "/industries/general-contracting" },
+];
+
+export function Nav({ brandName }: { brandName: string }) {
   const { openModal } = useContactForm();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,8 +47,6 @@ export function Nav({ locality }: { locality: string }) {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   }
-
-  const brandName = `${locality} Webflow Agency`;
 
   return (
     <>
@@ -71,7 +86,41 @@ export function Nav({ locality }: { locality: string }) {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) =>
-              "isPage" in link && link.isPage ? (
+              "isDropdown" in link && link.isDropdown ? (
+                <div key={link.href} className="relative group">
+                  <a
+                    href={link.href}
+                    className="text-fluid-main font-sans opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1"
+                    style={{ transitionDuration: "0.35s" }}
+                  >
+                    {link.label}
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="mt-0.5">
+                      <path d="M2 4L5 7L8 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </a>
+                  <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all" style={{ transitionDuration: "0.2s" }}>
+                    <div className="bg-white rounded-lg shadow-xl border border-dark/8 py-2 min-w-[220px]">
+                      {industryDropdownLinks.map((item) => (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          className="block px-4 py-2 font-sans text-sm text-dark opacity-70 hover:opacity-100 hover:bg-dark/[0.03] transition-all"
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                      <div className="border-t border-dark/8 mt-1 pt-1">
+                        <a
+                          href="/industries/trades-home-services"
+                          className="block px-4 py-2 font-sans text-sm text-brand font-medium hover:bg-dark/[0.03] transition-all"
+                        >
+                          View All Industries →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
                 <a
                   key={link.href}
                   href={link.href}
@@ -80,21 +129,20 @@ export function Nav({ locality }: { locality: string }) {
                 >
                   {link.label}
                 </a>
-              ) : (
-                <button
-                  key={link.href}
-                  onClick={() => scrollTo(link.href)}
-                  className="text-fluid-main font-sans opacity-60 hover:opacity-100 transition-opacity"
-                  style={{ transitionDuration: "0.35s" }}
-                >
-                  {link.label}
-                </button>
               )
             )}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
+          {/* Desktop CTA + Phone */}
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href={`tel:${PHONE_NUMBER}`}
+              className="flex items-center gap-2 text-sm font-sans font-medium opacity-70 hover:opacity-100 transition-opacity"
+              style={{ transitionDuration: "0.35s" }}
+            >
+              <Phone size={14} />
+              {PHONE_DISPLAY}
+            </a>
             <button
               onClick={() => openModal()}
               className="btn"
@@ -116,14 +164,23 @@ export function Nav({ locality }: { locality: string }) {
             </button>
           </div>
 
-          {/* Mobile Hamburger */}
-          <button
-            className="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Phone + Hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <a
+              href={`tel:${PHONE_NUMBER}`}
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-brand"
+              aria-label="Call us"
+            >
+              <Phone size={22} />
+            </a>
+            <button
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -157,6 +214,14 @@ export function Nav({ locality }: { locality: string }) {
             </button>
           )
         )}
+        <a
+          href={`tel:${PHONE_NUMBER}`}
+          className="flex items-center gap-3 bg-dark text-white rounded-sm px-8 py-4 font-sans font-medium text-base"
+          onClick={() => setMobileOpen(false)}
+        >
+          <Phone size={18} />
+          Call {PHONE_DISPLAY}
+        </a>
         <button
           onClick={() => { setMobileOpen(false); openModal(); }}
           className="btn-secondary text-base"

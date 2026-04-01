@@ -6,6 +6,7 @@ import { gsap } from "@/lib/gsap-register";
 import { useContactForm } from "@/context/ContactFormContext";
 import { getPricingTiers } from "@/content/shared";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Pricing({ region, slug }: { region: string; slug: string }) {
   const pricingTiers = getPricingTiers(slug);
   const { openModal } = useContactForm();
@@ -40,14 +41,14 @@ export function Pricing({ region, slug }: { region: string; slug: string }) {
     <section ref={ref} id="pricing" className="theme-dark section-space-main">
       <div className="u-container">
         <div className="text-center mb-16">
-          <p className="pricing-heading eyebrow text-brand mb-4">Investment</p>
+          <p className="pricing-heading eyebrow text-brand mb-4">Pricing</p>
           <h2 className="pricing-heading font-sans font-medium text-fluid-h2 leading-[1.1] text-white max-w-[28ch] mx-auto mb-6">
-            Transparent pricing{" "}
-            <span className="opacity-40">for {region} businesses</span>
+            Simple pricing.{" "}
+            <span style={{ color: "#ff9500" }}>No setup fees. No contracts.</span>
           </h2>
           <p className="pricing-heading font-sans text-fluid-main text-white opacity-50 leading-relaxed max-w-[55ch] mx-auto">
-            Every project is scoped to your goals. Here is what to expect when
-            you invest in a professional Webflow website.
+            Every plan includes hosting, design, development, and ongoing support.
+            Pick the one that fits your business.
           </p>
         </div>
 
@@ -129,8 +130,7 @@ export function Pricing({ region, slug }: { region: string; slug: string }) {
         </div>
 
         <p className="font-sans text-sm text-white opacity-30 text-center mt-8 max-w-[55ch] mx-auto">
-          Every project is unique. These ranges are starting points — schedule a
-          free strategy call for a custom quote tailored to your goals.
+          All plans are month-to-month. Cancel anytime. Your site pays for itself with one extra customer.
         </p>
       </div>
     </section>

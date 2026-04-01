@@ -5,7 +5,7 @@ import { useContactForm } from "@/context/ContactFormContext";
 
 const serviceItems = [
   {
-    name: "Web Development",
+    name: "On-Page SEO",
     color: "#F79C42",
     icon: (
       <svg viewBox="0 0 48 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -18,7 +18,7 @@ const serviceItems = [
     ),
   },
   {
-    name: "Branding",
+    name: "Technical SEO",
     color: "#FFDF40",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -35,7 +35,7 @@ const serviceItems = [
     ),
   },
   {
-    name: "SEO",
+    name: "Local SEO",
     color: "#71CFA3",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -53,7 +53,7 @@ const serviceItems = [
     ),
   },
   {
-    name: "Google Ads",
+    name: "Content Strategy",
     color: "#BCEFFF",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -73,7 +73,7 @@ const serviceItems = [
     ),
   },
   {
-    name: "Retainer Services",
+    name: "Link Building",
     color: "#C4EF7A",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -92,7 +92,7 @@ const serviceItems = [
     ),
   },
   {
-    name: "AI Automation",
+    name: "SEO Reporting",
     color: "#D4AAFF",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -109,7 +109,7 @@ const serviceItems = [
     ),
   },
   {
-    name: "UI/UX Design",
+    name: "Conversion Optimization",
     color: "#FFB4C8",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -128,7 +128,7 @@ const serviceItems = [
     ),
   },
   {
-    name: "API Integration",
+    name: "Competitor Analysis",
     color: "#FFD4A8",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -160,7 +160,7 @@ export function Services() {
           </h2>
         </div>
 
-        {/* Core Webflow Services */}
+        {/* Core SEO Services */}
         <div>
           {serviceItems.slice(0, 2).map((svc, i) => {
             const isActive = hoveredIndex === i;
@@ -199,7 +199,7 @@ export function Services() {
         {/* Supporting Services */}
         <div className="mt-12 mb-2">
           <p className="font-mono text-fluid-small uppercase tracking-wider text-light opacity-30 mb-6">
-            Beyond Webflow &mdash; how we support your growth after launch
+            Beyond rankings &mdash; how we support your growth
           </p>
         </div>
         <div>

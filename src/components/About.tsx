@@ -8,41 +8,55 @@ import { useContactForm } from "@/context/ContactFormContext";
 const values = [
   {
     num: "01",
-    title: "Results over aesthetics",
+    title: "Exceed expectations",
     description:
-      "A beautiful website that doesn't generate leads is an expensive business card. Every design decision is tied to a business outcome.",
+      "We don't just meet the brief — we push beyond it. Every project gets our full attention and our best thinking.",
     color: "#F79C42",
   },
   {
     num: "02",
-    title: "No shortcuts",
+    title: "Pursue growth & learning",
     description:
-      "Clean code, semantic markup, proper SEO, real accessibility. We don't cut corners — because your rankings and conversions depend on doing it right.",
+      "The web moves fast. We stay ahead by constantly learning new tools, techniques, and strategies — so your site never falls behind.",
     color: "#BCEFFF",
   },
   {
     num: "03",
-    title: "Partners, not vendors",
+    title: "Build a positive team",
     description:
-      "We don't disappear after launch. We stick around, monitor performance, and help you grow. Your success is our success.",
+      "Great work comes from great teams. We invest in each other, support each other, and bring that energy to every client relationship.",
     color: "#C4EF7A",
   },
   {
     num: "04",
-    title: "Webflow, exclusively",
+    title: "Open & honest communication",
     description:
-      "We don't spread ourselves thin across ten platforms. Webflow is all we do — and that specialization is why our builds outperform.",
+      "No jargon, no runaround. We tell you what's working, what's not, and what we recommend — straight up.",
     color: "#71CFA3",
+  },
+  {
+    num: "05",
+    title: "Embrace change",
+    description:
+      "New platforms, new algorithms, new opportunities. We don't resist change — we use it to give your business an edge.",
+    color: "#E8D5FF",
+  },
+  {
+    num: "06",
+    title: "Serve our community",
+    description:
+      "We're committed to supporting small businesses and giving back to the communities we work in. Your growth is our mission.",
+    color: "#FFD6E0",
   },
 ];
 
 const certifications = [
-  "Webflow Expert Partner",
-  "Webflow Certified Developer",
-  "150+ Projects Delivered",
-  "80+ Clients Served",
-  "8+ Years Experience",
-  "96 Avg. Lighthouse Score",
+  "175+ Websites Built",
+  "60+ Sites Managed",
+  "47% Avg. Traffic Increase",
+  "Team of 5",
+  "No Contracts",
+  "$0 Setup Fees",
 ];
 
 interface AboutProps {
@@ -50,7 +64,8 @@ interface AboutProps {
   region: string;
 }
 
-export function About({ locality, region }: AboutProps) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function About({ region }: AboutProps) {
   const { openModal } = useContactForm();
   const ref = useRef<HTMLElement>(null);
 
@@ -121,42 +136,34 @@ export function About({ locality, region }: AboutProps) {
             {/* Left: Text */}
             <div>
               <div className="about-heading flex items-center gap-2.5 mb-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/logos/webflow.svg"
-                  alt="Webflow"
-                  className="h-4 w-auto"
-                />
                 <span className="font-mono text-xs uppercase tracking-wider text-brand">
-                  Certified Webflow Expert Partner
+                  Who We Are
                 </span>
               </div>
 
               <h1 className="about-heading font-sans font-medium text-fluid-h1 leading-[1.1] tracking-tight text-dark max-w-[16ch] mb-6">
-                Built by a designer who learned to code.
+                More than an agency — we become part of your team.
               </h1>
 
               <div className="about-body space-y-4">
                 <p className="font-sans text-fluid-large text-dark opacity-60 leading-relaxed max-w-[48ch]">
-                  I&apos;m Bryce Choquer — founder of {locality} Webflow Agency.
-                  I started this agency straight out of university with a Bachelor&apos;s
-                  in Graphic Design and one belief: websites should generate revenue,
-                  not just look good.
+                  We&apos;re a team of 5 designers, developers, and strategists who embed
+                  ourselves into your business. We learn your audience, your processes, and
+                  your pain points — so every website and strategy we create is designed
+                  with SEO, CRO, and data-driven decisions at its core.
                 </p>
 
                 <p className="font-sans text-fluid-main text-dark opacity-50 leading-relaxed max-w-[48ch]">
-                  Eight years and 150+ projects later, that belief hasn&apos;t changed.
-                  We&apos;ve helped businesses across {region} and around the world turn
-                  their websites into their highest-performing sales channel — through
-                  strategy-led design, clean Webflow development, and relentless
-                  optimization.
+                  With 175+ websites built and an average 47% increase in traffic within
+                  six months, we know what works. Every element — from page structure to
+                  user flow — is designed with precision, ensuring your site doesn&apos;t
+                  just look great but becomes a business asset that scales.
                 </p>
 
                 <p className="font-sans text-fluid-main text-dark opacity-50 leading-relaxed max-w-[48ch]">
-                  We&apos;re a small, focused team. No account managers. No layers of
-                  bureaucracy. When you work with us, you work directly with the people
-                  building your site. That&apos;s by design — it&apos;s how we deliver
-                  better work, faster.
+                  We don&apos;t guess. We test, measure, and refine. Through structured
+                  processes and deep collaboration, we craft high-performance digital
+                  assets that drive conversions.
                 </p>
 
                 <div className="pt-4">
@@ -180,11 +187,11 @@ export function About({ locality, region }: AboutProps) {
 
             {/* Right: Photo collage */}
             <div className="about-image relative" style={{ minHeight: "540px" }}>
-              {/* Main hero photo — Bryce at desk */}
+              {/* Main hero photo */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/about-hero.webp"
-                alt="Bryce Choquer — Founder of Webflow Agency"
+                alt="BuildLocal team"
                 className="relative z-10 w-[75%] mx-auto rounded-lg shadow-xl"
                 style={{ aspectRatio: "4/5", objectFit: "cover" }}
               />
@@ -250,7 +257,7 @@ export function About({ locality, region }: AboutProps) {
               />
 
               <p className="relative z-10 font-mono text-xs text-dark opacity-30 mt-8 text-center">
-                Bryce Choquer — Founder & Lead Developer
+                The BuildLocal Team
               </p>
             </div>
           </div>
@@ -280,11 +287,11 @@ export function About({ locality, region }: AboutProps) {
           <div className="text-center mb-12">
             <p className="eyebrow text-brand mb-4">How We Work</p>
             <h2 className="font-sans font-medium text-fluid-h2 leading-[1.1] text-dark max-w-[22ch] mx-auto">
-              We have opinions about how websites should be built.
+              Our values drive everything we build.
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((value) => (
               <div
                 key={value.num}

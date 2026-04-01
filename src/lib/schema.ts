@@ -1,41 +1,29 @@
 import { DomainConfig } from "@/content/config";
 import { getExpandedFaqs } from "@/content/shared";
-import { processSteps, webflowServices } from "@/content/shared";
-
-// Generate slightly varied ratings per domain to avoid identical schema across all sites
-function getDomainRating(domain: string): { ratingValue: string; ratingCount: string; reviewCount: string } {
-  let hash = 0;
-  for (let i = 0; i < domain.length; i++) {
-    hash = ((hash << 5) - hash) + domain.charCodeAt(i);
-    hash |= 0;
-  }
-  const seed = Math.abs(hash);
-  const ratingValue = (4.7 + (seed % 3) * 0.1).toFixed(1); // 4.7, 4.8, or 4.9
-  const ratingCount = String(38 + (seed % 21)); // 38-58
-  return { ratingValue, ratingCount, reviewCount: ratingCount };
-}
+import { processSteps, agencyServices } from "@/content/shared";
 
 export function generateSchema(config: DomainConfig) {
   const domain = `https://${config.domain}`;
   const locality = config.locality;
   const region = config.region;
-  const expandedFaqs = getExpandedFaqs(locality, region);
+  const expandedFaqs = getExpandedFaqs(locality, region, config.slug);
 
   return {
     "@context": "https://schema.org",
     "@graph": [
-      // LocalBusiness + ProfessionalService
       {
         "@type": ["LocalBusiness", "ProfessionalService"],
         "@id": `${domain}/#business`,
-        name: `${locality} Webflow Agency — ${region}`,
+        name: config.brandName,
         description: config.metaDescription,
         url: domain,
+        foundingDate: "2024",
+        logo: `${domain}/images/logo.png`,
         ...(config.telephone && { telephone: config.telephone }),
         ...(config.email && { email: config.email }),
         areaServed: [
           { "@type": "City", name: locality },
-          { "@type": config.country === "US" ? "State" : "Country", name: region },
+          { "@type": "State", name: region },
         ],
         ...(config.schemaAddress && {
           address: {
@@ -52,27 +40,25 @@ export function generateSchema(config: DomainConfig) {
             longitude: config.geoCoordinates.longitude,
           },
         }),
-        priceRange: "$5,000 - $50,000+",
+        priceRange: "$195 - $595/mo",
         serviceType: [
-          "Webflow Development",
-          "Webflow Design",
-          "Webflow CMS Development",
-          "Webflow E-Commerce",
-          "WordPress to Webflow Migration",
+          "Website Design",
+          "Website Development",
+          "Web Hosting",
           "SEO",
-          "CRO",
+          "Google Business Profile Management",
         ],
         knowsAbout: [
-          "Webflow",
-          "Web Development",
-          "Content Management Systems",
-          "E-Commerce",
+          "Website Design",
+          "Website Development",
+          "Web Hosting",
           "Search Engine Optimization",
+          "Google Business Profile Management",
+          "Responsive Web Design",
           "Conversion Rate Optimization",
         ],
       },
 
-      // WebPage with speakable (AEO)
       {
         "@type": "WebPage",
         "@id": `${domain}/#webpage`,
@@ -83,20 +69,18 @@ export function generateSchema(config: DomainConfig) {
         about: { "@id": `${domain}/#business` },
         speakable: {
           "@type": "SpeakableSpecification",
-          cssSelector: ["#hero h1", "#hero p", "#why-webflow h2", "#faq"],
+          cssSelector: ["#hero h1", "#hero p", "#why-buildlocal h2", "#faq"],
         },
       },
 
-      // WebSite
       {
         "@type": "WebSite",
         "@id": `${domain}/#website`,
         url: domain,
-        name: `${locality} Webflow Agency`,
+        name: config.brandName,
         publisher: { "@id": `${domain}/#business` },
       },
 
-      // FAQPage
       {
         "@type": "FAQPage",
         "@id": `${domain}/#faq`,
@@ -110,12 +94,11 @@ export function generateSchema(config: DomainConfig) {
         })),
       },
 
-      // HowTo (Process)
       {
         "@type": "HowTo",
-        name: "How We Build Webflow Websites",
+        name: "Our Web Development Process",
         description:
-          `Our four-step process for designing and developing high-performance Webflow websites for ${region} businesses.`,
+          `Our four-step process for designing and building websites for ${region} businesses.`,
         step: processSteps.map((s) => ({
           "@type": "HowToStep",
           position: s.step,
@@ -124,40 +107,14 @@ export function generateSchema(config: DomainConfig) {
         })),
       },
 
-      // AggregateRating
-      (() => {
-        const rating = getDomainRating(config.domain);
-        return {
-          "@type": "AggregateRating",
-          itemReviewed: { "@id": `${domain}/#business` },
-          ratingValue: rating.ratingValue,
-          bestRating: "5",
-          ratingCount: rating.ratingCount,
-          reviewCount: rating.reviewCount,
-        };
-      })(),
-
-      // Service entries
-      ...webflowServices.map((service) => ({
+      ...agencyServices.map((service: { title: string; description: string }) => ({
         "@type": "Service",
         serviceType: service.title,
         description: service.description,
         provider: { "@id": `${domain}/#business` },
-        areaServed: { "@type": config.country === "US" ? "State" : "Country", name: region },
+        areaServed: { "@type": "State", name: region },
       })),
 
-      // BreadcrumbList
-      {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Home",
-            item: domain,
-          },
-        ],
-      },
     ],
   };
 }

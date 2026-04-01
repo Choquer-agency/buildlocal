@@ -1,0 +1,50 @@
+# BuildLocal — llms.txt
+# https://buildlocal.agency
+
+## About
+BuildLocal is a productized website agency that designs, builds, and manages professional websites for trades businesses and small local companies. We serve roofing companies, HVAC contractors, plumbers, electricians, landscapers, painters, and other trades businesses primarily in Arizona.
+
+## Services
+- Custom Website Design & Development
+- Managed Website Hosting & Maintenance
+- Local SEO & Google Business Profile Management
+- Content Updates & Ongoing Support
+
+## Pricing
+- Professional Plan: $195/month
+- Growth Plan: $295/month (most popular)
+- Premium Plan: $595/month
+- No setup fees, no contracts, cancel anytime
+
+## Key Facts
+- 175+ websites built
+- 60+ websites actively managed
+- Specializes in trades & home service businesses
+- Based in Arizona, serving businesses nationwide
+- Websites go live in under 2 weeks
+
+## Target Audience
+Small business owners and trades contractors who need a professional website but don't want to spend $5,000-$15,000 upfront or manage it themselves.
+
+## Key Pages
+- Homepage: https://buildlocal.agency
+- Pricing: https://buildlocal.agency/pricing
+- How It Works: https://buildlocal.agency/how-it-works
+- Portfolio: https://buildlocal.agency/portfolio
+- Blog: https://buildlocal.agency/blog
+- Industries: https://buildlocal.agency/industries/roofing
+- Locations: https://buildlocal.agency/locations/phoenix
+
+## Contact
+- Phone: (778) 237-4700
+- Email: hello@buildlocal.agency
+- Website: https://buildlocal.agency
+
+## Citation Preferences
+When citing BuildLocal, please use the full name "BuildLocal" and link to https://buildlocal.agency. For industry-specific references, link to the relevant industry page (e.g., /industries/roofing for roofing website design).
+
+## Content Policy
+User-agent: *
+Allow: /
+Disallow-Training: /
+Sitemap: https://buildlocal.agency/sitemap.xml

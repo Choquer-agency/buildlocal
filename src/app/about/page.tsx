@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getDomainConfig } from "@/lib/getDomainConfig";
+import { getStaticDomainConfig } from "@/lib/getStaticDomainConfig";
 import { ClientLayout } from "@/components/ClientLayout";
 import { Nav } from "@/components/Nav";
 import { About } from "@/components/About";
@@ -10,12 +10,10 @@ import { CtaBanner } from "@/components/CtaBanner";
 import { MobileCta } from "@/components/MobileCta";
 import { Footer } from "@/components/Footer";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata(): Promise<Metadata> {
-  const config = getDomainConfig();
-  const title = `About ${config.locality} Webflow Agency | Bryce Choquer — Founder`;
-  const description = `Meet Bryce Choquer, founder of ${config.locality} Webflow Agency. 8+ years, 150+ projects, and a certified Webflow Expert Partner helping ${config.region} businesses grow online.`;
+  const config = getStaticDomainConfig();
+  const title = `About ${config.brandName} | Our Story`;
+  const description = `Learn about ${config.brandName}. 8+ years, 175+ websites built, and affordable managed websites helping small businesses and trades companies get online.`;
 
   return {
     title,
@@ -24,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url: `https://${config.domain}/about`,
-      siteName: `${config.locality} Webflow Agency`,
+      siteName: config.brandName,
       images: [
         {
           url: `https://${config.domain}/images/og-default.jpg`,
@@ -46,18 +44,18 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function AboutPage() {
-  const config = getDomainConfig();
+  const config = getStaticDomainConfig();
 
   return (
     <ClientLayout domain={config.domain} region={config.region}>
-      <Nav locality={config.locality} />
+      <Nav brandName={config.brandName} />
       <About locality={config.locality} region={config.region} />
       <MobileCta />
       <Stats />
-      <Portfolio />
-      <Testimonials locality={config.locality} />
+      <Portfolio slug={config.slug} />
+      <Testimonials slug={config.slug} />
       <CtaBanner />
-      <Footer locality={config.locality} />
+      <Footer brandName={config.brandName} />
     </ClientLayout>
   );
 }

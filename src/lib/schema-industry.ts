@@ -23,7 +23,7 @@ export function generateIndustrySchema(
         provider: {
           "@type": ["LocalBusiness", "ProfessionalService"],
           "@id": `${domain}/#business`,
-          name: `${locality} Webflow Agency — ${region}`,
+          name: `${config.brandName} — ${region}`,
           url: domain,
           ...(config.telephone && { telephone: config.telephone }),
           ...(config.email && { email: config.email }),
@@ -52,7 +52,7 @@ export function generateIndustrySchema(
           cssSelector: [
             ".industry-hero h1",
             ".industry-hero p",
-            "#why-webflow h2",
+            "#why-website h2",
             "#faq",
           ],
         },

@@ -1,30 +1,52 @@
-import { getDomainConfig } from "@/lib/getDomainConfig";
+import { Metadata } from "next";
+import { getStaticDomainConfig } from "@/lib/getStaticDomainConfig";
 import { generateSchema } from "@/lib/schema";
 import { ClientLayout } from "@/components/ClientLayout";
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { Stats } from "@/components/Stats";
 import { Problem } from "@/components/Problem";
-import { WhyWebflow } from "@/components/WhyWebflow";
-import { WebflowServicesBreakdown } from "@/components/WebflowServicesBreakdown";
-import { WebflowVsWordPress } from "@/components/WebflowVsWordPress";
+import { WhyWebsite } from "@/components/WhySEO";
+import { ServicesBreakdown } from "@/components/SEOServicesBreakdown";
+import { ServiceComparison } from "@/components/SEOComparison";
 import { Services } from "@/components/Services";
 import { Industries } from "@/components/Industries";
 import { Portfolio } from "@/components/Portfolio";
 import { Process } from "@/components/Process";
 import { Pricing } from "@/components/Pricing";
-import { LocalTrust } from "@/components/LocalTrust";
-import { Partners } from "@/components/Partners";
 import { Testimonials } from "@/components/Testimonials";
 import { CtaBanner } from "@/components/CtaBanner";
 import { MobileCta } from "@/components/MobileCta";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
 
-export const dynamic = "force-dynamic";
+export async function generateMetadata(): Promise<Metadata> {
+  const config = getStaticDomainConfig();
+  return {
+    title: config.metaTitle,
+    description: config.metaDescription,
+    openGraph: {
+      title: config.metaTitle,
+      description: config.metaDescription,
+      url: `https://${config.domain}`,
+      siteName: config.brandName,
+      images: [
+        {
+          url: `https://${config.domain}/images/og-default.jpg`,
+          width: 1200,
+          height: 630,
+        },
+      ],
+      type: "website",
+    },
+    alternates: {
+      canonical: `https://${config.domain}`,
+    },
+  };
+}
 
 export default function Home() {
-  const config = getDomainConfig();
+  const config = getStaticDomainConfig();
   const schema = generateSchema(config);
 
   return (
@@ -33,7 +55,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <Nav locality={config.locality} />
+      <Nav brandName={config.brandName} />
       <Hero
         h1={config.heroH1}
         subhead={config.heroSubhead}
@@ -41,28 +63,21 @@ export default function Home() {
       />
       <Problem slug={config.slug} />
       <MobileCta />
-      <Portfolio />
-      <Testimonials locality={config.locality} />
+      <Portfolio slug={config.slug} />
+      <Testimonials slug={config.slug} />
       <CtaBanner />
       <Stats />
-      <WhyWebflow />
+      <WhyWebsite />
       <MobileCta />
-      <WebflowServicesBreakdown slug={config.slug} />
-      <WebflowVsWordPress slug={config.slug} />
+      <ServicesBreakdown slug={config.slug} />
+      <ServiceComparison slug={config.slug} />
       <Services />
       <Industries locality={config.locality} region={config.region} slug={config.slug} />
       <Process slug={config.slug} />
       <MobileCta />
       <Pricing region={config.region} slug={config.slug} />
-      <LocalTrust
-        locality={config.locality}
-        stateCode={config.stateCode}
-        region={config.region}
-        nearbyAreas={config.nearbyAreas}
-      />
-      <Partners />
       <FAQ locality={config.locality} region={config.region} slug={config.slug} />
-      <Footer locality={config.locality} />
+      <Footer brandName={config.brandName} />
     </ClientLayout>
   );
 }

@@ -8,10 +8,11 @@ import { getExpandedFaqs } from "@/content/shared";
 
 const categories = [
   { key: "all", label: "All" },
-  { key: "webflow", label: "Webflow" },
+  { key: "service", label: "Services" },
+  { key: "billing", label: "Billing" },
+  { key: "website", label: "Website" },
   { key: "pricing", label: "Pricing" },
   { key: "process", label: "Process" },
-  { key: "local", label: "Local" },
   { key: "general", label: "General" },
 ] as const;
 
@@ -54,7 +55,7 @@ export function FAQ({ locality, region, slug }: { locality: string; region: stri
         <div className="text-center mb-8">
           <p className="faq-heading eyebrow text-brand mb-4">FAQ</p>
           <h2 className="faq-heading font-sans font-medium text-fluid-h3 leading-[1.1] text-dark">
-            Your Webflow questions, answered
+            Your questions, answered
           </h2>
         </div>
 

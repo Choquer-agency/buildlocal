@@ -39,10 +39,10 @@ export function CtaBanner() {
             Ready to get started?
           </p>
           <h2 className="font-sans font-medium text-fluid-h2 leading-[1.05] max-w-[18ch] mx-auto mb-8 text-dark">
-            Your website should be your best salesperson.
+            Ready to turn your website into a conversion machine?
           </h2>
           <p className="font-sans text-fluid-main text-dark opacity-50 max-w-[48ch] mx-auto mb-10 leading-relaxed">
-            Book a free strategy call and we&apos;ll show you exactly how a custom Webflow site can grow your business.
+            Book a free strategy call and we&apos;ll walk you through exactly how we can build a site that drives leads for your business. No commitment, no pressure.
           </p>
           <button
             onClick={() => openModal()}
@@ -55,21 +55,21 @@ export function CtaBanner() {
             </svg>
           </button>
           <p className="font-sans text-fluid-small text-dark opacity-40 mt-6">
-            We take on a limited number of projects each month.
+            No setup fees. No contracts. Cancel anytime.
           </p>
 
           {/* Founder */}
           <div className="flex items-center justify-center gap-4 mt-10 pt-8 border-t" style={{ borderColor: "rgba(0,0,0,0.1)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/founder.webp"
-              alt="Bryce Choquer"
+              src="/images/founder-opt.webp"
+              alt="BuildLocal Founder"
               className="w-12 h-12 rounded-full object-cover"
             />
             <div className="text-left">
-              <p className="font-sans font-medium text-sm text-dark">Bryce Choquer, Founder</p>
+              <p className="font-sans font-medium text-sm text-dark">BuildLocal Team</p>
               <p className="font-sans text-xs text-dark opacity-50">
-                Certified Webflow Expert Partner &middot; 8+ years &middot; 150+ projects
+                Founder &middot; 175+ websites built &middot; 60+ managed
               </p>
             </div>
           </div>

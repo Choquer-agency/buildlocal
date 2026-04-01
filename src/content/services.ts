@@ -1,23 +1,12 @@
 import { FAQItem, ProcessStep } from "./config";
 
-export interface MigrationPackage {
-  name: string;
-  slug: string;
-  pricePerPage: number;
-  description: string;
-  includes: string[];
-  color: string;
-  featured?: boolean;
-}
-
 export interface ServicePageConfig {
   slug: string;
   title: string;
-  sourcePlatform: string; // "WordPress", "Squarespace", "Wix", "Shopify"
-  eyebrow: string; // Hero eyebrow text
-  problemEyebrow: string; // Problem section eyebrow
-  problemHeading: string; // Problem section heading
-  processHeading: string; // Process section heading
+  eyebrow: string;
+  problemEyebrow: string;
+  problemHeading: string;
+  processHeading: string;
   metaTitle: (locality: string, region: string) => string;
   metaDescription: (locality: string, region: string) => string;
   heroH1: (locality: string, region: string) => string;
@@ -28,541 +17,414 @@ export interface ServicePageConfig {
   faqs: (locality: string, region: string) => FAQItem[];
   showComparison: boolean;
   showPortfolio: boolean;
-  migrationPackages?: MigrationPackage[];
 }
-
-/* ─── Migration Packages ─── */
-
-export const migrationPackages: MigrationPackage[] = [
-  {
-    name: "Straightforward Migration",
-    slug: "straightforward",
-    pricePerPage: 325,
-    description:
-      "An exact visual replica of your current website, rebuilt on Webflow with clean code and modern performance.",
-    includes: [
-      "Pixel-for-pixel visual replica on Webflow",
-      "All pages and content migrated",
-      "Blog & CMS content transferred",
-      "Fully responsive across all devices",
-      "Fundamental on-page SEO setup",
-      "301 redirect mapping for all URLs",
-      "2 rounds of revisions",
-      "30-day post-launch support",
-    ],
-    color: "#BCEFFF",
-  },
-  {
-    name: "Animated Migration",
-    slug: "animated",
-    pricePerPage: 495,
-    description:
-      "Everything in Pixel-Perfect, plus subtle animations and interactions that bring your brand to life on Webflow.",
-    includes: [
-      "Everything in Pixel-Perfect Migration",
-      "Subtle scroll-triggered animations",
-      "Smooth page transitions",
-      "Interactive hover states & micro-interactions",
-      "Animated CTAs and navigation elements",
-      "Loading animations",
-      "3 rounds of revisions",
-      "60-day post-launch support",
-    ],
-    color: "#F79C42",
-    featured: true,
-  },
-  {
-    name: "Brand Elevation",
-    slug: "brand-elevation",
-    pricePerPage: 800,
-    description:
-      "A full brand refresh built on Webflow. We take your existing content and elevate the entire experience — design, motion, and identity.",
-    includes: [
-      "Everything in Animated Migration",
-      "Refreshed visual identity & brand direction",
-      "Modernized typography and color palette",
-      "Enhanced imagery and layout composition",
-      "Strategic content refinement",
-      "Custom illustrations or iconography direction",
-      "5 rounds of revisions",
-      "90-day post-launch support",
-    ],
-    color: "#C4EF7A",
-  },
-];
 
 /* ─── Service Page Configs ─── */
 
 export const serviceMap: Record<string, ServicePageConfig> = {
-  "wordpress-migration": {
-    slug: "wordpress-migration",
-    title: "WordPress to Webflow Migration",
-    sourcePlatform: "WordPress",
-    eyebrow: "WordPress Migration Experts",
-    problemEyebrow: "Why Leave WordPress?",
-    problemHeading: "WordPress is holding your business back.",
-    processHeading: "From WordPress to Webflow in four steps.",
+  "website-design": {
+    slug: "website-design",
+    title: "Website Design & Development",
+    eyebrow: "Custom Website Design",
+    problemEyebrow: "Why Your Current Site Isn't Working",
+    problemHeading: "An outdated website is worse than no website at all.",
+    processHeading: "How we build your website in four steps.",
     metaTitle: (locality, region) =>
-      `WordPress to Webflow Migration in ${locality} | ${region} Migration Experts`,
+      `Website Design ${locality} | Affordable ${region} Web Design`,
     metaDescription: (locality, region) =>
-      `Migrate your WordPress site to Webflow with zero downtime. Expert migration services for ${region} businesses in ${locality}. SEO-safe 301 redirects, content migration, and modern redesign.`,
+      `Custom website design for small businesses in ${locality}, ${region}. Mobile-friendly, fast-loading sites that turn visitors into customers. Starting at $99/month.`,
     heroH1: (_locality, region) =>
-      `Migrate from WordPress to Webflow in ${region}`,
+      `Website Design That Actually Works for ${region} Small Businesses`,
     heroSubhead: (_locality, region) =>
-      `Leave plugin updates, security patches, and slow load times behind. We handle the full migration — content, SEO, redirects, and design — so your ${region} business launches on a faster, modern platform without missing a beat.`,
+      `Your website is your hardest-working employee — it should look the part. We build custom, mobile-first websites for ${region} businesses that load fast, look sharp, and turn visitors into paying customers.`,
     heroQualifier: (_locality, region) =>
-      `For ${region} businesses ready to leave WordPress behind and invest in a website that performs.`,
+      `For ${region} small businesses that want a professional website without the $10,000 price tag.`,
     painPoints: [
       {
-        title: "Plugin overload",
+        title: "Your outdated design is losing trust",
         description:
-          "Your site depends on 20+ plugins that break with every update. One bad update and your entire site goes down.",
+          "75% of people judge a business's credibility based on their website. If yours looks like it was built in 2015, visitors bounce before they ever pick up the phone.",
       },
       {
-        title: "Slow page speeds",
+        title: "Your site isn't mobile-friendly",
         description:
-          "Bloated themes and plugins tank your Core Web Vitals. Google penalizes slow sites — and visitors leave before the page loads.",
+          "Over 60% of web traffic comes from phones. If your site is hard to read, slow to load, or impossible to navigate on mobile, you're turning away most of your visitors.",
       },
       {
-        title: "Security vulnerabilities",
+        title: "Slow loading is killing your leads",
         description:
-          "WordPress is the #1 target for hackers. Constant security patches, brute-force attacks, and malware scans drain your time and budget.",
+          "Every second of load time costs you 7% in conversions. If your site takes 4+ seconds, more than half your visitors leave before they see a single word.",
       },
       {
-        title: "Developer dependency",
+        title: "No clear calls to action",
         description:
-          "Need to change a heading? Update a photo? On WordPress, even simple edits often require a developer — and their invoice.",
+          "Visitors land on your site and have no idea what to do next. No obvious phone number, no contact form above the fold, no reason to reach out. They leave and call someone else.",
       },
       {
-        title: "Costly maintenance",
+        title: "Your site looks like every other template",
         description:
-          "Hosting fees, plugin licenses, security monitoring, backups, staging environments — the hidden costs of WordPress add up fast.",
+          "Cookie-cutter templates make your business look generic. Customers can't tell you apart from the next company. A custom design reflects what makes your business different.",
       },
     ],
     processSteps: [
       {
         step: 1,
-        title: "Site Audit & Content Mapping",
+        title: "Discovery",
         description:
-          "We crawl your existing WordPress site, audit every page, catalog all content, and map out your URL structure for a clean migration with zero content loss.",
+          "We learn your business inside and out — your customers, your services, what makes you different, and what you need your website to accomplish.",
       },
       {
         step: 2,
-        title: "Design & UX Modernization",
+        title: "Design",
         description:
-          "Depending on your package, we either replicate your design pixel-for-pixel, add modern animations, or give your brand a full visual refresh — all designed natively for Webflow.",
+          "We create a custom layout tailored to your brand and audience. You review the design and we refine it until it's exactly right.",
       },
       {
         step: 3,
-        title: "Build & Data Migration",
+        title: "Build",
         description:
-          "Your new site is built in Webflow with clean code, responsive layouts, and CMS collections. All content, blogs, and media are migrated and verified.",
+          "We develop your site with clean code, fast loading speeds, mobile responsiveness, and SEO fundamentals baked in from the start.",
       },
       {
         step: 4,
-        title: "QA, Launch & 301 Redirects",
+        title: "Launch",
         description:
-          "Thorough cross-browser and device testing, 301 redirect mapping for every URL, DNS cutover with zero downtime, and 90 days of search performance monitoring.",
+          "We go live, set up analytics, and walk you through everything. You'll know how to make basic updates and we're always a call away.",
       },
     ],
     faqs: (locality, region) => [
       {
         category: "process",
-        question: "How long does a WordPress to Webflow migration take?",
-        answer: `Most WordPress to Webflow migrations take 4–6 weeks, depending on site complexity. A straightforward 10–20 page marketing site with a blog can be migrated in 4 weeks. Larger sites with custom post types, e-commerce, or complex integrations may take 6–8 weeks. We provide a detailed timeline during the site audit phase.`,
+        question: "How long does it take to build a website?",
+        answer: `Most websites for ${region} small businesses are designed, built, and launched within 2-3 weeks. Larger or more complex sites may take 4-6 weeks. We keep you in the loop at every stage so there are no surprises.`,
+      },
+      {
+        category: "website",
+        question: "How many revisions do I get on the design?",
+        answer: `All of our plans include two rounds of revisions on the initial design. In practice, we nail it on the first or second round because we spend so much time on the discovery phase upfront. Additional revision rounds are available if needed.`,
+      },
+      {
+        category: "website",
+        question: "Will my website be mobile-friendly?",
+        answer: `Absolutely. Every website we build is mobile-first — meaning we design for phones first and scale up to desktop. Over 60% of your ${locality} customers are browsing on their phone, so mobile performance is non-negotiable.`,
+      },
+      {
+        category: "service",
+        question: "Do you build custom designs or use templates?",
+        answer: `Every site we build starts with a custom layout designed specifically for your business. We don't use off-the-shelf templates. That said, we use proven design patterns that convert visitors into customers — so your site is unique AND effective.`,
       },
       {
         category: "general",
-        question: "Will I lose my SEO rankings during migration?",
-        answer: `No — preserving your SEO equity is a core part of our migration process. We implement 301 redirects for every URL, migrate all meta titles, descriptions, and alt text, and monitor your search performance for 90 days post-launch. Most clients see their rankings recover within 2–4 weeks and improve within 90 days due to Webflow's superior page speed and clean code output.`,
-      },
-      {
-        category: "webflow",
-        question: "Can you migrate my WordPress plugins to Webflow?",
-        answer: `WordPress plugins don't transfer directly to Webflow, but most plugin functionality has native Webflow equivalents or better alternatives. Contact forms, SEO tools, analytics, CMS collections, and e-commerce are all built into Webflow. For third-party integrations (CRM, email marketing, booking systems), we connect them via native integrations, Zapier, or custom API connections.`,
-      },
-      {
-        category: "pricing",
-        question: `How much does a WordPress to Webflow migration cost in ${region}?`,
-        answer: `Migration pricing depends on your package and page count. Pixel-Perfect Migration starts at $325/page for an exact visual replica. Animated Migration is $495/page and includes scroll animations and micro-interactions. Brand Elevation is $800/page for a full visual refresh. Use the pricing calculator above to get an instant estimate based on your site size.`,
-      },
-      {
-        category: "process",
-        question: "What happens to my existing content during migration?",
-        answer: `Every piece of content is migrated: pages, blog posts, images, documents, and media files. Blog content is transferred into Webflow's CMS collections with all metadata preserved (author, date, categories, tags). We perform a content audit before migration to identify outdated or redundant content, giving you a clean start on Webflow.`,
-      },
-      {
-        category: "process",
-        question: "Do you handle 301 redirects?",
-        answer: `Yes — 301 redirect mapping is included in every migration package. We create a comprehensive redirect map matching every old WordPress URL to its new Webflow equivalent. This preserves your backlink equity, prevents 404 errors, and ensures visitors and search engines find your content at its new location. We also monitor for broken links post-launch.`,
-      },
-      {
-        category: "webflow",
-        question: `Is Webflow better than WordPress for ${region} businesses?`,
-        answer: `For most ${region} businesses, yes. Webflow eliminates the plugin maintenance, security patches, and developer dependency that come with WordPress. Sites load 30–50% faster, hosting is included and managed, and your team can make content updates without touching code. The only exception is businesses that need extremely niche WordPress plugins with no Webflow alternative — which is increasingly rare.`,
-      },
-      {
-        category: "webflow",
-        question: "Can I still have a blog on Webflow?",
-        answer: `Absolutely. Webflow's CMS is purpose-built for blogs and dynamic content. You get a visual editor that's far more intuitive than the WordPress dashboard, automatic RSS feeds, category and tag filtering, and the ability to design your blog layout with full creative control. Many of our ${locality} clients find they publish more frequently after migrating because the editing experience is so much smoother.`,
+        question: "What if I already have a website that just needs a refresh?",
+        answer: `We handle redesigns all the time. We'll audit your current site, keep what's working, and rebuild the rest. If your existing site has good SEO authority or content, we preserve that during the migration so you don't lose any ground in search rankings.`,
       },
     ],
     showComparison: true,
     showPortfolio: true,
-    migrationPackages,
-  },
-  "squarespace-migration": {
-    slug: "squarespace-migration",
-    title: "Squarespace to Webflow Migration",
-    sourcePlatform: "Squarespace",
-    eyebrow: "Squarespace Migration Experts",
-    problemEyebrow: "Why Leave Squarespace?",
-    problemHeading: "Squarespace is limiting your growth.",
-    processHeading: "From Squarespace to Webflow in four steps.",
-    metaTitle: (locality, region) =>
-      `Squarespace to Webflow Migration | ${locality}, ${region}`,
-    metaDescription: (locality, region) =>
-      `Migrate your Squarespace site to Webflow with zero downtime and SEO preserved. Expert migration services for ${region} businesses in ${locality}.`,
-    heroH1: (_locality, region) =>
-      `Migrate from Squarespace to Webflow in ${region}`,
-    heroSubhead: (_locality, region) =>
-      `Break free from rigid templates and limited customization. We migrate your Squarespace site to Webflow — giving your ${region} business full design control, faster page speeds, and a platform that scales with you.`,
-    heroQualifier: (_locality, region) =>
-      `For ${region} businesses that have outgrown Squarespace and are ready for a professional upgrade.`,
-    painPoints: [
-      {
-        title: "Template limitations",
-        description:
-          "Squarespace templates look great until you need something custom. Want a unique layout? A complex interaction? You're stuck.",
-      },
-      {
-        title: "No code access",
-        description:
-          "Custom functionality requires hacky CSS injections and third-party workarounds. There's no clean way to extend your site.",
-      },
-      {
-        title: "Poor page speed",
-        description:
-          "Squarespace sites consistently score low on Core Web Vitals. Heavy scripts and unoptimized images hurt your Google rankings.",
-      },
-      {
-        title: "Limited CMS",
-        description:
-          "Blog posts and a few collection types — that's it. No multi-reference fields, no conditional visibility, no real content architecture.",
-      },
-      {
-        title: "No real SEO control",
-        description:
-          "Basic meta tags are there, but you can't control schema markup, fine-tune URL structures, or implement advanced technical SEO.",
-      },
-    ],
-    processSteps: [
-      {
-        step: 1,
-        title: "Site Audit & Content Export",
-        description:
-          "We audit your Squarespace site, export all content and media, map your URL structure, and identify any third-party integrations that need to be reconnected.",
-      },
-      {
-        step: 2,
-        title: "Design & UX Upgrade",
-        description:
-          "Depending on your package, we replicate your current design, add animations, or create a fresh visual identity — all with the design freedom Squarespace never gave you.",
-      },
-      {
-        step: 3,
-        title: "Build & Content Migration",
-        description:
-          "Your new Webflow site is built with clean code, custom CMS collections, and responsive layouts. All pages, blog posts, and media are migrated and verified.",
-      },
-      {
-        step: 4,
-        title: "QA, Launch & Redirects",
-        description:
-          "Full cross-browser testing, 301 redirect mapping from Squarespace URLs, DNS cutover with zero downtime, and 90 days of post-launch performance monitoring.",
-      },
-    ],
-    faqs: (locality, region) => [
-      {
-        category: "process",
-        question: "How long does a Squarespace to Webflow migration take?",
-        answer: `Most Squarespace to Webflow migrations take 3–6 weeks. Simpler sites with 5–15 pages can be done in 3–4 weeks. Larger sites with e-commerce, extensive blogs, or custom integrations take 5–6 weeks. We provide a detailed timeline after auditing your existing site.`,
-      },
-      {
-        category: "general",
-        question: "Will I lose my SEO rankings when migrating from Squarespace?",
-        answer: `No. We implement 301 redirects for every URL, migrate all meta titles and descriptions, and preserve your sitemap structure. Most clients see rankings recover within 2–4 weeks and improve within 90 days thanks to Webflow's faster page speeds and cleaner code.`,
-      },
-      {
-        category: "webflow",
-        question: "What can Webflow do that Squarespace can't?",
-        answer: `Full design freedom without template constraints, custom animations and interactions, advanced CMS with multi-reference fields, clean semantic code output, superior page speed scores, native form handling, and the ability to hand off content editing to your team without breaking the design. Webflow gives you agency-level control that Squarespace simply can't match.`,
-      },
-      {
-        category: "pricing",
-        question: `How much does a Squarespace to Webflow migration cost in ${region}?`,
-        answer: `Migration pricing is based on your package and page count. Straightforward Migration starts at $325/page, Animated Migration is $495/page with scroll animations and interactions, and Brand Elevation is $800/page for a full visual refresh. Use the pricing calculator above for an instant estimate.`,
-      },
-      {
-        category: "process",
-        question: "Can you migrate my Squarespace e-commerce store to Webflow?",
-        answer: `Yes. We migrate product listings, categories, and images to Webflow E-commerce. Webflow supports up to 15,000 products with Stripe integration, custom checkout flows, and full design control over product pages — something Squarespace's rigid e-commerce templates can't offer.`,
-      },
-      {
-        category: "process",
-        question: "What happens to my Squarespace blog content?",
-        answer: `All blog posts are migrated to Webflow's CMS with metadata preserved — titles, dates, categories, images, and body content. Webflow's CMS gives you far more flexibility with blog layouts, filtering, and dynamic content than Squarespace ever offered.`,
-      },
-      {
-        category: "webflow",
-        question: `Why are ${region} businesses switching from Squarespace to Webflow?`,
-        answer: `${region} businesses outgrow Squarespace when they need custom designs, better performance, or more advanced functionality. Webflow offers full creative control, faster load times, built-in SEO tools, and a CMS that scales — all without the template constraints that hold Squarespace sites back. Our ${locality} clients consistently see improved engagement and conversions after migrating.`,
-      },
-      {
-        category: "general",
-        question: "Do I need to know code to manage my Webflow site after migration?",
-        answer: `No. Webflow's Editor lets your team update text, images, blog posts, and CMS content without touching code. It's more intuitive than Squarespace's editor and gives you more control. We provide a full training session after launch so your team is confident managing the site.`,
-      },
-    ],
-    showComparison: false,
-    showPortfolio: true,
-    migrationPackages,
   },
 
-  "wix-migration": {
-    slug: "wix-migration",
-    title: "Wix to Webflow Migration",
-    sourcePlatform: "Wix",
-    eyebrow: "Wix Migration Experts",
-    problemEyebrow: "Why Leave Wix?",
-    problemHeading: "Wix is costing you credibility and performance.",
-    processHeading: "From Wix to Webflow in four steps.",
+  "website-management": {
+    slug: "website-management",
+    title: "Website Management & Hosting",
+    eyebrow: "Managed Website Services",
+    problemEyebrow: "Why Managing Your Own Site Is a Headache",
+    problemHeading: "You didn't start a business to manage a website.",
+    processHeading: "How we keep your site running perfectly.",
     metaTitle: (locality, region) =>
-      `Wix to Webflow Migration | ${locality}, ${region}`,
+      `Website Management ${locality} | ${region} Managed Hosting`,
     metaDescription: (locality, region) =>
-      `Migrate from Wix to Webflow with zero downtime and SEO preserved. Expert migration for ${region} businesses in ${locality}. Clean code, full design control.`,
+      `Managed website hosting and maintenance for ${region} businesses. Uptime monitoring, monthly updates, backups, and security — all handled for you. Plans from $99/month in ${locality}.`,
     heroH1: (_locality, region) =>
-      `Migrate from Wix to Webflow in ${region}`,
+      `Website Management & Hosting for ${region} Businesses`,
     heroSubhead: (_locality, region) =>
-      `Stop fighting with drag-and-drop limitations and bloated code. We migrate your Wix site to Webflow — giving your ${region} business a professional, fast, and SEO-optimized website that actually converts.`,
+      `Your website should work for you, not the other way around. We handle the hosting, updates, backups, and security so you can focus on running your ${region} business.`,
     heroQualifier: (_locality, region) =>
-      `For ${region} businesses ready to graduate from Wix to a platform built for growth.`,
+      `For ${region} business owners who are tired of worrying about their website breaking, going down, or getting hacked.`,
     painPoints: [
       {
-        title: "Bloated, messy code",
+        title: "Your site goes down and you don't know",
         description:
-          "Wix generates heavy, unreadable code that search engines struggle to crawl. Your site is slower and ranks worse than it should.",
+          "Your website has been offline for 3 hours and the only reason you found out is because a customer told you. Every hour of downtime is lost revenue and lost trust.",
       },
       {
-        title: "Unprofessional perception",
+        title: "You can't make updates yourself",
         description:
-          "Wix branding, generic templates, and cookie-cutter layouts signal 'small-time' to potential clients. Your website should elevate your brand, not undermine it.",
+          "Need to change your hours, add a new service, or update a photo? You either can't figure out how or you're terrified of breaking something.",
       },
       {
-        title: "SEO ceiling",
+        title: "No backups means one mistake away from disaster",
         description:
-          "Wix offers basic SEO tools, but you can't control schema markup, URL structures are messy, and page speed scores are consistently poor.",
+          "If your site gets hacked, your hosting crashes, or someone accidentally deletes a page, you could lose everything. Most small business sites have zero backup strategy.",
       },
       {
-        title: "No design freedom",
+        title: "Security vulnerabilities are stacking up",
         description:
-          "The drag-and-drop editor feels flexible until you need pixel-perfect layouts, custom animations, or responsive designs that actually work on mobile.",
+          "Outdated plugins, expired SSL certificates, and unpatched software leave your site wide open to hackers. A compromised site can destroy customer trust overnight.",
       },
       {
-        title: "Platform lock-in",
+        title: "Paying a developer $150/hr for small changes",
         description:
-          "You can't export your Wix site. No code export, no clean content export. The longer you stay, the harder it is to leave.",
+          "You need a quick text change or a new photo and your freelancer charges $150 for 15 minutes of work. Small updates shouldn't cost a fortune.",
       },
     ],
     processSteps: [
       {
         step: 1,
-        title: "Site Audit & Content Extraction",
+        title: "Onboard",
         description:
-          "Since Wix doesn't offer clean exports, we manually audit and extract all content, images, and media from your existing site and map your URL structure.",
+          "We migrate your existing site to our managed hosting or set up your new site. Everything is configured for speed, security, and reliability from day one.",
       },
       {
         step: 2,
-        title: "Design & UX Upgrade",
+        title: "Monitor",
         description:
-          "We redesign your site natively for Webflow — either matching your current look, adding animations, or creating a complete brand refresh depending on your package.",
+          "We monitor your site 24/7 for uptime, performance, and security threats. If something goes wrong, we catch it and fix it before you even notice.",
       },
       {
         step: 3,
-        title: "Build & Content Migration",
+        title: "Update",
         description:
-          "Your new Webflow site is built from scratch with clean, semantic code, proper CMS architecture, and responsive layouts. All content is migrated and quality-checked.",
+          "Need changes? Send us a text, email, or quick request. We handle monthly content updates, software patches, and plugin updates so your site stays fresh and secure.",
       },
       {
         step: 4,
-        title: "QA, Launch & Redirects",
+        title: "Report",
         description:
-          "Comprehensive testing across browsers and devices, 301 redirect mapping, DNS cutover with zero downtime, and 90 days of search performance monitoring post-launch.",
+          "Every month you get a clear report: uptime stats, what we updated, traffic overview, and recommendations for what's working and what to improve.",
       },
     ],
     faqs: (locality, region) => [
       {
-        category: "process",
-        question: "How long does a Wix to Webflow migration take?",
-        answer: `Wix migrations typically take 4–6 weeks because Wix doesn't allow clean content exports — we extract everything manually. A 5–15 page site takes about 4 weeks. Larger sites with blogs, e-commerce, or complex content take 5–6 weeks.`,
+        category: "service",
+        question: "What does managed website hosting include?",
+        answer: `Our managed hosting includes fast, secure hosting on premium servers, 24/7 uptime monitoring, daily backups, SSL certificates, software and plugin updates, and security scanning. Everything a ${region} small business needs to keep their site running without lifting a finger.`,
       },
       {
-        category: "general",
-        question: "Will my SEO rankings drop when migrating from Wix?",
-        answer: `We implement 301 redirects for all URLs and migrate all SEO metadata. Most clients actually see rankings improve after migrating because Webflow generates clean code, loads faster, and scores significantly higher on Core Web Vitals — all factors Google uses for ranking.`,
+        category: "service",
+        question: "What kind of uptime can I expect?",
+        answer: `We guarantee 99.9% uptime. Our hosting infrastructure is built for reliability, and we monitor every site around the clock. If your site goes down, we're alerted instantly and start fixing it — usually before you even know there's an issue.`,
       },
       {
-        category: "process",
-        question: "Can I export my content from Wix?",
-        answer: `Wix makes it difficult to export content cleanly — there's no full-site export feature. That's why our migration process includes manual content extraction. We pull all text, images, blog posts, and media from your Wix site and rebuild everything properly in Webflow's CMS.`,
-      },
-      {
-        category: "pricing",
-        question: `How much does a Wix to Webflow migration cost in ${region}?`,
-        answer: `Migration pricing depends on your package and page count. Straightforward Migration starts at $325/page, Animated Migration is $495/page with scroll animations, and Brand Elevation is $800/page for a full rebrand. Use the pricing calculator above to estimate your investment.`,
-      },
-      {
-        category: "webflow",
-        question: "What makes Webflow better than Wix?",
-        answer: `Webflow generates clean, semantic code (Wix doesn't). Webflow scores 90+ on Lighthouse (Wix averages 40–60). Webflow gives you full design freedom without template constraints. Webflow's CMS is built for real content architecture. And Webflow doesn't plaster its branding on your professional website.`,
-      },
-      {
-        category: "webflow",
-        question: `Why are ${region} businesses leaving Wix for Webflow?`,
-        answer: `${region} businesses switch when they realize Wix is holding them back — poor search rankings, slow load times, and a site that looks like every other Wix template. Webflow gives them a professional, high-performance website that ranks better, converts more, and makes their brand look credible. Our ${locality} clients consistently see measurable improvements in traffic and leads after migrating.`,
+        category: "billing",
+        question: "How many updates are included each month?",
+        answer: `Our standard plan includes up to 2 hours of content updates per month — that covers things like text changes, new photos, adding a staff member, updating hours, or tweaking a page layout. Most ${locality} businesses find that's more than enough for their needs.`,
       },
       {
         category: "process",
-        question: "Can you migrate my Wix blog to Webflow?",
-        answer: `Yes. We extract all blog posts from Wix (titles, body content, images, dates, categories) and rebuild them in Webflow's CMS. The result is a faster, better-designed blog with full layout control and proper SEO structure that Wix simply can't match.`,
+        question: "What if I need a bigger change or a new page?",
+        answer: `Larger changes like adding new pages, building out a new section, or redesigning a page are handled as mini-projects. We'll scope it, give you a flat quote, and get it done quickly. No surprise hourly bills.`,
       },
       {
-        category: "general",
-        question: "Will my Wix domain work with Webflow?",
-        answer: `Yes. If you own your domain (even if purchased through Wix), you can point it to Webflow. We handle the DNS configuration during the migration process. If your domain is locked to Wix, we'll help you transfer it.`,
+        category: "website",
+        question: "Are backups included? How often do you back up my site?",
+        answer: `Yes, daily backups are included with every plan. We keep 30 days of backup history, so if anything ever goes wrong — a bad update, accidental deletion, or security issue — we can restore your site to any point in the last month.`,
       },
     ],
     showComparison: false,
     showPortfolio: true,
-    migrationPackages,
   },
 
-  "shopify-migration": {
-    slug: "shopify-migration",
-    title: "Shopify to Webflow Migration",
-    sourcePlatform: "Shopify",
-    eyebrow: "Shopify Migration Experts",
-    problemEyebrow: "Why Leave Shopify?",
-    problemHeading: "Shopify is great for selling. Not for branding.",
-    processHeading: "From Shopify to Webflow in four steps.",
+  "seo-local-search": {
+    slug: "seo-local-search",
+    title: "SEO & Local Search",
+    eyebrow: "Local SEO Services",
+    problemEyebrow: "Why Your Customers Can't Find You",
+    problemHeading: "If you're not on page 1, you don't exist.",
+    processHeading: "How we get your business found online.",
     metaTitle: (locality, region) =>
-      `Shopify to Webflow Migration in ${locality} | ${region} Migration Experts`,
+      `Local SEO Services ${locality} | Get Found in ${region}`,
     metaDescription: (locality, region) =>
-      `Migrate from Shopify to Webflow for full brand control and a website that does more than just sell. Expert migration services for ${region} businesses in ${locality}.`,
+      `Local SEO for small businesses in ${locality}, ${region}. Google Business Profile optimization, local search rankings, and more customers finding you online. Free audit.`,
     heroH1: (_locality, region) =>
-      `Migrate from Shopify to Webflow in ${region}`,
+      `Local SEO That Gets ${region} Businesses Found`,
     heroSubhead: (_locality, region) =>
-      `Shopify is built for transactions, not for storytelling. We migrate your ${region} business to Webflow — where you get full design control, a real content platform, and e-commerce that matches your brand, not a template.`,
+      `46% of all Google searches have local intent. When someone in ${region} searches for what you do, they should find you — not your competitor down the street. We make that happen.`,
     heroQualifier: (_locality, region) =>
-      `For ${region} brands that need more than a storefront — they need a website that builds trust, tells their story, and converts.`,
+      `For ${region} small businesses that want to show up when local customers are searching.`,
     painPoints: [
       {
-        title: "Template-locked design",
+        title: "You're invisible on Google",
         description:
-          "Shopify themes all look the same. Customizing beyond the theme settings requires Liquid code and expensive Shopify developers.",
+          "You search for your own service in your own city and you can't even find yourself. If you can't find you, your customers definitely can't either.",
       },
       {
-        title: "Content limitations",
+        title: "Competitors are showing up first",
         description:
-          "Shopify is a store, not a website. Building landing pages, resource centers, or rich brand experiences requires apps and workarounds.",
+          "Your competitors rank above you for every important search. They're not better at what they do — they just have better SEO. That's fixable.",
       },
       {
-        title: "App dependency",
+        title: "No Google Business Profile strategy",
         description:
-          "Need reviews? An app. Need size guides? An app. Need custom fields? An app. Monthly fees stack up and every app slows your site down.",
+          "Your GBP is either unclaimed, incomplete, or hasn't been touched in months. It's the single biggest factor in local search visibility and you're leaving it on the table.",
       },
       {
-        title: "Poor page speed",
+        title: "No reviews strategy",
         description:
-          "Theme bloat plus a dozen apps means your Shopify store loads slowly. Google penalizes slow e-commerce sites — costing you sales and rankings.",
+          "Your competitors have 200+ reviews and a 4.8 rating. You have a handful of old reviews. Google uses review quantity and quality as a major ranking factor.",
       },
       {
-        title: "High transaction fees",
+        title: "Your website has zero SEO",
         description:
-          "Unless you use Shopify Payments, you pay 0.5–2% transaction fees on top of your plan. Webflow E-commerce charges 0% transaction fees on all plans.",
+          "No meta titles, no local keywords, no schema markup, no internal linking strategy. Your website looks fine but Google has no idea what it's about or where you serve.",
       },
     ],
     processSteps: [
       {
         step: 1,
-        title: "Store Audit & Product Export",
+        title: "Audit",
         description:
-          "We audit your Shopify store, export all products, collections, blog content, and customer-facing pages, and map your URL structure for SEO-safe migration.",
+          "We analyze your current visibility — where you rank, where you don't, what your competitors are doing, and exactly what's holding you back.",
       },
       {
         step: 2,
-        title: "Design & Brand Experience",
+        title: "Optimize",
         description:
-          "We design your new site in Webflow with full creative control — custom product pages, brand storytelling sections, and an experience that goes far beyond a Shopify theme.",
+          "We optimize your website with local keywords, meta tags, schema markup, and location-specific content so Google knows what you do and where you do it.",
       },
       {
         step: 3,
-        title: "Build & Product Migration",
+        title: "Build",
         description:
-          "Your Webflow E-commerce store is built with custom product pages, collection filtering, cart and checkout flows, and Stripe integration. All products and content are migrated.",
+          "We optimize your Google Business Profile, build local citations across directories, and ensure your business info is consistent everywhere online.",
       },
       {
         step: 4,
-        title: "QA, Launch & Redirects",
+        title: "Grow",
         description:
-          "Thorough testing of the full purchase flow, 301 redirect mapping for all URLs, DNS cutover, and 90 days of post-launch monitoring for both SEO and e-commerce performance.",
+          "We create ongoing content, build local authority, implement a review strategy, and continuously improve your rankings month over month.",
       },
     ],
     faqs: (locality, region) => [
       {
         category: "process",
-        question: "How long does a Shopify to Webflow migration take?",
-        answer: `Shopify to Webflow e-commerce migrations typically take 5–8 weeks. A smaller catalog (under 100 products) with a marketing site can be done in 5–6 weeks. Larger catalogs with complex product variants, custom checkout flows, or extensive blog content take 6–8 weeks.`,
+        question: "How long does SEO take to show results?",
+        answer: `Most ${region} businesses see noticeable improvements in local search rankings within 60-90 days. Significant traffic and lead increases typically happen in the 4-6 month range. SEO is a long game, but it compounds — the longer you invest, the bigger the returns.`,
+      },
+      {
+        category: "service",
+        question: "What's included in your local SEO service?",
+        answer: `Our local SEO service includes Google Business Profile optimization, on-page SEO for your website, local citation building, review strategy, monthly content updates, and regular reporting. Everything a ${locality} business needs to climb the local search rankings.`,
       },
       {
         category: "general",
-        question: "Can Webflow handle e-commerce as well as Shopify?",
-        answer: `Webflow E-commerce supports up to 15,000 products with Stripe integration, discount codes, inventory management, and fully custom checkout flows. Where it excels over Shopify is design freedom — every product page, cart, and checkout is fully customizable without apps or Liquid code. For brands under 15,000 SKUs that prioritize design and brand experience, Webflow is the better platform.`,
+        question: "What's the difference between local SEO and national SEO?",
+        answer: `Local SEO focuses on ranking for searches in your specific area — things like "plumber in ${locality}" or "best restaurant near me." National SEO targets broader keywords without a geographic focus. For most small businesses, local SEO delivers the best ROI because you're reaching people who can actually walk through your door.`,
       },
       {
-        category: "webflow",
-        question: "What about Shopify apps — can Webflow replace them?",
-        answer: `Most Shopify app functionality has native Webflow equivalents or better alternatives. Reviews, size guides, custom fields, email signups, and analytics are all handled natively or through lightweight integrations (Klaviyo, Judge.me, Zapier). The result is a faster, cleaner site without the monthly app fees.`,
+        category: "service",
+        question: "Do you manage our Google Business Profile?",
+        answer: `Yes. GBP management is a core part of our local SEO service. We optimize every field, add photos, post regular updates, manage Q&A, and help you build a review acquisition strategy. For ${region} businesses, your GBP is often the first thing customers see — we make sure it looks great.`,
       },
       {
-        category: "pricing",
-        question: `How much does a Shopify to Webflow migration cost in ${region}?`,
-        answer: `Migration pricing depends on your package and page count. Straightforward Migration starts at $325/page, Animated Migration is $495/page, and Brand Elevation is $800/page. Product migration is included. Use the pricing calculator above for an instant estimate.`,
-      },
-      {
-        category: "general",
-        question: "Will I lose sales during the migration?",
-        answer: `No. We build your new Webflow store in parallel while your Shopify store stays live. The cutover happens in minutes with zero downtime — your customers won't notice the switch. We also set up 301 redirects to ensure no traffic is lost.`,
-      },
-      {
-        category: "webflow",
-        question: `When should a ${region} business stay on Shopify vs. move to Webflow?`,
-        answer: `Stay on Shopify if you have 15,000+ SKUs, need advanced inventory management across multiple warehouses, or rely heavily on Shopify POS for in-store sales. Move to Webflow if your brand needs a real website (not just a store), you want full design control, you're tired of app fees, or your catalog is under 15,000 products. Most ${locality} businesses we work with fall into the second category.`,
-      },
-      {
-        category: "process",
-        question: "Can you migrate my product reviews from Shopify?",
-        answer: `Yes. We export reviews from your Shopify review app (Judge.me, Stamped, Yotpo, etc.) and integrate them into your Webflow site. Reviews are critical for conversion, so preserving them is a standard part of our migration process.`,
-      },
-      {
-        category: "general",
-        question: "Does Webflow charge transaction fees?",
-        answer: `No. Webflow E-commerce charges 0% transaction fees on all plans. You only pay Stripe's standard processing fee (2.9% + 30¢). Compare that to Shopify's 0.5–2% transaction fee if you don't use Shopify Payments — the savings add up quickly for high-volume stores.`,
+        category: "website",
+        question: "How does SEO work together with my website?",
+        answer: `Your website is the foundation of your SEO. We optimize your site's content, structure, and technical performance so Google can understand and rank it. A great website without SEO is invisible. Good SEO without a solid website sends people to a dead end. They work best together.`,
       },
     ],
     showComparison: false,
     showPortfolio: true,
-    migrationPackages,
+  },
+
+  "google-business-profile": {
+    slug: "google-business-profile",
+    title: "Google Business Profile Optimization",
+    eyebrow: "Google Business Profile",
+    problemEyebrow: "Why You're Missing the Map Pack",
+    problemHeading:
+      "42% of local clicks go to the top 3 Map Pack results.",
+    processHeading: "How we optimize your Google presence.",
+    metaTitle: (locality, region) =>
+      `Google Business Profile ${locality} | ${region} GBP Optimization`,
+    metaDescription: (locality, region) =>
+      `Google Business Profile optimization for ${region} businesses. Get into the Map Pack, earn more reviews, and turn Google searches into phone calls. Serving ${locality}.`,
+    heroH1: (_locality, region) =>
+      `Google Business Profile Optimization for ${region} Businesses`,
+    heroSubhead: (_locality, region) =>
+      `The Map Pack is the most valuable real estate on Google — and 42% of local clicks go to the top 3 results. We get your ${region} business into that top spot.`,
+    heroQualifier: (_locality, region) =>
+      `For ${region} businesses that want more calls, more directions requests, and more customers from Google Maps.`,
+    painPoints: [
+      {
+        title: "Your profile is unclaimed or incomplete",
+        description:
+          "If you haven't claimed your Google Business Profile — or if half the fields are empty — Google has no reason to show you over a competitor who has a fully optimized listing.",
+      },
+      {
+        title: "You have few or no reviews",
+        description:
+          "Reviews are the second biggest ranking factor for the Map Pack. Your competitors have hundreds. You have a handful. Every missing review is a missed opportunity to rank higher.",
+      },
+      {
+        title: "Your business info is outdated",
+        description:
+          "Wrong hours, old phone number, missing services, no photos. Customers see an incomplete profile and assume you're not a serious business — or worse, that you're closed.",
+      },
+      {
+        title: "You're not showing up in the Map Pack",
+        description:
+          "When customers search for your service in your area, the top 3 Map Pack results get the lion's share of clicks. If you're not there, you're handing those customers to competitors.",
+      },
+      {
+        title: "Competitors have better profiles than you",
+        description:
+          "They have professional photos, hundreds of reviews, weekly posts, and complete service listings. Their profile looks like a thriving business. Yours looks like an afterthought.",
+      },
+    ],
+    processSteps: [
+      {
+        step: 1,
+        title: "Claim & Verify",
+        description:
+          "We claim your Google Business Profile (or take over management of your existing one) and verify ownership so you have full control of your listing.",
+      },
+      {
+        step: 2,
+        title: "Optimize",
+        description:
+          "We complete every single field — categories, services, attributes, business description, photos, and more. A fully optimized profile signals to Google that you're a legit, active business.",
+      },
+      {
+        step: 3,
+        title: "Reviews",
+        description:
+          "We implement a review acquisition strategy that makes it easy for happy customers to leave reviews. More reviews, better ratings, higher rankings.",
+      },
+      {
+        step: 4,
+        title: "Maintain",
+        description:
+          "We post weekly updates, manage Q&A, add new photos, and keep your profile active. Google rewards businesses that actively maintain their profiles.",
+      },
+    ],
+    faqs: (locality, region) => [
+      {
+        category: "general",
+        question: "Why is Google Business Profile so important?",
+        answer: `Your Google Business Profile is often the very first thing customers see when they search for your type of business in ${region}. It shows up in the Map Pack, in Google Maps, and in the knowledge panel. For most local businesses, GBP drives more calls and visits than the website itself.`,
+      },
+      {
+        category: "process",
+        question: "How do you help us get more reviews?",
+        answer: `We set up a simple, repeatable review system — think a follow-up text or email with a direct link to your Google review page. We make it so easy for happy customers that leaving a review takes 30 seconds. We also coach you on when and how to ask.`,
+      },
+      {
+        category: "process",
+        question: `How long does it take to rank in the Map Pack in ${locality}?`,
+        answer: `It depends on your competition, but most ${region} businesses see meaningful Map Pack improvements within 60-90 days of full optimization. Some less competitive markets see results even faster. Consistency is key — the businesses that maintain their profiles monthly see the best long-term results.`,
+      },
+      {
+        category: "service",
+        question: "What exactly do you manage on our profile?",
+        answer: `Everything. We manage your business info, categories, services, photos, Google Posts, Q&A, review responses, and performance tracking. You don't have to touch it — but you'll always have full access and visibility into what we're doing.`,
+      },
+      {
+        category: "pricing",
+        question: "How much does GBP optimization cost?",
+        answer: `GBP optimization is included in our website management plans starting at $99/month. For businesses that want standalone GBP management without a website, we offer dedicated plans as well. Either way, the ROI is hard to beat — a single new customer from Google Maps pays for months of management.`,
+      },
+    ],
+    showComparison: false,
+    showPortfolio: true,
   },
 };
 

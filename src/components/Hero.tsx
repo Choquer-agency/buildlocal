@@ -9,7 +9,7 @@ const featureColors = ["#F79C42", "#71CFA3", "#BCEFFF"];
 const features = [
   {
     num: "01",
-    label: "Web Development",
+    label: "No Setup Fees",
     icon: (
       <svg viewBox="0 0 48 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-auto">
         <rect x="0" y="47.9922" width="15.9996" height="15.9996" transform="rotate(-90 0 47.9922)" fill="currentColor"/>
@@ -22,7 +22,7 @@ const features = [
   },
   {
     num: "02",
-    label: "SEO Optimization",
+    label: "Managed Monthly",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-auto">
         <rect x="47.9883" width="15.9996" height="15.9996" fill="currentColor"/>
@@ -40,7 +40,7 @@ const features = [
   },
   {
     num: "03",
-    label: "AI Automation",
+    label: "Built to Convert",
     icon: (
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-full w-auto">
         <rect width="15.9996" height="15.9996" fill="currentColor"/>
@@ -66,6 +66,7 @@ interface HeroProps {
   region: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function Hero({ h1, subhead, region }: HeroProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -96,16 +97,10 @@ export function Hero({ h1, subhead, region }: HeroProps) {
     <header ref={ref} className="section-space-hero" style={{ backgroundColor: "#FFF9F0" }}>
       <div className="u-container">
         <div className="max-w-[85rem] mx-auto">
-          {/* Eyebrow with Webflow logo */}
-          <div className="hero-heading flex items-center gap-2.5 mb-6">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/logos/webflow.svg"
-              alt="Webflow"
-              className="h-4 w-auto"
-            />
+          {/* Eyebrow */}
+          <div className="hero-heading mb-6">
             <span className="font-mono text-xs uppercase tracking-wider text-brand">
-              Certified Webflow Agency
+              175+ Websites Built
             </span>
           </div>
 
@@ -121,7 +116,7 @@ export function Hero({ h1, subhead, region }: HeroProps) {
 
           {/* Qualifier */}
           <p className="hero-body font-sans text-fluid-main text-dark opacity-40 max-w-[50ch] mb-16 leading-relaxed">
-            Built for growing businesses in {region} ready to invest in a Webflow website that drives real results.
+            For small businesses and trades companies who want a professional website without the headache.
           </p>
 
           {/* Feature items row with SVG icons */}
@@ -146,7 +141,7 @@ export function Hero({ h1, subhead, region }: HeroProps) {
           {/* Partners line */}
           <div className="hero-partners flex items-center gap-4 pt-8 border-t" style={{ borderColor: "#ffca94" }}>
             <p className="font-sans text-fluid-main text-dark opacity-40">
-              Helped over 100 businesses globally
+              175+ websites built — and counting
             </p>
             <svg
               width="24"

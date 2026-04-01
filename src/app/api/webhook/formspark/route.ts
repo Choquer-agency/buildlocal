@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
-const redis = new Redis({
-  url: process.env.KV_REST_API_URL!,
-  token: process.env.KV_REST_API_TOKEN!,
-});
+function getRedis() {
+  return new Redis({
+    url: process.env.KV_REST_API_URL!,
+    token: process.env.KV_REST_API_TOKEN!,
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,6 +23,7 @@ export async function POST(request: NextRequest) {
 
     // Store under monthly key: leads:2026-03
     const monthKey = `leads:${lead.submittedAt.slice(0, 7)}`;
+    const redis = getRedis();
     await redis.lpush(monthKey, JSON.stringify(lead));
 
     return NextResponse.json({ success: true });

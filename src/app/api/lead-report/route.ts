@@ -2,12 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { Resend } from "resend";
 
-const redis = new Redis({
-  url: process.env.KV_REST_API_URL!,
-  token: process.env.KV_REST_API_TOKEN!,
-});
+function getRedis() {
+  return new Redis({
+    url: process.env.KV_REST_API_URL!,
+    token: process.env.KV_REST_API_TOKEN!,
+  });
+}
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY!);
+}
 
 interface Lead {
   websiteSource: string;
@@ -49,6 +53,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch all leads for the month
+    const redis = getRedis();
+    const resend = getResend();
     const rawLeads = await redis.lrange(monthKey, 0, -1);
     const leads: Lead[] = rawLeads.map((entry) =>
       typeof entry === "string" ? JSON.parse(entry) : entry
@@ -58,7 +64,7 @@ export async function GET(request: NextRequest) {
       await resend.emails.send({
         from: "Ollie Hours <noreply@ollieinvoice.com>",
         to: process.env.REPORT_EMAIL!,
-        subject: `choquer.agency-marketing-report-${monthLabel.replace(" ", "-")}`,
+        subject: `buildlocal-marketing-report-${monthLabel.replace(" ", "-")}`,
         html: `<p>No leads were received in ${monthLabel}.</p>`,
       });
 
@@ -145,7 +151,7 @@ export async function GET(request: NextRequest) {
     await resend.emails.send({
       from: "Ollie Hours <noreply@ollieinvoice.com>",
       to: process.env.REPORT_EMAIL!,
-      subject: `choquer.agency-marketing-report-${monthLabel.replace(" ", "-")}`,
+      subject: `buildlocal-marketing-report-${monthLabel.replace(" ", "-")}`,
       html,
     });
 

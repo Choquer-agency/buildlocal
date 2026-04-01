@@ -6,21 +6,21 @@ import { gsap } from "@/lib/gsap-register";
 
 const stats = [
   {
-    number: "$1.3M",
-    heading: "Client Revenue Generated",
-    body: "One client went from zero online presence to $1.3 million in revenue over three years \u2014 powered by a Webflow site built to convert.",
+    number: "175+",
+    heading: "Websites Built",
+    body: "We've designed and built over 175 websites for small businesses across the country \u2014 from single-page sites to full lead-generation machines.",
     color: "#F79C42",
   },
   {
-    number: "221%",
-    heading: "Average Organic Growth",
-    body: "Across multiple accounts, our Webflow builds and SEO strategy drove an average organic traffic increase of 221%.",
+    number: "47%",
+    heading: "Avg. Traffic Increase",
+    body: "Our clients see an average 47% increase in website traffic within six months. Every site is built with SEO and conversion optimization baked in from day one.",
     color: "#BCEFFF",
   },
   {
-    number: "#1",
-    heading: "Local Search Rankings",
-    body: "Multiple clients rank #1 in their local markets \u2014 because your Webflow site is built for search engines from day one.",
+    number: "$0",
+    heading: "Setup Fees",
+    body: "No upfront cost to get started. No contracts. No hidden fees. Just a simple monthly plan that covers everything \u2014 cancel anytime.",
     color: "#C4EF7A",
   },
 ];
@@ -95,7 +95,7 @@ export function Stats() {
     <section ref={sectionRef} className="section-space-large theme-dark">
       <div className="u-container">
         <h2 className="stats-heading font-sans font-medium text-fluid-h2 leading-[1.1] text-center max-w-[20ch] mx-auto mb-20">
-          Data-driven strategy for measurable growth.
+          Built to perform. Designed to convert.
         </h2>
 
         <div className="max-w-[58rem] mx-auto grid md:grid-cols-3 gap-5">

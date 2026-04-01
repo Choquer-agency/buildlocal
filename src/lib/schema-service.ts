@@ -1,6 +1,5 @@
 import { DomainConfig } from "@/content/config";
 import { ServicePageConfig } from "@/content/services";
-import { getCurrency } from "@/content/clusters";
 
 export function generateServiceSchema(
   config: DomainConfig,
@@ -14,7 +13,6 @@ export function generateServiceSchema(
   return {
     "@context": "https://schema.org",
     "@graph": [
-      // Service
       {
         "@type": "Service",
         "@id": `${domain}/services/${service.slug}/#service`,
@@ -23,22 +21,18 @@ export function generateServiceSchema(
         provider: {
           "@type": ["LocalBusiness", "ProfessionalService"],
           "@id": `${domain}/#business`,
-          name: `${locality} Webflow Agency — ${region}`,
+          name: config.brandName,
           url: domain,
           ...(config.telephone && { telephone: config.telephone }),
           ...(config.email && { email: config.email }),
         },
         areaServed: [
           { "@type": "City", name: locality },
-          {
-            "@type": config.country === "US" ? "State" : "Country",
-            name: region,
-          },
+          { "@type": "State", name: region },
         ],
         serviceType: service.title,
       },
 
-      // WebPage with speakable (AEO)
       {
         "@type": "WebPage",
         "@id": `${domain}/services/${service.slug}/#webpage`,
@@ -49,16 +43,10 @@ export function generateServiceSchema(
         about: { "@id": `${domain}/services/${service.slug}/#service` },
         speakable: {
           "@type": "SpeakableSpecification",
-          cssSelector: [
-            ".service-hero h1",
-            ".service-hero p",
-            "#pricing h2",
-            "#faq",
-          ],
+          cssSelector: [".service-hero h1", ".service-hero p", "#faq"],
         },
       },
 
-      // FAQPage
       {
         "@type": "FAQPage",
         "@id": `${domain}/services/${service.slug}/#faq`,
@@ -72,7 +60,6 @@ export function generateServiceSchema(
         })),
       },
 
-      // HowTo (Migration Process)
       {
         "@type": "HowTo",
         name: `How We Handle ${service.title}`,
@@ -85,7 +72,6 @@ export function generateServiceSchema(
         })),
       },
 
-      // BreadcrumbList
       {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -103,25 +89,6 @@ export function generateServiceSchema(
           },
         ],
       },
-
-      // Offer (pricing for migration packages)
-      ...(service.migrationPackages
-        ? service.migrationPackages.map((pkg) => {
-            const currency = getCurrency(config.slug || "arizona");
-            return {
-            "@type": "Offer",
-            name: pkg.name,
-            description: pkg.description,
-            price: Math.round(pkg.pricePerPage * currency.exchangeRate),
-            priceCurrency: currency.code,
-            unitText: "per page",
-            itemOffered: {
-              "@type": "Service",
-              name: `${pkg.name} — ${service.title}`,
-              provider: { "@id": `${domain}/#business` },
-            },
-          };})
-        : []),
     ],
   };
 }

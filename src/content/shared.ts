@@ -4,402 +4,449 @@ import {
   Testimonial,
   PortfolioProject,
   FAQItem,
-  WebflowService,
+  AgencyService,
   ComparisonRow,
   IndustryItem,
   PricingTier,
 } from "./config";
-import { getCluster, getCurrency } from "./clusters";
+import { getCluster } from "./clusters";
 
-/* ─── Services (static — not used by components directly) ─── */
+/* ─── Services (static) ─── */
 
 export const services: ServiceItem[] = [
   {
-    icon: "Code",
-    title: "Webflow Development",
-    description:
-      "Custom websites built natively in Webflow. No shortcuts, no page builders inside page builders.",
-  },
-  {
     icon: "Palette",
-    title: "UI/UX Design",
+    title: "Custom Website Design",
     description:
-      "Strategy-led design that guides visitors toward action, not just admiration.",
+      "Professionally designed websites tailored to your brand. No cookie-cutter templates — every site is built to reflect your business and convert visitors into customers.",
   },
   {
-    icon: "Fingerprint",
-    title: "Branding & Identity",
+    icon: "Smartphone",
+    title: "Mobile-First Development",
     description:
-      "Logos, color systems, typography, and brand guidelines that make you unmistakable.",
+      "Every site we build is fully responsive and optimized for phones, tablets, and desktops. Over 60% of your visitors are on mobile — your site needs to look great on every screen.",
   },
   {
     icon: "Search",
-    title: "SEO",
+    title: "SEO & Local Search",
     description:
-      "Technical SEO, on-page optimization, and content strategy built into every launch.",
+      "Get found on Google by the customers searching for your services. We build SEO into every site with optimized content, local keywords, and Google Business Profile setup.",
+  },
+  {
+    icon: "Cloud",
+    title: "Managed Hosting",
+    description:
+      "Fast, reliable hosting with SSL certificates and 99.9% uptime — all included in your monthly plan. No extra fees, no server headaches.",
+  },
+  {
+    icon: "FileEdit",
+    title: "Content Updates",
+    description:
+      "Need to change your hours, add a new service, or update photos? Every plan includes a monthly change allowance so your site stays current without extra charges.",
   },
   {
     icon: "BarChart3",
-    title: "Google Ads",
+    title: "Analytics & Reporting",
     description:
-      "Performance campaigns that turn ad spend into measurable pipeline.",
-  },
-  {
-    icon: "Megaphone",
-    title: "Social Media Ads",
-    description:
-      "Paid social on Meta, LinkedIn, and TikTok, built for conversion, not just awareness.",
+      "Track how your website is performing with visitor analytics, lead tracking, and monthly performance summaries. Know exactly how your site is working for you.",
   },
 ];
 
 /* ─── Process Steps (cluster-aware) ─── */
 
-export function getProcessSteps(slug: string): ProcessStep[] {
+export function getProcessSteps(slug: string = "buildlocal"): ProcessStep[] {
   const cluster = getCluster(slug);
   return cluster.processSteps;
 }
 
-// Backward-compatible static alias
-export const processSteps: ProcessStep[] = getProcessSteps("arizona");
+export const processSteps: ProcessStep[] = getProcessSteps("buildlocal");
 
-/* ─── Testimonials (static — real quotes, identical across domains) ─── */
+/* ─── Testimonials (static) ─── */
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function getTestimonials(locality: string): Testimonial[] {
+export function getTestimonials(_locality?: string): Testimonial[] {
   return [
     {
-      quote: `They didn't just build us a website. They built us a sales machine. We went from 2 inbound leads a month to 40 in the first 90 days.`,
-      name: "Rachel Moran",
-      title: "Marketing Director",
-      company: "Pinnacle Fertility",
+      quote:
+        "Before BuildLocal, I had no website at all. Now I'm getting 3x more calls than I was from word of mouth alone. The site paid for itself in the first week.",
+      name: "Marcus Delgado",
+      title: "Owner",
+      company: "Delgado Roofing",
       featured: true,
     },
     {
-      quote: `The team understood our vision from day one. The site they delivered exceeded every expectation — fast, beautiful, and converting.`,
-      name: "Tom Vasquez",
+      quote:
+        "We went from zero online presence to being booked solid within two months. I can't believe how fast they got us up and running. Best $195 I spend every month.",
+      name: "Sarah Mitchell",
       title: "Owner",
-      company: "Pedigree Painting",
+      company: "Spotless Cleaning Co.",
     },
     {
-      quote: `We've worked with five agencies before. None of them came close. The attention to detail and the speed of delivery were unmatched.`,
-      name: "Kate Nguyen",
+      quote:
+        "The website literally paid for itself in the first month. We got four new service calls the first week it went live. Should have done this years ago.",
+      name: "James Kowalski",
       title: "Operations Manager",
-      company: "DFI Forensics",
+      company: "Summit HVAC Services",
     },
     {
-      quote: `Our old site was embarrassing. They gave us something we're genuinely proud to share. Traffic is up 200% and counting.`,
-      name: "David Harmon",
-      title: "General Manager",
-      company: "Far North Crane",
+      quote:
+        "I'm not a tech person at all, and that's what I love about BuildLocal. They handle everything — I just run my salon and the website brings in new clients on its own.",
+      name: "Priya Anand",
+      title: "Owner",
+      company: "Luxe Hair Studio",
     },
   ];
 }
 
-export const testimonials = getTestimonials("Phoenix");
+export const testimonials = getTestimonials();
 
-/* ─── Portfolio (static — real projects, identical across domains) ─── */
+/* ─── Portfolio ─── */
 
-export const portfolioProjects: PortfolioProject[] = [
-  {
-    name: "LC Notary",
-    category: "Notary Services",
-    image: "/images/portfolio/project-1.webp",
-    description: "Ranked #1 locally for notary services in their target market.",
-    caseStudy: {
-      challenge: "LC Notary was competing against dozens of established notary services in their area with no online visibility and zero organic traffic.",
-      approach: "We built a locally optimized Webflow site with service-area pages, Google Business Profile integration, and a streamlined booking flow designed to convert mobile searchers into appointments.",
-      result: "Ranked #1 in Google for notary services in their target market within four months. Organic leads now account for over 70% of their new business.",
-    },
-  },
+const generalPortfolio: PortfolioProject[] = [
   {
     name: "Pinnacle Fertility",
     category: "Healthcare",
     image: "/images/portfolio/project-2.webp",
-    description: "Managed their entire web portfolio with an average organic growth of 221% across accounts.",
+    description:
+      "Built a multi-location website for Pinnacle Fertility with location-specific landing pages, driving an average 221% increase in organic traffic across all clinic sites.",
     caseStudy: {
-      challenge: "Pinnacle Fertility had multiple clinic locations with outdated websites that weren\u2019t ranking for key fertility-related search terms. Each location operated independently online, with inconsistent branding and poor organic visibility.",
-      approach: "We rebuilt their entire web portfolio in Webflow with a unified design system, location-specific SEO strategies, and a CMS architecture that let their marketing team update content across all sites without developer help.",
-      result: "221% average organic growth across all accounts, with several clinic locations ranking on page one for high-intent fertility keywords in their local markets.",
+      challenge:
+        "Pinnacle Fertility had multiple clinic locations but no cohesive web presence. Each location had inconsistent branding and poor mobile experiences.",
+      approach:
+        "We designed and built a unified, mobile-first website with location-specific pages, optimized content for each clinic, and integrated appointment booking across all locations.",
+      result:
+        "221% average organic traffic growth across all locations. Multiple clinics now rank on page one for high-intent fertility keywords, driving steady appointment bookings.",
     },
   },
   {
     name: "Pedigree Painting",
-    category: "Painting Services",
+    category: "Home Services",
     image: "/images/portfolio/project-3.webp",
-    description: "Took them from zero to $1.3 million in revenue over three years.",
+    description:
+      "Built the website for a brand-new painting company that went on to generate $1.3 million in revenue over three years.",
     caseStudy: {
-      challenge: "Pedigree Painting was a brand-new painting company with no online presence, no website, and no established reputation in a competitive local market.",
-      approach: "We built a conversion-focused Webflow site from scratch with local SEO baked in, a portfolio showcase system, an integrated quote request flow, and Google Ads campaigns to drive immediate lead volume while organic rankings grew.",
-      result: "$0 to $1.3 million in revenue over three years. The website became their primary lead source, consistently generating qualified inbound inquiries from homeowners in their service area.",
-    },
-  },
-  {
-    name: "Penni Payments",
-    category: "Fintech",
-    image: "/images/portfolio/project-4.webp",
-    description: "Built a new website for a new product line, helping them reposition and elevate their brand.",
-    caseStudy: {
-      challenge: "Penni Payments was launching a new product line and needed a website that clearly communicated their value proposition to a new audience while elevating the overall brand perception.",
-      approach: "We designed and built a conversion-focused Webflow site with product-specific landing pages, animated feature breakdowns, and a CMS-powered resource center to support their sales team.",
-      result: "The new site reduced bounce rate by 35% and increased demo requests by 2.4x in the first quarter after launch. Their sales team reported significantly warmer inbound leads.",
-    },
-  },
-  {
-    name: "Far North Crane",
-    category: "Crane & Rigging",
-    image: "/images/portfolio/project-5.webp",
-    description: "Continues to lead their market as a crane service working on major commercial projects.",
-    caseStudy: {
-      challenge: "Far North Crane had an outdated website that didn\u2019t reflect the scale of their commercial operations. General contractors couldn\u2019t easily find their services or request quotes online.",
-      approach: "We built a Webflow site showcasing their fleet, project portfolio, and service capabilities with a prominent quote request form and local SEO targeting commercial construction keywords.",
-      result: "Organic traffic increased 180% within six months. The site now generates a steady pipeline of commercial project inquiries, helping them secure contracts on major developments.",
-    },
-  },
-  {
-    name: "Broudy Tennis",
-    category: "Sports & Education",
-    image: "/images/portfolio/project-6.webp",
-    description: "Elevated his brand and helped him start selling tennis course subscriptions online.",
-    caseStudy: {
-      challenge: "Broudy Tennis had a strong personal brand but no way to monetize it online. Course content was being given away for free with no structured sales funnel or subscription model.",
-      approach: "We built a Webflow site with integrated membership and e-commerce functionality, a content preview system to drive conversions, and SEO-optimized landing pages for each course offering.",
-      result: "Launched a profitable online subscription business from scratch. Monthly recurring revenue grew to five figures within the first year, with the website converting at 4.2% on course pages.",
+      challenge:
+        "Brand-new painting company with no website and no online presence in a competitive local market.",
+      approach:
+        "We built a professional website with service area pages, a project gallery, click-to-call CTAs, and built-in local SEO to start generating leads from day one.",
+      result:
+        "$0 to $1.3 million in revenue over three years. The website became their primary lead source, delivering consistent inbound calls every week.",
     },
   },
   {
     name: "DFI Forensics",
     category: "Digital Forensics",
     image: "/images/portfolio/project-7.webp",
-    description: "Ranked in the top positions locally for digital forensics — and still owns that position today.",
+    description:
+      "Designed and developed a conversion-focused website that ranks #1 locally for digital forensics and drives 60% of their qualified leads.",
     caseStudy: {
-      challenge: "DFI Forensics operated in a niche industry with very specific search terms. Their previous site was invisible in search results and relied entirely on referrals for new business.",
-      approach: "We built a technically optimized Webflow site targeting high-intent forensics keywords with service-specific pages, case study content, and schema markup for enhanced search visibility.",
-      result: "Ranked #1 locally for digital forensics within three months and has held that position for over two years. Organic search now drives 60% of their qualified leads.",
+      challenge:
+        "Niche industry with very specific search terms. Their previous site was outdated, slow, and invisible in search results.",
+      approach:
+        "We built a modern, fast-loading website with service-specific pages, schema markup, and content optimized for high-intent forensics keywords.",
+      result:
+        "Ranked #1 locally within three months and has held that position for over two years. Organic search now drives 60% of qualified leads.",
+    },
+  },
+  {
+    name: "Far North Crane",
+    category: "Crane & Rigging",
+    image: "/images/portfolio/project-5.webp",
+    description:
+      "Built a professional website showcasing their fleet and services, resulting in a 180% increase in organic traffic and a steady pipeline of commercial inquiries.",
+    caseStudy: {
+      challenge:
+        "Outdated website that didn't reflect the scale of their commercial operations. Contractors couldn't find their services online.",
+      approach:
+        "We designed a modern site with dedicated fleet and service pages, project galleries, and mobile-optimized layouts built for the construction industry.",
+      result:
+        "Organic traffic increased 180% within six months. The new site delivers a steady pipeline of commercial project inquiries from contractors and developers.",
+    },
+  },
+  {
+    name: "LC Notary",
+    category: "Notary Services",
+    image: "/images/portfolio/project-1.webp",
+    description:
+      "Built a clean, conversion-optimized website that ranks #1 locally for notary services and generates over 70% of their new business.",
+    caseStudy: {
+      challenge:
+        "Competing against dozens of established notary services with no website and no online visibility.",
+      approach:
+        "We built a fast, mobile-friendly website with service area pages, click-to-call functionality, and local SEO baked into every page.",
+      result:
+        "Ranked #1 in Google within four months. Organic leads now account for over 70% of new business.",
     },
   },
   {
     name: "JDG Interior Design",
     category: "Interior Design",
     image: "/images/portfolio/project-8.webp",
-    description: "Visuals are everything — we built a site that showcases the quality of their work beautifully.",
+    description:
+      "Designed a visually stunning portfolio website that tripled consultation requests within two months.",
     caseStudy: {
-      challenge: "JDG Interior Design had stunning project photography but their website didn\u2019t do it justice. The existing site was slow, poorly organized, and failed to convert visitors into consultation requests.",
-      approach: "We designed a visually immersive Webflow site with full-bleed project galleries, lazy-loaded high-res imagery, and a CMS-powered portfolio that the team can update after every project completion.",
-      result: "Page load times dropped by 60%, average session duration increased by 45%, and consultation requests tripled within the first two months of launch.",
+      challenge:
+        "Had a stunning portfolio but their old website was slow, hard to navigate, and failed to convert visitors into consultation requests.",
+      approach:
+        "We built a visually rich, fast-loading website that showcases their portfolio beautifully while making it easy for visitors to book a consultation.",
+      result:
+        "Page load times dropped 60%, session duration up 45%, and consultation requests tripled in two months.",
     },
   },
 ];
 
-/* ─── Stats (static — identical across domains) ─── */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function getPortfolioProjects(_slug?: string): PortfolioProject[] {
+  return generalPortfolio;
+}
+
+export const portfolioProjects = generalPortfolio;
+
+/* ─── Stats (static) ─── */
 
 export const stats = {
-  projectsCompleted: 150,
-  clientsServed: 80,
+  sitesBuilt: 175,
+  sitesManaged: 60,
   yearsExperience: 8,
-  avgLighthouse: 96,
+  avgTrafficIncrease: 47,
 };
 
 /* ─── Pain Points (cluster-aware) ─── */
 
-export function getPainPoints(slug: string): { title: string; description: string }[] {
+export function getPainPoints(
+  slug: string = "buildlocal"
+): { title: string; description: string }[] {
   const cluster = getCluster(slug);
   return cluster.painPoints;
 }
 
-// Backward-compatible static alias
-export const painPoints = getPainPoints("arizona");
+export const painPoints = getPainPoints("buildlocal");
 
-/* ─── Solution Cards (static — low crawl impact) ─── */
+/* ─── Solution Cards (static) ─── */
 
 export const solutionCards = [
   {
     icon: "Target",
-    title: "Strategy\nFirst",
+    title: "Built to\nConvert",
     description:
-      "Every project starts with your business goals, not a template.",
+      "Every site is designed to turn visitors into calls, form fills, and paying customers. No fluff — just clear messaging and strong calls to action.",
   },
   {
     icon: "Zap",
-    title: "Built to\nPerform",
+    title: "No Upfront\nCost",
     description:
-      "Optimized for speed, SEO, and conversions from day one.",
+      "$0 setup fee. Your custom website, hosting, SSL, and ongoing support are all included in one simple monthly plan. Start for as little as $99/month.",
   },
   {
     icon: "Handshake",
-    title: "Partners,\nNot Vendors",
+    title: "We Handle\nEverything",
     description:
-      "We stick around long after launch to help you grow.",
+      "Hosting, updates, SEO, security, and support — all managed by our team. You focus on your business, we keep your website fast, secure, and generating leads.",
   },
 ];
 
-/* ─── Expanded FAQs (SEO + AEO, cluster-enhanced) ─── */
+/* ─── Expanded FAQs ─── */
 
-export function getExpandedFaqs(locality: string, region: string, slug?: string): FAQItem[] {
-  const currency = getCurrency(slug || "arizona");
-
-  // Format price range for the FAQ answer based on currency
-  const formatPriceExample = () => {
-    if (currency.code === "USD") return "$5,000 to $50,000+, depending on scope and complexity. A marketing site with 5–10 pages starts around $5,000–$12,000. E-commerce builds run $12,000–$30,000. Enterprise-level Webflow projects with custom CMS architecture, integrations, and advanced animations start at $25,000";
-    const fmt = (n: number) => n.toLocaleString(currency.locale, { style: "currency", currency: currency.code, minimumFractionDigits: 0, maximumFractionDigits: 0 });
-    const low = Math.round(5000 * currency.exchangeRate / 500) * 500;
-    const mid = Math.round(12000 * currency.exchangeRate / 500) * 500;
-    const midHigh = Math.round(30000 * currency.exchangeRate / 1000) * 1000;
-    const high = Math.round(25000 * currency.exchangeRate / 1000) * 1000;
-    return `${fmt(low)} to ${fmt(high * 2)}+, depending on scope and complexity. A marketing site with 5–10 pages starts around ${fmt(low)}–${fmt(mid)}. E-commerce builds run ${fmt(mid)}–${fmt(midHigh)}. Enterprise-level Webflow projects with custom CMS architecture, integrations, and advanced animations start at ${fmt(high)}`;
-  };
-
+export function getExpandedFaqs(
+  locality?: string,
+  region?: string,
+  slug?: string
+): FAQItem[] {
   const baseFaqs: FAQItem[] = [
-    // Core FAQs
     {
-      category: "general",
-      question: "How does Conversion Rate Optimization (CRO) improve my website's performance?",
-      answer: "Most websites lose leads due to friction — confusing navigation, weak CTAs, or slow load times. We analyze user behavior, heatmaps, and drop-off points, then implement data-driven changes that remove barriers and increase conversions, turning more visitors into customers.",
+      category: "billing",
+      question: "Are there any contracts or long-term commitments?",
+      answer:
+        "No. BuildLocal is month-to-month with no contracts and no cancellation fees. You can cancel anytime. We believe in earning your business every month, not locking you in.",
     },
     {
-      category: "process",
-      question: "How long does it take to see results from SEO and CRO?",
-      answer: "Clients see an average 47% traffic increase within six months. SEO takes time as Google indexes improvements, while CRO delivers quicker wins by optimizing your site for better engagement. Our dual approach ensures consistent, measurable growth from day one.",
+      category: "billing",
+      question: "What happens to my website if I cancel?",
+      answer:
+        "You own your domain name and all of your content. If you cancel, we'll help you transition your domain and provide all your content and images. The website itself is built on our managed platform, so you'd need a new host, but you'll never lose your domain or content.",
     },
     {
-      category: "general",
-      question: "What industries do you specialize in?",
-      answer: "We don't need to specialize in your industry — we specialize in Google's algorithm and user behavior. With 150+ websites across 50+ industries, we know how people search, interact, and convert, allowing us to apply winning strategies to any business.",
+      category: "billing",
+      question: "What payment methods do you accept?",
+      answer:
+        "We accept all major credit cards (Visa, Mastercard, Amex) and ACH bank transfers. Payments are processed securely on a monthly billing cycle. No invoices to chase — it's automatic.",
     },
     {
-      category: "general",
-      question: "Do you guarantee results?",
-      answer: "Yes — we guarantee at least a 20% traffic increase in six months, or we work for free. We've never worked for free because our SEO and CRO strategies consistently deliver measurable growth that drives leads and revenue.",
+      category: "billing",
+      question: "Is there really no setup fee?",
+      answer:
+        "Correct. $0 setup fee on every plan. We design, build, and launch your website at no upfront cost. Your first monthly payment is due when the site goes live.",
     },
     {
-      category: "process",
-      question: "How do you integrate into our company's team?",
-      answer: "We embed ourselves into your company by working directly with your sales, reception, and marketing teams to understand your customers. This allows us to optimize your site and messaging to align with real customer needs, increasing conversions and closing more deals.",
+      category: "service",
+      question: "What's included in my monthly plan?",
+      answer:
+        "Every plan includes custom website design, mobile-responsive development, managed hosting, SSL certificate, basic SEO, a monthly content change allowance, and ongoing support. Higher tiers add more pages, service area pages, blog content, and advanced SEO.",
     },
-    // AEO-targeted FAQs
     {
-      category: "webflow",
-      question: "What is Webflow?",
-      answer: "Webflow is a professional web design and development platform that combines a visual builder with the power of clean, production-ready code. Unlike WordPress or Squarespace, Webflow generates semantic HTML, CSS, and JavaScript — meaning your site loads faster, ranks better in search engines, and requires no plugins to maintain. It is the platform of choice for over 300,000 businesses worldwide, from startups to Fortune 500 companies.",
+      category: "service",
+      question: "How long does it take to build my website?",
+      answer:
+        "Most websites are designed, built, and ready for review within 3-5 business days. After you approve the design, we go live the same day. From signup to live site is typically under one week.",
+    },
+    {
+      category: "service",
+      question: "Is my website custom designed or a template?",
+      answer:
+        "Every BuildLocal site is custom designed for your business. We don't use off-the-shelf templates. Your site is built to match your brand, showcase your services, and convert visitors into customers.",
+    },
+    {
+      category: "service",
+      question: "Will my website be mobile-friendly?",
+      answer:
+        "Absolutely. Every site is built mobile-first, meaning it's designed for phones and tablets before scaling up to desktop. Over 60% of web traffic comes from mobile devices, and Google prioritizes mobile-friendly sites in search results.",
+    },
+    {
+      category: "website",
+      question: "Do I own my domain name?",
+      answer:
+        "Yes, you own your domain name. If you already have one, we'll connect it to your new site. If you need one, we'll help you register it in your name. Your domain is always yours.",
+    },
+    {
+      category: "website",
+      question: "What platform are the websites built on?",
+      answer:
+        "We build on modern, high-performance platforms optimized for speed, security, and SEO. You don't need to learn any CMS or software — we handle all updates and changes for you as part of your plan.",
+    },
+    {
+      category: "website",
+      question: "Can I request changes to my website after it's live?",
+      answer:
+        "Yes. Every plan includes a monthly change allowance (30 minutes to 2 hours depending on your tier). Need to update your hours, add a new service, swap out photos, or tweak copy? Just send us an email and we'll handle it.",
     },
     {
       category: "pricing",
-      question: `How much does a Webflow website cost in ${locality}?`,
-      answer: `A professionally designed and developed Webflow website in ${locality} typically ranges from ${formatPriceExample()}. Every project includes strategy, design, development, SEO optimization, and a 30-day post-launch support period.`,
+      question: "How much does a BuildLocal website cost?",
+      answer:
+        "Plans range from $99 to $495 per month depending on the size and features you need. Starter is $99/mo for a single-page site, Professional is $195/mo for a multi-page site, Growth is $295/mo with advanced SEO and service area pages, and Premium is $495/mo with ongoing SEO and blog content. No setup fees on any plan.",
     },
     {
-      category: "webflow",
-      question: "Why choose Webflow over WordPress?",
-      answer: "Webflow eliminates the maintenance burden that comes with WordPress. There are no plugins to update, no security patches to worry about, and no database to manage. Webflow sites load 30–50% faster out of the box, include built-in hosting on AWS infrastructure, and give your team a visual CMS editor that is far more intuitive than the WordPress dashboard. For businesses that want a modern, secure, and fast website without ongoing developer dependency, Webflow is the clear choice.",
+      category: "pricing",
+      question: "What's the difference between the tiers?",
+      answer:
+        "Starter ($99/mo) is a single-page scrolling site — great for getting online fast. Professional ($195/mo) adds multiple pages for your services. Growth ($295/mo) includes service area pages, StoryBrand messaging, and blog-ready structure. Premium ($495/mo) adds monthly blog content, Google Business Profile optimization, local SEO, and quarterly performance reviews.",
     },
     {
-      category: "webflow",
-      question: "Can Webflow handle e-commerce?",
-      answer: `Yes. Webflow E-commerce supports up to 15,000 products with fully customizable product pages, cart, and checkout flows. It integrates with Stripe for payment processing, handles physical and digital products, supports discount codes, and includes inventory management. For ${region} businesses that need a design-forward online store without the plugin headaches of WooCommerce or the template constraints of Shopify, Webflow E-commerce is an excellent fit.`,
-    },
-    {
-      category: "webflow",
-      question: "Is Webflow good for SEO?",
-      answer: "Webflow is one of the most SEO-friendly platforms available. It generates clean, semantic HTML by default and offers built-in controls for meta titles, descriptions, Open Graph tags, alt text, canonical URLs, 301 redirects, auto-generated sitemaps, and robots.txt — all without a single plugin. Webflow sites also score exceptionally well on Core Web Vitals due to their lightweight architecture and global CDN hosting. Our clients see an average 47% traffic increase within six months.",
+      category: "pricing",
+      question: "Are there any hidden fees?",
+      answer:
+        "None. Your monthly price covers everything: design, development, hosting, SSL, support, and your change allowance. The only additional cost would be your domain registration (~$12-15/year) if you don't already have one.",
     },
     {
       category: "process",
-      question: "How long does it take to build a Webflow website?",
-      answer: "Most Webflow projects take 4 to 8 weeks from kickoff to launch. A focused marketing site with 5–8 pages can be completed in 4–5 weeks. Larger builds with custom CMS collections, e-commerce, and complex animations typically take 6–8 weeks. Timeline depends on content readiness, feedback cycles, and project scope. We provide a detailed timeline during the discovery phase so there are no surprises.",
+      question: "How does the process work from start to finish?",
+      answer:
+        "Step 1: Pick your plan and sign up. Step 2: We gather your business info, logo, photos, and preferences in a simple onboarding form. Step 3: We design and build your site in 3-5 days. Step 4: You review and request any changes. Step 5: We go live. After launch, we manage everything — hosting, updates, support, and SEO.",
     },
     {
-      category: "webflow",
-      question: "Do I need a developer for Webflow?",
-      answer: "While Webflow's visual builder allows non-developers to make basic content edits, a professional Webflow developer is essential for building a high-performance site. Custom interactions, CMS architecture, responsive design, third-party integrations, and SEO optimization all require expertise. Once we build your site, your team can manage day-to-day content updates through Webflow's intuitive Editor — no code required.",
+      category: "process",
+      question: "What do I need to provide to get started?",
+      answer:
+        "Your logo (if you have one), photos of your work or team, a list of your services, and your contact info. Don't have professional photos? No problem — we can source high-quality stock imagery that fits your industry. We'll write all the content for you.",
     },
     {
-      category: "webflow",
-      question: "Can you migrate my WordPress site to Webflow?",
-      answer: `Yes. We specialize in WordPress-to-Webflow migrations for ${region} businesses. The process includes content auditing and migration, 301 redirect mapping to preserve your SEO equity, design modernization, CMS structure setup in Webflow, and thorough QA testing. Most migrations take 4–6 weeks. We ensure zero downtime during the cutover and monitor search performance closely for the first 90 days post-migration.`,
-    },
-    {
-      category: "webflow",
-      question: "What is Webflow CMS?",
-      answer: "Webflow CMS is a built-in content management system that lets you create dynamic, database-driven content without code. You define custom content structures — blog posts, team members, case studies, product listings — and Webflow automatically generates pages from templates. Unlike WordPress, which relies on dozens of plugins, Webflow CMS is native to the platform, meaning faster load times, no security vulnerabilities from third-party code, and a much simpler editing experience for your team.",
+      category: "process",
+      question: "How many revisions do I get before launch?",
+      answer:
+        "We include up to two rounds of revisions before launch at no extra cost. Most clients are happy after the first review. We want you to love your site before it goes live.",
     },
     {
       category: "general",
-      question: "Why hire a Webflow agency instead of a freelancer?",
-      answer: `A Webflow agency brings a full team — strategists, designers, developers, and SEO specialists — to every project. Freelancers are often one person wearing many hats, which leads to blind spots in design, performance, or search optimization. An agency also provides continuity: if your project lead is unavailable, the work continues. ${locality} Webflow Agency offers dedicated project management, structured timelines, quality assurance processes, and ongoing retainer support that individual freelancers simply cannot match.`,
+      question: "Who is BuildLocal?",
+      answer:
+        "BuildLocal is a productized web development agency that builds affordable, professionally managed websites for small businesses and trades companies. With 175+ websites built, 60+ sites under active management, and 8+ years of experience, we help local businesses get online and start generating leads without the headaches of DIY builders or expensive agencies.",
     },
     {
-      category: "local",
-      question: `Why should I hire a Webflow agency in ${locality}?`,
-      answer: `Working with a local ${locality} Webflow agency means you get a team that understands the ${region} market — the competitive landscape, local search dynamics, and what ${locality} customers expect from a business website. We are available for in-person strategy sessions, understand the seasonal patterns of ${region} industries, and have a portfolio of local success stories. Local expertise combined with Webflow specialization gives your business a measurable advantage.`,
+      category: "general",
+      question: "What industries do you work with?",
+      answer:
+        "We work with trades and home services (plumbers, roofers, electricians, HVAC, painters), local service businesses (cleaning companies, landscapers, auto shops), salons and barbershops, professional services (accountants, consultants), restaurants, and health and wellness businesses. If you're a small business that serves local customers, we can help.",
     },
     {
-      category: "webflow",
-      question: "What is the difference between Webflow and Squarespace?",
-      answer: "Webflow gives you full design freedom and clean code output. Squarespace is a template-based builder with limited customization. Webflow supports complex animations, custom CMS structures, and client-friendly content editing without the constraints of a rigid template system. For businesses that need a unique, high-performance website rather than a generic template, Webflow is the professional choice.",
+      category: "general",
+      question: "Do you only work with businesses in one area?",
+      answer:
+        "No. While we specialize in helping local businesses, we work with clients across the United States. Your website is built and managed remotely, so your location doesn't matter — our process works the same whether you're in Phoenix, Atlanta, or anywhere in between.",
     },
   ];
 
-  // Add cluster-specific FAQs
-  const cluster = getCluster(slug || "arizona");
-  const clusterFaqs = cluster.faqAdditions(locality, region);
+  const cluster = getCluster(slug || "buildlocal");
+  const clusterFaqs = cluster.faqAdditions(locality || "", region || "");
 
   return [...baseFaqs, ...clusterFaqs];
 }
 
-// Backward-compatible static aliases
-export const expandedFaqs = getExpandedFaqs("Phoenix", "Arizona", "arizona");
+export const expandedFaqs = getExpandedFaqs("Phoenix", "Arizona", "buildlocal");
 
-/* ─── Webflow Services Breakdown (cluster-aware) ─── */
+/* ─── Agency Services Breakdown (cluster-aware) ─── */
 
-const baseWebflowServices: WebflowService[] = [
+const baseAgencyServices: AgencyService[] = [
   {
-    slug: "webflow-design",
-    title: "Webflow Design",
-    description: "Strategy-led UI/UX design built natively for the Webflow platform.",
-    longDescription: "Every project starts with research, wireframing, and a complete design system in Figma — then translated pixel-perfectly into Webflow. No handoff gaps. No lost-in-translation moments. Your brand gets a site that looks exactly like it was designed to.",
+    slug: "website-design",
+    title: "Website Design & Development",
+    description:
+      "Custom-designed, mobile-responsive websites built to convert visitors into leads and customers.",
+    longDescription:
+      "Every website we build is custom designed for your business — no templates, no cookie-cutter layouts. We focus on clean design, fast load times, clear messaging, and strong calls to action that drive phone calls, form submissions, and bookings. Your site is built mobile-first and optimized for every screen size.",
     icon: "Palette",
   },
   {
-    slug: "webflow-development",
-    title: "Webflow Development",
-    description: "Clean, semantic, performant Webflow builds with custom interactions and integrations.",
-    longDescription: "Your Webflow site, built with clean class naming, responsive layouts, accessible markup, and performance scores above 95. Every build includes SEO optimization, analytics setup, and CMS training for your team.",
-    icon: "Code",
+    slug: "website-management",
+    title: "Website Management & Hosting",
+    description:
+      "Reliable hosting, SSL, backups, security monitoring, and ongoing maintenance — all included in your plan.",
+    longDescription:
+      "Your website is hosted on fast, secure infrastructure with SSL certificates, daily backups, uptime monitoring, and security patches — all managed by our team. You never need to worry about hosting bills, plugin updates, or security vulnerabilities. Everything is included in your monthly plan so your site stays fast, secure, and online 24/7.",
+    icon: "Cloud",
   },
   {
-    slug: "webflow-cms",
-    title: "Webflow CMS Development",
-    description: "Custom content structures that make your team self-sufficient.",
-    longDescription: "From blog systems to complex multi-reference architectures, we design CMS structures that are intuitive for editors and powerful for developers. Dynamic pages, filters, and conditional visibility — all without plugins or third-party dependencies.",
-    icon: "Database",
+    slug: "seo-local-search",
+    title: "SEO & Local Search",
+    description:
+      "On-page SEO, local keyword targeting, and Google optimization so customers in your area can find you.",
+    longDescription:
+      "We build SEO into every site from the ground up. That includes optimized page titles, meta descriptions, header tags, image alt text, and locally targeted content. For higher-tier plans, we add service area pages, Google Business Profile optimization, and local citation building so you show up when customers search for your services nearby.",
+    icon: "Search",
   },
   {
-    slug: "webflow-ecommerce",
-    title: "Webflow E-Commerce",
-    description: "Design-forward online stores built on Webflow's native commerce engine.",
-    longDescription: "Custom product pages, cart flows, and checkout experiences that match your brand. Stripe integration, inventory management, discount codes, and marketing automation — built in from day one without the overhead of WooCommerce or Shopify plugins.",
-    icon: "ShoppingCart",
+    slug: "google-business-profile",
+    title: "Google Business Profile",
+    description:
+      "Claim, optimize, and manage your Google Business Profile to appear in Maps and local search results.",
+    longDescription:
+      "Your Google Business Profile is one of the most important assets for local visibility. We claim and verify your listing, optimize every field (categories, services, hours, photos, Q&A), and ensure your NAP (name, address, phone) is consistent across the web. Available with Growth and Premium plans to help you show up in the Map Pack.",
+    icon: "MapPin",
   },
   {
-    slug: "webflow-migration",
-    title: "WordPress to Webflow Migration",
-    description: "Seamless migration from WordPress, Squarespace, or any legacy platform to Webflow.",
-    longDescription: "We handle the full migration: content transfer, 301 redirect mapping, SEO equity preservation, design modernization, and post-migration monitoring. Zero downtime during cutover and 90 days of search performance tracking post-launch.",
-    icon: "ArrowRightLeft",
+    slug: "content-updates",
+    title: "Content & Blog Writing",
+    description:
+      "Monthly content updates and SEO-optimized blog posts that keep your site fresh and drive organic traffic.",
+    longDescription:
+      "Fresh content tells Google your site is active and relevant. Every plan includes a monthly change allowance for updating your site. Premium plans include a monthly SEO-optimized blog post written by our team, targeting keywords your customers are searching for. More content means more pages ranking, more traffic, and more leads.",
+    icon: "FileEdit",
   },
   {
-    slug: "webflow-maintenance",
-    title: "Webflow Maintenance & Support",
-    description: "Ongoing retainer support to keep your Webflow site performing at its best.",
-    longDescription: "Monthly performance audits, content updates, feature additions, and priority support. We monitor Core Web Vitals, uptime, and conversion metrics so your site keeps improving long after launch. Plans start at $500/month.",
-    icon: "Wrench",
+    slug: "analytics-reporting",
+    title: "Analytics & Performance",
+    description:
+      "Track visitors, leads, and performance with analytics and monthly reporting so you know your site is working.",
+    longDescription:
+      "We install analytics tracking on every site so you can see how many people visit, where they come from, and what actions they take. Premium plans include quarterly performance reviews where we walk you through the numbers and recommend improvements. Data-driven decisions help your site get better over time.",
+    icon: "BarChart3",
   },
 ];
 
-export function getWebflowServices(slug: string): WebflowService[] {
+export function getAgencyServices(slug: string = "buildlocal"): AgencyService[] {
   const cluster = getCluster(slug);
-  const overrides = cluster.webflowServiceOverrides;
+  const overrides = cluster.seoServiceOverrides;
 
-  return baseWebflowServices.map((svc) => {
+  return baseAgencyServices.map((svc) => {
     if (overrides[svc.slug]) {
       return { ...svc, longDescription: overrides[svc.slug] };
     }
@@ -407,52 +454,116 @@ export function getWebflowServices(slug: string): WebflowService[] {
   });
 }
 
-// Backward-compatible static alias
-export const webflowServices: WebflowService[] = getWebflowServices("arizona");
+export const agencyServices: AgencyService[] = getAgencyServices("buildlocal");
 
-/* ─── Platform Comparison (cluster-aware) ─── */
+/* ─── Comparison Table (cluster-aware) ─── */
 
-const basePlatformComparison: ComparisonRow[] = [
-  { feature: "Visual design freedom", webflow: "Full creative control", wordpress: "Theme-limited", customCode: "Full creative control" },
-  { feature: "Clean code output", webflow: true, wordpress: false, customCode: true },
-  { feature: "Built-in CMS", webflow: true, wordpress: "Plugin-dependent", customCode: false },
-  { feature: "Hosting included", webflow: true, wordpress: false, customCode: false },
-  { feature: "Security maintenance", webflow: "Managed by Webflow", wordpress: "Manual updates required", customCode: "Manual" },
-  { feature: "SEO controls", webflow: "Built-in", wordpress: "Plugin required", customCode: "Manual" },
-  { feature: "Page speed", webflow: "95+ avg Lighthouse", wordpress: "Varies widely", customCode: "Depends on developer" },
-  { feature: "E-commerce", webflow: "Native", wordpress: "WooCommerce plugin", customCode: "Custom build required" },
-  { feature: "Content editor experience", webflow: "Visual & intuitive", wordpress: "Dashboard-based", customCode: "Usually none" },
-  { feature: "Time to launch", webflow: "4–8 weeks", wordpress: "6–12 weeks", customCode: "8–16+ weeks" },
-  { feature: "Ongoing maintenance cost", webflow: "Low", wordpress: "Medium–High", customCode: "High" },
-  { feature: "Plugin / dependency risk", webflow: "None", wordpress: "High", customCode: "Varies" },
+const baseComparison: ComparisonRow[] = [
+  {
+    feature: "Custom design",
+    buildLocal: "Professionally designed",
+    diyBuilder: "Template-based",
+    freelancer: "Varies wildly",
+  },
+  {
+    feature: "Mobile optimization",
+    buildLocal: true,
+    diyBuilder: "Basic",
+    freelancer: "Usually",
+  },
+  {
+    feature: "SEO included",
+    buildLocal: true,
+    diyBuilder: "Minimal",
+    freelancer: "Rarely",
+  },
+  {
+    feature: "Hosting included",
+    buildLocal: true,
+    diyBuilder: "Extra cost",
+    freelancer: false,
+  },
+  {
+    feature: "Ongoing updates",
+    buildLocal: "Included monthly",
+    diyBuilder: "You do it yourself",
+    freelancer: "$75-150/hr",
+  },
+  {
+    feature: "Monthly cost",
+    buildLocal: "$99-$495/mo",
+    diyBuilder: "$15-40/mo + your time",
+    freelancer: "$0 + hourly fees",
+  },
+  {
+    feature: "Time to launch",
+    buildLocal: "Under 1 week",
+    diyBuilder: "Weeks to months",
+    freelancer: "4-12 weeks",
+  },
+  {
+    feature: "Support",
+    buildLocal: "Dedicated team",
+    diyBuilder: "Help docs only",
+    freelancer: "Email if lucky",
+  },
+  {
+    feature: "Content updates",
+    buildLocal: "We handle it",
+    diyBuilder: "DIY",
+    freelancer: "$75-150/hr",
+  },
+  {
+    feature: "Lead generation",
+    buildLocal: "Built-in CTAs & forms",
+    diyBuilder: "Basic contact form",
+    freelancer: "Depends",
+  },
+  {
+    feature: "SSL & security",
+    buildLocal: true,
+    diyBuilder: true,
+    freelancer: "Sometimes",
+  },
+  {
+    feature: "Performance monitoring",
+    buildLocal: true,
+    diyBuilder: false,
+    freelancer: false,
+  },
 ];
 
-export function getPlatformComparison(slug: string): ComparisonRow[] {
+export function getComparison(slug: string = "buildlocal"): ComparisonRow[] {
   const cluster = getCluster(slug);
   const extras = cluster.platformComparisonExtras;
-  if (extras.length === 0) return basePlatformComparison;
-  return [...basePlatformComparison, ...extras];
+  if (extras.length === 0) return baseComparison;
+  return [...baseComparison, ...extras];
 }
 
-// Backward-compatible static alias
-export const platformComparison: ComparisonRow[] = getPlatformComparison("arizona");
+export const comparison: ComparisonRow[] = getComparison("buildlocal");
 
 /* ─── Industries Served (cluster-aware) ─── */
 
-export function getIndustriesServed(locality: string, region: string, slug?: string): IndustryItem[] {
-  const cluster = getCluster(slug || "arizona");
+export function getIndustriesServed(
+  locality: string,
+  region: string,
+  slug?: string
+): IndustryItem[] {
+  const cluster = getCluster(slug || "buildlocal");
   return cluster.industries(locality, region);
 }
 
-// Backward-compatible static alias
-export const industriesServed = getIndustriesServed("Phoenix", "Arizona", "arizona");
+export const industriesServed = getIndustriesServed(
+  "Phoenix",
+  "Arizona",
+  "buildlocal"
+);
 
 /* ─── Pricing Tiers (cluster-aware) ─── */
 
-export function getPricingTiers(slug: string): PricingTier[] {
+export function getPricingTiers(slug: string = "buildlocal"): PricingTier[] {
   const cluster = getCluster(slug);
   return cluster.pricingTiers;
 }
 
-// Backward-compatible static alias
-export const pricingTiers: PricingTier[] = getPricingTiers("arizona");
+export const pricingTiers: PricingTier[] = getPricingTiers("buildlocal");

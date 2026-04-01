@@ -12,61 +12,37 @@ interface ContactFormModalProps {
   region: string;
 }
 
-const TOTAL_SLIDES = 5;
+const TOTAL_SLIDES = 3;
 
-const projectTypes = [
-  "New website from scratch",
-  "Redesign of existing website",
-  "Migration to Webflow (from WordPress, Squarespace, etc.)",
-  "E-commerce store",
-  "Webflow CMS build",
-  "Ongoing maintenance / support retainer",
+const businessTypes = [
+  "Trades / Home Services (roofing, HVAC, plumbing, etc.)",
+  "Local Services (cleaning, pest control, auto repair, etc.)",
+  "Retail / Lifestyle (salon, restaurant, fitness, etc.)",
+  "Professional Services (accounting, consulting, insurance, etc.)",
   "Other",
 ];
 
-const budgetRanges = [
-  "$5,000 – $10,000",
-  "$10,000 – $25,000",
-  "$25,000 – $50,000",
-  "$50,000+",
-];
-
-const timelines = [
-  "ASAP (2–4 weeks)",
-  "1–2 months",
-  "3–6 months",
-  "Flexible / no hard deadline",
-];
-
-const pageCounts = [
-  "1–5 pages",
-  "6–15 pages",
-  "16–30 pages",
-  "30+ pages",
+const planInterests = [
+  "Starter — $99/mo",
+  "Professional — $195/mo",
+  "Growth — $295/mo (Most Popular)",
+  "Premium — $495/mo",
   "Not sure yet",
 ];
 
-const designStatusOptions = [
-  "Yes — we have a designer and brand assets",
-  "Yes — we have brand guidelines but need design help",
-  "No — we need full design + development",
-  "Partially — we have some assets",
+const timelines = [
+  "ASAP — this week",
+  "Within 2 weeks",
+  "Within a month",
+  "Flexible / no rush",
 ];
 
 const referralSources = [
   "Google search",
+  "Text message / cold outreach",
   "Referred by someone",
   "Social media",
-  "Webflow community / forum",
   "Other",
-];
-
-const goals = [
-  "Generate more leads / inbound inquiries",
-  "Sell products or services online",
-  "Build brand credibility and awareness",
-  "Replace an outdated or underperforming site",
-  "Improve site speed and performance",
 ];
 
 function ProgressIndicator({ current }: { current: number }) {
@@ -94,7 +70,7 @@ function ProgressIndicator({ current }: { current: number }) {
 }
 
 export function ContactFormModal({ domain, region }: ContactFormModalProps) {
-  const { isOpen, closeModal, packageInfo } = useContactForm();
+  const { isOpen, closeModal } = useContactForm();
   const mountTime = useRef(Date.now());
   const modalRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
@@ -110,15 +86,10 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
     email: "",
     phone: "",
     company: "",
+    businessType: "",
     website: "",
-    role: "",
-    projectType: "",
-    description: "",
-    goals: [] as string[],
-    pageCount: "",
-    budget: "",
+    plan: "",
     timeline: "",
-    designStatus: "",
     referral: "",
     notes: "",
     _gotcha: "",
@@ -135,15 +106,10 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
         email: "",
         phone: "",
         company: "",
+        businessType: "",
         website: "",
-        role: "",
-        projectType: "",
-        description: "",
-        goals: [],
-        pageCount: "",
-        budget: "",
+        plan: "",
         timeline: "",
-        designStatus: "",
         referral: "",
         notes: "",
         _gotcha: "",
@@ -151,16 +117,6 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
     }
     closeModal();
   }, [isSuccess, closeModal]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Pre-fill project type when opening from migration pricing
-  useEffect(() => {
-    if (isOpen && packageInfo) {
-      setFormData((prev) => ({
-        ...prev,
-        projectType: "Migration to Webflow (from WordPress, Squarespace, etc.)",
-      }));
-    }
-  }, [isOpen, packageInfo]);
 
   // Body scroll lock
   useEffect(() => {
@@ -210,17 +166,12 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
           newErrors.email = "Please enter a valid email";
         if (!formData.company.trim()) newErrors.company = "Company is required";
-        if (!formData.role.trim()) newErrors.role = "Role is required";
         break;
       case 1:
-        if (!formData.projectType)
-          newErrors.projectType = "Please select a project type";
-        if (!formData.description.trim())
-          newErrors.description = "Please describe your project";
-        break;
-      case 3:
-        if (!formData.budget) newErrors.budget = "Please select a budget range";
-        if (!formData.timeline) newErrors.timeline = "Please select a timeline";
+        if (!formData.businessType)
+          newErrors.businessType = "Please select a business type";
+        if (!formData.plan)
+          newErrors.plan = "Please select a plan";
         break;
     }
 
@@ -273,19 +224,10 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
     try {
       await submitForm({
         ...formData,
-        goals: formData.goals.join(", "),
         websiteSource: domain,
         websiteRegion: region,
         submittedAt: new Date().toISOString(),
         pageUrl: typeof window !== "undefined" ? window.location.href : "",
-        ...(packageInfo && {
-          selectedPackage: packageInfo.packageName,
-          migrationPageCount: packageInfo.pageCount,
-          estimatedTotal: packageInfo.estimatedTotal,
-          ...(packageInfo.calculatorDetails && {
-            calculatorDetails: packageInfo.calculatorDetails,
-          }),
-        }),
       });
       setIsSuccess(true);
     } catch {
@@ -298,15 +240,6 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
   function updateField(field: string, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
-  }
-
-  function toggleGoal(goal: string) {
-    setFormData((prev) => ({
-      ...prev,
-      goals: prev.goals.includes(goal)
-        ? prev.goals.filter((g) => g !== goal)
-        : [...prev.goals, goal],
-    }));
   }
 
   if (!isOpen) return null;
@@ -324,7 +257,7 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
         return (
           <div>
             <h3 className="font-sans font-medium text-fluid-h4 text-dark mb-2">
-              About You
+              Tell us about you
             </h3>
             <p className="font-sans text-fluid-main text-dark opacity-40 mb-6">
               Let&apos;s start with the basics.
@@ -363,7 +296,7 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
                 />
               </div>
               <div>
-                <label className={labelClasses}>Company Name *</label>
+                <label className={labelClasses}>Business Name *</label>
                 <input
                   type="text"
                   className={inputClasses}
@@ -375,7 +308,7 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
                   <p className={errorClasses}>{errors.company}</p>
                 )}
               </div>
-              <div>
+              <div className="sm:col-span-2">
                 <label className={labelClasses}>Current Website URL</label>
                 <input
                   type="url"
@@ -385,17 +318,6 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
                   onChange={(e) => updateField("website", e.target.value)}
                 />
               </div>
-              <div>
-                <label className={labelClasses}>Your Role / Title *</label>
-                <input
-                  type="text"
-                  className={inputClasses}
-                  placeholder="Marketing Director"
-                  value={formData.role}
-                  onChange={(e) => updateField("role", e.target.value)}
-                />
-                {errors.role && <p className={errorClasses}>{errors.role}</p>}
-              </div>
             </div>
           </div>
         );
@@ -404,140 +326,55 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
         return (
           <div>
             <h3 className="font-sans font-medium text-fluid-h4 text-dark mb-2">
-              About Your Project
+              About your business
             </h3>
             <p className="font-sans text-fluid-main text-dark opacity-40 mb-6">
-              Tell us what you&apos;re looking to build.
+              Help us understand what you do.
             </p>
             <div className="space-y-4">
               <div>
                 <label className={labelClasses}>
-                  What type of project is this? *
+                  What type of business do you run? *
                 </label>
                 <select
                   className={selectClasses}
-                  value={formData.projectType}
-                  onChange={(e) => updateField("projectType", e.target.value)}
+                  value={formData.businessType}
+                  onChange={(e) => updateField("businessType", e.target.value)}
                 >
-                  <option value="">Select project type...</option>
-                  {projectTypes.map((type) => (
+                  <option value="">Select business type...</option>
+                  {businessTypes.map((type) => (
                     <option key={type} value={type}>
                       {type}
                     </option>
                   ))}
                 </select>
-                {errors.projectType && (
-                  <p className={errorClasses}>{errors.projectType}</p>
+                {errors.businessType && (
+                  <p className={errorClasses}>{errors.businessType}</p>
                 )}
               </div>
               <div>
                 <label className={labelClasses}>
-                  Tell us about your project *
-                </label>
-                <textarea
-                  className={`${inputClasses} resize-none`}
-                  rows={5}
-                  placeholder="Describe what you're building, any specific features, design inspiration..."
-                  value={formData.description}
-                  onChange={(e) => updateField("description", e.target.value)}
-                />
-                {errors.description && (
-                  <p className={errorClasses}>{errors.description}</p>
-                )}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 2:
-        return (
-          <div>
-            <h3 className="font-sans font-medium text-fluid-h4 text-dark mb-2">
-              Goals & Scope
-            </h3>
-            <p className="font-sans text-fluid-main text-dark opacity-40 mb-6">
-              What are you hoping to achieve?
-            </p>
-            <div className="space-y-6">
-              <div>
-                <label className={labelClasses}>Primary goal?</label>
-                <div className="grid sm:grid-cols-2 gap-2 mt-2">
-                  {goals.map((goal) => (
-                    <label
-                      key={goal}
-                      className={clsx(
-                        "flex items-center gap-3 px-4 py-3 rounded-md border cursor-pointer transition-all",
-                        formData.goals.includes(goal)
-                          ? "border-brand bg-brand/5"
-                          : "border-dark-faded hover:border-dark/20"
-                      )}
-                      style={{ transitionDuration: "0.2s" }}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={formData.goals.includes(goal)}
-                        onChange={() => toggleGoal(goal)}
-                        className="rounded border-dark-faded text-brand focus:ring-brand/30"
-                      />
-                      <span className="font-sans text-sm text-dark opacity-70">
-                        {goal}
-                      </span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <label className={labelClasses}>
-                  Approximate number of pages
+                  Which plan interests you? *
                 </label>
                 <select
                   className={selectClasses}
-                  value={formData.pageCount}
-                  onChange={(e) => updateField("pageCount", e.target.value)}
+                  value={formData.plan}
+                  onChange={(e) => updateField("plan", e.target.value)}
                 >
-                  <option value="">Select...</option>
-                  {pageCounts.map((count) => (
-                    <option key={count} value={count}>
-                      {count}
+                  <option value="">Select a plan...</option>
+                  {planInterests.map((p) => (
+                    <option key={p} value={p}>
+                      {p}
                     </option>
                   ))}
                 </select>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 3:
-        return (
-          <div>
-            <h3 className="font-sans font-medium text-fluid-h4 text-dark mb-2">
-              Budget & Timeline
-            </h3>
-            <p className="font-sans text-fluid-main text-dark opacity-40 mb-6">
-              Help us understand your investment and timing.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className={labelClasses}>Project Budget *</label>
-                <select
-                  className={selectClasses}
-                  value={formData.budget}
-                  onChange={(e) => updateField("budget", e.target.value)}
-                >
-                  <option value="">Select budget range...</option>
-                  {budgetRanges.map((range) => (
-                    <option key={range} value={range}>
-                      {range}
-                    </option>
-                  ))}
-                </select>
-                {errors.budget && (
-                  <p className={errorClasses}>{errors.budget}</p>
+                {errors.plan && (
+                  <p className={errorClasses}>{errors.plan}</p>
                 )}
               </div>
               <div>
                 <label className={labelClasses}>
-                  Desired Launch Timeline *
+                  When do you want to go live?
                 </label>
                 <select
                   className={selectClasses}
@@ -551,41 +388,21 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
                     </option>
                   ))}
                 </select>
-                {errors.timeline && (
-                  <p className={errorClasses}>{errors.timeline}</p>
-                )}
               </div>
             </div>
           </div>
         );
 
-      case 4:
+      case 2:
         return (
           <div>
             <h3 className="font-sans font-medium text-fluid-h4 text-dark mb-2">
-              A Few More Details
+              Almost done
             </h3>
             <p className="font-sans text-fluid-main text-dark opacity-40 mb-6">
-              Almost done — just a couple more things.
+              Just a couple more things.
             </p>
             <div className="space-y-4">
-              <div>
-                <label className={labelClasses}>
-                  Do you have a designer or brand assets?
-                </label>
-                <select
-                  className={selectClasses}
-                  value={formData.designStatus}
-                  onChange={(e) => updateField("designStatus", e.target.value)}
-                >
-                  <option value="">Select...</option>
-                  {designStatusOptions.map((status) => (
-                    <option key={status} value={status}>
-                      {status}
-                    </option>
-                  ))}
-                </select>
-              </div>
               <div>
                 <label className={labelClasses}>How did you find us?</label>
                 <select
@@ -602,11 +419,11 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
                 </select>
               </div>
               <div>
-                <label className={labelClasses}>Anything else?</label>
+                <label className={labelClasses}>Anything else we should know?</label>
                 <textarea
                   className={`${inputClasses} resize-none`}
                   rows={3}
-                  placeholder="Additional context, links, inspiration..."
+                  placeholder="Additional context, questions, special requests..."
                   value={formData.notes}
                   onChange={(e) => updateField("notes", e.target.value)}
                 />
@@ -662,12 +479,11 @@ export function ContactFormModal({ domain, region }: ContactFormModalProps) {
               Hey, {firstName}! Thank you.
             </h2>
             <p className="font-sans text-fluid-main text-dark opacity-60 mb-2 max-w-md">
-              Someone from our team will reach out to you within 24 hours.
+              Someone from our team will reach out within 24 hours to schedule your strategy call.
             </p>
             <p className="font-sans text-fluid-small text-dark opacity-40 mb-8 max-w-md leading-relaxed">
-              Usually, the next step is booking a quick discovery call to discuss
-              your project in detail. We&apos;re looking forward to learning more
-              about what you&apos;re building.
+              We&apos;ll walk through your business goals and show you exactly
+              how we can help you grow online.
             </p>
             <button onClick={handleClose} className="btn">
               <span className="text-sm">Close</span>
