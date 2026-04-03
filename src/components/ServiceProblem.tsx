@@ -78,7 +78,7 @@ export function ServiceProblem({ painPoints, eyebrow, heading }: ServiceProblemP
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           {painPoints.map((point) => (
             <div key={point.title} className="sp-card p-6 text-center">
               <div className="flex justify-center mb-5">

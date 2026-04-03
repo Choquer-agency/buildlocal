@@ -73,7 +73,7 @@ export function Problem({ slug }: { slug: string }) {
         </div>
 
         {/* 4-column pain points */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
           {painPoints.map((point) => (
             <div
               key={point.title}
