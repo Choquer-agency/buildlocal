@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import { clsx } from "clsx";
-import { useContactForm } from "@/context/ContactFormContext";
-
+import React from 'react';
+import { cn } from '@/lib/utils';
+import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
+import { useScroll } from '@/components/ui/use-scroll';
+import { useContactForm } from '@/context/ContactFormContext';
 
 const navLinks = [
-  { label: "Industries", href: "/industries/roofing", isPage: true, isDropdown: true },
-  { label: "Our Work", href: "/portfolio", isPage: true },
-  { label: "Pricing", href: "/pricing", isPage: true },
-  { label: "About", href: "/about", isPage: true },
-  { label: "Blog", href: "/blog", isPage: true },
+  { label: "Industries", href: "/industries/roofing", isDropdown: true },
+  { label: "Our Work", href: "/portfolio" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const industryDropdownLinks = [
@@ -29,67 +29,61 @@ const industryDropdownLinks = [
 
 export function Nav({ brandName }: { brandName: string }) {
   const { openModal } = useContactForm();
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
+  const scrolled = useScroll(10);
 
-  useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 28);
+  React.useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  function scrollTo(href: string) {
-    setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   return (
     <>
-      <nav
-        className={clsx(
-          "fixed top-0 left-0 right-0 z-50 transition-all",
-          scrolled ? "nav-scrolled" : ""
+      <header
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 border-b border-transparent md:mx-6 md:rounded-md md:border md:transition-all md:duration-500 md:ease-out',
+          {
+            'supports-[backdrop-filter]:bg-white/70 border-dark/8 backdrop-blur-lg md:top-2 md:mx-auto md:max-w-7xl md:shadow-lg':
+              scrolled && !open,
+            'bg-white/90': open,
+          },
         )}
-        style={{ transitionDuration: "var(--duration-half)" }}
       >
-        <div
-          className={clsx(
-            "u-container flex items-center justify-between transition-all",
-            scrolled ? "py-2 mx-6 mt-2 rounded-md" : "py-5"
+        <nav
+          className={cn(
+            'u-container flex h-20 w-full items-center justify-between md:h-[68px] md:transition-all md:duration-500 md:ease-out',
+            {
+              'md:px-4': scrolled,
+            },
           )}
-          style={{
-            transitionDuration: "var(--duration-half)",
-            ...(scrolled
-              ? { background: "rgba(255,255,255,0.8)", backdropFilter: "blur(16px)" }
-              : {}),
-          }}
         >
           {/* Logo */}
           <a
             href="/"
-            className="font-sans font-medium text-base tracking-tight flex items-center gap-2"
-            style={{ color: "inherit" }}
+            className="font-sans font-medium text-xl tracking-tight flex items-center gap-2"
           >
             <img
               src="/images/logo.svg"
               alt={brandName}
-              className="h-5 w-auto"
+              className="h-6 w-auto"
             />
             {brandName}
           </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav Links — centered */}
+          <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) =>
-              "isDropdown" in link && link.isDropdown ? (
+              link.isDropdown ? (
                 <div key={link.href} className="relative group">
                   <a
                     href={link.href}
-                    className="text-fluid-main font-sans opacity-60 hover:opacity-100 transition-opacity flex items-center gap-1"
-                    style={{ transitionDuration: "0.35s" }}
+                    className="inline-flex items-center gap-1 rounded-md px-4 py-2.5 text-base font-medium text-dark/60 transition-colors hover:text-dark hover:bg-dark/[0.04]"
                   >
                     {link.label}
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="mt-0.5">
@@ -102,7 +96,7 @@ export function Nav({ brandName }: { brandName: string }) {
                         <a
                           key={item.href}
                           href={item.href}
-                          className="block px-4 py-2 font-sans text-sm text-dark opacity-70 hover:opacity-100 hover:bg-dark/[0.03] transition-all"
+                          className="block px-4 py-2 font-sans text-sm text-dark/70 hover:text-dark hover:bg-dark/[0.03] transition-all"
                         >
                           {item.label}
                         </a>
@@ -122,8 +116,7 @@ export function Nav({ brandName }: { brandName: string }) {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-fluid-main font-sans opacity-60 hover:opacity-100 transition-opacity"
-                  style={{ transitionDuration: "0.35s" }}
+                  className="inline-flex items-center rounded-md px-4 py-2.5 text-base font-medium text-dark/60 transition-colors hover:text-dark hover:bg-dark/[0.04]"
                 >
                   {link.label}
                 </a>
@@ -131,20 +124,23 @@ export function Nav({ brandName }: { brandName: string }) {
             )}
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
+          {/* Desktop CTA + Pricing */}
+          <div className="hidden md:flex items-center gap-4">
+            <span className="font-mono text-sm tracking-wide text-dark/50 whitespace-nowrap">
+              Websites from <strong className="text-brand font-semibold">$195/mo</strong>
+            </span>
             <button
               onClick={() => openModal()}
               data-track="nav-cta"
               data-track-label="Book a Free Strategy Call"
-              className="btn"
+              className="btn whitespace-nowrap"
               style={{
                 background: '#ff9500',
                 color: '#fff',
                 borderColor: '#ff9500',
               }}
             >
-              <span className="text-sm">Book a Free Strategy Call</span>
+              <span className="text-base">Book a Free Strategy Call</span>
               <span
                 className="btn-arrow"
                 style={{ background: 'rgba(255,255,255,0.2)' }}
@@ -158,55 +154,58 @@ export function Nav({ brandName }: { brandName: string }) {
 
           {/* Mobile Hamburger */}
           <button
-            className="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            onClick={() => setOpen(!open)}
+            className="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-md border border-dark/10"
             data-track="nav-hamburger"
             aria-label="Toggle menu"
           >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+            <MenuToggleIcon open={open} className="size-5" duration={300} />
           </button>
-        </div>
-      </nav>
+        </nav>
 
-      {/* Mobile Menu */}
-      <div
-        className={clsx(
-          "fixed inset-0 z-40 bg-light flex flex-col items-center justify-center gap-8 md:hidden transition-opacity",
-          mobileOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        )}
-        style={{ transitionDuration: "var(--duration-half)" }}
-      >
-        {navLinks.map((link) =>
-          "isPage" in link && link.isPage ? (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-fluid-h3 font-sans font-medium text-dark"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </a>
-          ) : (
-            <button
-              key={link.href}
-              onClick={() => scrollTo(link.href)}
-              className="text-fluid-h3 font-sans font-medium text-dark"
-            >
-              {link.label}
-            </button>
-          )
-        )}
-        <button
-          onClick={() => { setMobileOpen(false); openModal(); }}
-          data-track="nav-mobile-cta"
-          data-track-label="Book a Free Strategy Call"
-          className="btn-secondary text-base"
+        {/* Mobile Menu */}
+        <div
+          className={cn(
+            'bg-white/95 fixed top-20 right-0 bottom-0 left-0 z-50 flex flex-col overflow-hidden border-t border-dark/10 md:hidden',
+            open ? 'block' : 'hidden',
+          )}
         >
-          Book a Free Strategy Call
-        </button>
-      </div>
+          <div
+            data-slot={open ? 'open' : 'closed'}
+            className={cn(
+              'data-[slot=open]:animate-in data-[slot=open]:zoom-in-95 data-[slot=closed]:animate-out data-[slot=closed]:zoom-out-95 ease-out',
+              'flex h-full w-full flex-col justify-between gap-y-2 p-6',
+            )}
+          >
+            <div className="grid gap-y-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center rounded-md px-3 py-3 text-lg font-sans font-medium text-dark transition-colors hover:bg-dark/[0.04]"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <div className="flex flex-col gap-3">
+              <p className="font-mono text-sm text-dark/50 text-center">
+                Websites from <strong className="text-brand">$195/mo</strong>
+              </p>
+              <button
+                onClick={() => { setOpen(false); openModal(); }}
+                data-track="nav-mobile-cta"
+                data-track-label="Book a Free Strategy Call"
+                className="w-full py-3.5 rounded-lg font-sans font-medium text-sm text-white text-center"
+                style={{ background: '#ff9500' }}
+              >
+                Book a Free Strategy Call
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
     </>
   );
 }

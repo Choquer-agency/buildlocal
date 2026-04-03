@@ -142,7 +142,7 @@ export const defaultConfig: DomainConfig = {
   locality: "Phoenix",
   stateCode: "AZ",
   nearbyAreas: "Phoenix, Scottsdale, Mesa, Tempe, Chandler, Gilbert, and cities across Arizona",
-  heroH1: "More than an agency — we build websites that convert.",
+  heroH1: "A brand new website starting at $195/mo — built to convert.",
   heroSubhead:
     "We design, optimize, and manage high-performance websites for trades businesses and small companies. Every site is built with SEO, conversion, and growth at its core. No setup fees, no contracts.",
   schemaAddress: {
