@@ -13,7 +13,7 @@ import { LpDataLayer } from "./LpDataLayer";
 export const metadata: Metadata = {
   title: "Free Strategy Call — BuildLocal",
   description:
-    "Book a free 15-minute strategy call. We build and manage high-performance websites for trades businesses. $0 setup, no contracts, live in 7 days.",
+    "Book a free 15-minute strategy call. We build websites for trades businesses — buy outright for $3,500 or free with a marketing plan. No contracts, live in 7 days.",
 };
 
 const painPoints = [
@@ -47,7 +47,7 @@ const faqs = [
   {
     question: "Is there really no setup fee?",
     answer:
-      "Correct. $0 setup fee on every plan. We design, build, and launch your website at no upfront cost. Your first monthly payment is due when the site goes live.",
+      "Correct. $0 setup fee on every marketing plan — we design, build, and launch your website at no upfront cost, and your first monthly payment is due when the site goes live. Prefer to own the site outright? That's a one-time $3,500 with nothing recurring.",
   },
   {
     question: "How long does it take to get my site live?",
@@ -62,7 +62,7 @@ const faqs = [
   {
     question: "What's included in my plan?",
     answer:
-      "Custom design, mobile-responsive development, managed hosting, SSL certificate, basic SEO, monthly content changes, and ongoing support. Higher tiers add more pages, blog content, and advanced SEO.",
+      "Every marketing plan starts with a free custom website — mobile-responsive design, managed hosting, SSL, on-page SEO, monthly content changes, and ongoing support. Higher tiers add service-area pages, blog content, link building, and paid ads management to drive more leads.",
   },
 ];
 
@@ -74,7 +74,7 @@ export default function StrategyCallPage() {
       <LpHero
         eyebrow="Trusted by 175+ businesses"
         h1="Your website should be your best salesperson. Is it?"
-        subhead="We build and manage websites that get trades businesses more calls, more leads, and more booked jobs. $0 setup, no contracts, live in 7 days."
+        subhead="We build and manage websites that get trades businesses more calls, more leads, and more booked jobs. Buy outright for $3,500 or free with a marketing plan. No contracts, live in 7 days."
         ctaLabel="Book Your Free Strategy Call"
         ctaAction="modal"
         microCopy="15-min call. No pressure. No obligation."
@@ -90,7 +90,7 @@ export default function StrategyCallPage() {
       <LpOffer
         title="Here's what you get on every plan"
         features={offerFeatures}
-        priceAnchor="Starting at $195/mo — that's one new job paying for 6 months of your website."
+        priceAnchor="Marketing plans from $300/mo — that's one new job paying for months of growth."
         ctaLabel="Book Your Free Strategy Call"
         ctaAction="modal"
       />

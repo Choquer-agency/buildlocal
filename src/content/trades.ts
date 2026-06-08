@@ -21,7 +21,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Roofing Website Design ${locality} | Websites for Roofers — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Custom websites for roofing companies in ${locality}, ${region}. Get found after every storm, beat the storm chasers, and generate exclusive leads. Managed sites from $195/mo.`,
+      `Custom websites for roofing companies in ${locality}, ${region}. Get found after every storm, beat the storm chasers, and generate exclusive leads. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Roofing Website Design That Gets ${region} Roofers More Jobs`,
@@ -87,7 +87,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: `How much does a roofing website cost?`,
-        answer: `Our managed roofing websites start at $195/month — no massive upfront fee. Most roofing companies choose our $295-$395/month plans which include project galleries, review integration, and local SEO content. Compare that to the $40-$80 per lead you're paying on shared lead platforms.`,
+        answer: `You can buy your roofing website outright for a one-time $3,500, or get it free with a monthly marketing plan starting at $300. Most roofing companies invest in our $500-$750/month plans for ongoing local SEO, project-gallery content, and review generation. Compare that to the $40-$80 per lead you're paying on shared lead platforms.`,
       },
       {
         category: "website",
@@ -118,7 +118,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Foundation Repair Website Design ${locality} | Websites for Foundation Companies — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for foundation repair companies in ${locality}, ${region}. Build trust with anxious homeowners, showcase your expertise, and generate exclusive leads. From $195/mo.`,
+      `Websites for foundation repair companies in ${locality}, ${region}. Build trust with anxious homeowners, showcase your expertise, and generate exclusive leads. Buy outright for $3,500, or free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Foundation Repair Websites That Win Trust and Close Jobs in ${region}`,
@@ -184,7 +184,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a foundation repair website cost?",
-        answer: "Our managed plans start at $195/month. Most foundation companies invest $295-$595/month for comprehensive sites with educational content, problem/solution pages, and local SEO. Given that a single foundation job can be $10,000-$30,000+, one new lead from your website pays for years of service.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most foundation companies invest in our $500-$1,000/month plans for educational content, problem/solution pages, and ongoing local SEO. Given that a single foundation job can be $10,000-$30,000+, one new lead from your website pays for years of service.",
       },
       {
         category: "website",
@@ -215,7 +215,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `HVAC Website Design ${locality} | Websites for HVAC Companies — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Custom websites for HVAC companies in ${locality}, ${region}. Capture emergency calls, book seasonal tune-ups, and dominate local search. Managed sites from $195/mo.`,
+      `Custom websites for HVAC companies in ${locality}, ${region}. Capture emergency calls, book seasonal tune-ups, and dominate local search. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `HVAC Website Design That Keeps ${region} HVAC Companies Booked Year-Round`,
@@ -281,7 +281,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does an HVAC website cost?",
-        answer: "Our managed HVAC websites start at $195/month. Most HVAC companies choose our $295-$395/month plans which include online scheduling integration, maintenance plan pages, financing displays, and multi-city SEO targeting. One emergency call from your website covers months of service.",
+        answer: "Buy your HVAC website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most HVAC companies invest in our $500-$750/month plans for maintenance-plan content, financing displays, multi-city SEO targeting, and review generation. One emergency call from your website covers months of service.",
       },
       {
         category: "website",
@@ -312,7 +312,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Plumbing Website Design ${locality} | Websites for Plumbers — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Professional websites for plumbing companies in ${locality}, ${region}. Capture emergency calls, build trust, and stop paying for shared leads. Managed sites from $195/mo.`,
+      `Professional websites for plumbing companies in ${locality}, ${region}. Capture emergency calls, build trust, and stop paying for shared leads. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Plumbing Website Design That Makes ${region} Plumbers the First Call`,
@@ -378,7 +378,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "What does a plumbing website cost per month?",
-        answer: "Plans start at $195/month with no large upfront fee. Most plumbing companies are on our $295-$395/month plans with multi-service pages, city-specific landing pages, and emergency call features. One emergency call from your website — a $500+ job — pays for two months.",
+        answer: "Buy your plumbing website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most plumbing companies invest in our $500-$750/month plans for multi-service pages, city-specific landing pages, and ongoing local SEO. One emergency call from your website — a $500+ job — pays for months of service.",
       },
       {
         category: "website",
@@ -409,7 +409,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Electrician Website Design ${locality} | Websites for Electrical Contractors — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for electricians and electrical contractors in ${locality}, ${region}. Showcase your license, win commercial bids, and capture residential leads. From $195/mo.`,
+      `Websites for electricians and electrical contractors in ${locality}, ${region}. Showcase your license, win commercial bids, and capture residential leads. Buy outright for $3,500, or free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Electrician Website Design That Powers ${region} Electrical Contractors' Growth`,
@@ -475,7 +475,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: `How much does a website cost for a ${region} electrician?`,
-        answer: "Our managed plans start at $195/month. Electrical contractors who want commercial project galleries, GC-focused content, and multi-service SEO targeting typically invest $295-$495/month. A single panel upgrade lead ($2,000-$4,000 job) from your website covers months of service.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Electrical contractors who want commercial project galleries, GC-focused content, and multi-service SEO targeting typically invest in our $500-$1,000/month plans. A single panel upgrade lead ($2,000-$4,000 job) from your website covers months of service.",
       },
       {
         category: "website",
@@ -506,7 +506,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Concrete & Hardscaping Website Design ${locality} | Websites for Concrete Contractors — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for concrete and hardscaping contractors in ${locality}, ${region}. Showcase your work, win bigger projects, and stop relying on word-of-mouth alone. From $195/mo.`,
+      `Websites for concrete and hardscaping contractors in ${locality}, ${region}. Showcase your work, win bigger projects, and stop relying on word-of-mouth alone. Buy outright for $3,500, or free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Concrete & Hardscaping Websites That Sell Your Craftsmanship in ${region}`,
@@ -572,7 +572,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a concrete contractor website cost?",
-        answer: "Our managed plans start at $195/month. Concrete and hardscaping companies that want premium portfolio galleries, multiple service pages, and local SEO targeting typically invest $295-$495/month. A single patio or outdoor kitchen lead ($8,000-$25,000+ job) makes the investment obvious.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Concrete and hardscaping companies that want premium portfolio galleries, multiple service pages, and ongoing local SEO typically invest in our $500-$1,000/month plans. A single patio or outdoor kitchen lead ($8,000-$25,000+ job) makes the investment obvious.",
       },
       {
         category: "website",
@@ -608,7 +608,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Fencing Website Design ${locality} | Websites for Fence Companies — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Custom websites for fence companies in ${locality}, ${region}. Showcase materials, win more bids, and generate exclusive leads. Managed sites from $195/mo.`,
+      `Custom websites for fence companies in ${locality}, ${region}. Showcase materials, win more bids, and generate exclusive leads. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Fencing Websites That Help ${region} Fence Companies Win More Bids`,
@@ -674,7 +674,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much is a fence company website?",
-        answer: "Managed plans start at $195/month. Most fence companies invest $295-$395/month for material galleries, multi-city targeting, and estimate request functionality. A single fence installation lead ($3,000-$10,000) more than covers the investment.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most fence companies invest in our $500-$750/month plans for material galleries, multi-city targeting, and ongoing local SEO. A single fence installation lead ($3,000-$10,000) more than covers the investment.",
       },
       {
         category: "website",
@@ -705,7 +705,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Water Damage Restoration Website Design ${locality} | Websites for Restoration Companies — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for water damage restoration companies in ${locality}, ${region}. Capture emergency calls 24/7, build insurance trust, and generate exclusive leads. From $195/mo.`,
+      `Websites for water damage restoration companies in ${locality}, ${region}. Capture emergency calls 24/7, build insurance trust, and generate exclusive leads. Buy outright for $3,500, or free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Restoration Websites That Capture Emergency Calls Across ${region}`,
@@ -771,7 +771,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a restoration company website cost?",
-        answer: "Plans start at $195/month. Most restoration companies invest $295-$495/month for multi-service pages, emergency features, and local SEO. One water damage job ($5,000-$20,000+) from your website covers a year or more of service.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most restoration companies invest in our $500-$1,000/month plans for multi-service pages, emergency features, and ongoing local SEO. One water damage job ($5,000-$20,000+) from your website covers a year or more of service.",
       },
       {
         category: "website",
@@ -802,7 +802,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Landscaping Website Design ${locality} | Websites for Landscapers — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for landscaping companies in ${locality}, ${region}. Showcase your designs, book recurring maintenance, and grow your client base. Managed sites from $195/mo.`,
+      `Websites for landscaping companies in ${locality}, ${region}. Showcase your designs, book recurring maintenance, and grow your client base. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Landscaping Websites That Grow ${region} Landscaping Companies`,
@@ -868,7 +868,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a landscaping website cost?",
-        answer: "Plans start at $195/month. Most landscaping companies invest $295-$395/month for premium galleries, seasonal content management, and local SEO. One design/build project lead ($5,000-$30,000+) covers years of website investment.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most landscaping companies invest in our $500-$750/month plans for premium galleries, seasonal content, and ongoing local SEO. One design/build project lead ($5,000-$30,000+) covers years of website investment.",
       },
       {
         category: "website",
@@ -899,7 +899,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Painting Website Design ${locality} | Websites for Painters — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for painting contractors in ${locality}, ${region}. Showcase your transformations, build trust, and generate exclusive leads. Managed sites from $195/mo.`,
+      `Websites for painting contractors in ${locality}, ${region}. Showcase your transformations, build trust, and generate exclusive leads. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Painting Websites That Help ${region} Painters Book More Jobs`,
@@ -965,7 +965,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much is a painting company website?",
-        answer: "Plans start at $195/month. Most painters invest $245-$395/month for premium galleries, multi-service pages, and local SEO. One interior or exterior painting job from your website ($2,000-$8,000) covers months of service.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most painters invest in our $500-$750/month plans for premium galleries, multi-service pages, and ongoing local SEO. One interior or exterior painting job from your website ($2,000-$8,000) covers months of service.",
       },
       {
         category: "website",
@@ -996,7 +996,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `General Contractor Website Design ${locality} | Websites for GCs — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for general contractors in ${locality}, ${region}. Showcase projects, win bigger bids, and build credibility with clients and subs. Managed from $195/mo.`,
+      `Websites for general contractors in ${locality}, ${region}. Showcase projects, win bigger bids, and build credibility with clients and subs. Buy outright for $3,500, or free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `General Contractor Websites That Win Bigger Projects in ${region}`,
@@ -1062,7 +1062,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a GC website cost?",
-        answer: "Plans start at $195/month. Most general contractors invest $295-$595/month for premium project portfolios, multi-service pages, and local SEO. One qualified project lead ($25,000-$200,000+) represents extraordinary ROI.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most general contractors invest in our $750-$1,500/month plans for premium project portfolios, multi-service pages, and aggressive local SEO. One qualified project lead ($25,000-$200,000+) represents extraordinary ROI.",
       },
       {
         category: "website",
@@ -1093,7 +1093,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Pressure Washing Website Design ${locality} | Websites for Pressure Washers — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for pressure washing companies in ${locality}, ${region}. Show dramatic transformations, book recurring cleans, and grow your client base. From $195/mo.`,
+      `Websites for pressure washing companies in ${locality}, ${region}. Show dramatic transformations, book recurring cleans, and grow your client base. Buy outright for $3,500, or free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Pressure Washing Websites That Make ${region} Phones Ring`,
@@ -1159,7 +1159,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a pressure washing website cost?",
-        answer: "Plans start at $195/month. Most pressure washing companies invest $245-$345/month for transformation galleries, multi-service pages, and local SEO. A few residential jobs from your website ($300-$800 each) cover months of service.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most pressure washing companies invest in our $300-$500/month plans for transformation galleries, multi-service pages, and ongoing local SEO. A few residential jobs from your website ($300-$800 each) cover months of service.",
       },
       {
         category: "website",
@@ -1190,7 +1190,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Handyman Website Design ${locality} | Websites for Handymen — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for handyman services in ${locality}, ${region}. Show your range, build trust, and become the go-to handyman in your area. Managed sites from $195/mo.`,
+      `Websites for handyman services in ${locality}, ${region}. Show your range, build trust, and become the go-to handyman in your area. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Handyman Websites That Make You the Go-To in ${region}`,
@@ -1256,7 +1256,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a handyman website cost?",
-        answer: "Plans start at $195/month. Most handymen invest $195-$295/month for a professional site with comprehensive service listings, booking functionality, and local SEO. Even one or two extra jobs per month ($200-$500 each) makes the investment obvious.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most handymen invest in our $300-$500/month plans for comprehensive service listings, booking functionality, and ongoing local SEO. Even one or two extra jobs per month ($200-$500 each) makes the investment obvious.",
       },
       {
         category: "website",
@@ -1287,7 +1287,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Flooring Website Design ${locality} | Websites for Flooring Companies — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for flooring companies in ${locality}, ${region}. Showcase installations, display material options, and generate exclusive leads. Managed sites from $195/mo.`,
+      `Websites for flooring companies in ${locality}, ${region}. Showcase installations, display material options, and generate exclusive leads. Buy a site outright for $3,500, or get it free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Flooring Websites That Help ${region} Flooring Companies Win More Installs`,
@@ -1353,7 +1353,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a flooring website cost?",
-        answer: "Plans start at $195/month. Most flooring companies invest $295-$395/month for material galleries, multi-product pages, and local SEO. One flooring installation lead ($3,000-$15,000+) covers months of website investment.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most flooring companies invest in our $500-$750/month plans for material galleries, multi-product pages, and ongoing local SEO. One flooring installation lead ($3,000-$15,000+) covers months of website investment.",
       },
       {
         category: "website",
@@ -1384,7 +1384,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Siding & Gutter Website Design ${locality} | Websites for Siding Contractors — BuildLocal`,
     metaDescription: (locality, region) =>
-      `Websites for siding and gutter companies in ${locality}, ${region}. Showcase transformations, build trust, and capture leads from homeowners upgrading their exteriors. From $195/mo.`,
+      `Websites for siding and gutter companies in ${locality}, ${region}. Showcase transformations, build trust, and capture leads from homeowners upgrading their exteriors. Buy outright for $3,500, or free with a marketing plan.`,
 
     heroH1: (_locality, region) =>
       `Siding & Gutter Websites That Drive Exterior Project Leads in ${region}`,
@@ -1450,7 +1450,7 @@ export const tradeMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "How much does a siding company website cost?",
-        answer: "Plans start at $195/month. Most siding and gutter companies invest $295-$395/month for material galleries, comparison content, and local SEO. One siding replacement lead ($10,000-$30,000+) makes the monthly investment insignificant.",
+        answer: "Buy your website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most siding and gutter companies invest in our $500-$750/month plans for material galleries, comparison content, and ongoing local SEO. One siding replacement lead ($10,000-$30,000+) makes the monthly investment insignificant.",
       },
       {
         category: "website",

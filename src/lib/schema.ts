@@ -40,13 +40,15 @@ export function generateSchema(config: DomainConfig) {
             longitude: config.geoCoordinates.longitude,
           },
         }),
-        priceRange: "$195 - $595/mo",
+        priceRange: "$$",
         serviceType: [
           "Website Design",
           "Website Development",
           "Web Hosting",
           "SEO",
+          "Local Marketing",
           "Google Business Profile Management",
+          "Paid Advertising Management",
         ],
         knowsAbout: [
           "Website Design",

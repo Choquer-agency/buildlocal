@@ -28,7 +28,7 @@ const topTestimonials: TestimonialItem[] = [
     color: "#FFDF40",
   },
   {
-    quote: "We went from zero online presence to being booked solid within two months. Best $195 I spend every month.",
+    quote: "We went from zero online presence to being booked solid within two months. Best $300 I spend every month.",
     name: "Sarah Mitchell",
     company: "Spotless Cleaning Co.",
     metric: "Booked solid in 2 months",

@@ -128,6 +128,25 @@
     @apply font-mono text-fluid-small uppercase tracking-wider;
   }
 
+  /* Body copy is ALWAYS the house sans. text-wrap:pretty kills widows. */
+  .font-biz {
+    font-family: var(--font-neue-montreal), Arial, sans-serif;
+    text-wrap: pretty;
+  }
+  /* Headings only — may use a per-business font (set via --biz-heading).
+     balance keeps multi-line headings even (and prevents a lone last word). */
+  .font-head {
+    font-family: var(--biz-heading, var(--font-neue-montreal)), Arial, sans-serif;
+    text-wrap: balance;
+  }
+  /* Footer links — hover takes the business brand color (--biz-accent). */
+  .link-accent {
+    transition: color 0.15s ease;
+  }
+  .link-accent:hover {
+    color: var(--biz-accent, #ff9500);
+  }
+
   /* Section spacing */
   .section-space-hero {
     padding-top: clamp(8rem, 10vw, 12rem);

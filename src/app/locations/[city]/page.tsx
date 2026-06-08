@@ -31,7 +31,7 @@ export async function generateMetadata({
   if (!city) return {};
 
   const title = `Web Design ${city.name} ${city.stateCode} | Websites for ${city.name} Businesses — BuildLocal`;
-  const description = `Professional website design for small businesses and trades companies in ${city.name}, ${city.state}. Managed websites from $195/month. No setup fees, no contracts. 175+ websites built.`;
+  const description = `Professional website design for small businesses and trades companies in ${city.name}, ${city.state}. Buy a website outright for $3,500 or get one free with a marketing plan from $300/month. No setup fees, no contracts. 175+ websites built.`;
 
   return {
     title,
@@ -123,8 +123,8 @@ export default function CityPage({ params }: CityPageProps) {
                 <p className="font-sans text-fluid-small opacity-60">Industries we serve</p>
               </div>
               <div>
-                <p className="font-sans font-medium text-fluid-h3 text-brand">$195</p>
-                <p className="font-sans text-fluid-small opacity-60">Per month starting</p>
+                <p className="font-sans font-medium text-fluid-h3 text-brand">$3,500</p>
+                <p className="font-sans text-fluid-small opacity-60">Website, or free with marketing</p>
               </div>
               <div>
                 <p className="font-sans font-medium text-fluid-h3 text-brand">175+</p>
@@ -270,7 +270,7 @@ function getCityFaqs(city: CityConfig): FAQItem[] {
     {
       category: "pricing",
       question: `How much does a website cost for a ${city.name} business?`,
-      answer: `Our managed website plans start at $195/month with no setup fees and no contracts. That includes custom design, hosting, SSL, SEO fundamentals, and ongoing updates. Most ${city.name} trades businesses choose our Growth plan at $295/month for additional pages and features.`,
+      answer: `You have two options. Buy a custom website outright for a one-time $3,500 — it's yours to keep. Or get the website free with a monthly marketing plan starting at $300/month, which also includes hosting, SSL, SEO, and ongoing updates. Most ${city.name} trades businesses choose our Growth plan at $500/month to start driving leads with local SEO and content.`,
     },
     {
       category: "process",
@@ -326,7 +326,7 @@ function generateCitySchema(config: DomainConfig, city: CityConfig) {
           latitude: city.latitude,
           longitude: city.longitude,
         },
-        priceRange: "$195 - $595/mo",
+        priceRange: "$$",
       },
       {
         "@type": "ItemList",

@@ -20,7 +20,7 @@ const stats = [
   {
     number: "$0",
     heading: "Setup Fees",
-    body: "No upfront cost to get started. No contracts. No hidden fees. Just a simple monthly plan that covers everything \u2014 cancel anytime.",
+    body: "Get your website built free with any marketing plan \u2014 no setup fees, no contracts, no hidden costs. Just a simple monthly price, cancel anytime.",
     color: "#C4EF7A",
   },
 ];
