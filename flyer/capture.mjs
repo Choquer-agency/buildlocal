@@ -5,8 +5,9 @@
  *   NEW  = <BASE>/p/<slug>  (the site we built) -> flyer/shots/<slug>-new.jpg
  *   none = no existingWebsite                   -> uses flyer/shots/_no-website.jpg
  *
- * Crops to a clean 1200x1500 "hero" (top of page, no scroll), the right shape
- * for the tilted cards on back.html.
+ * NEW shots: render at a realistic desktop viewport so 100svh heroes look
+ * natural, then clip the top of the page to OUT_NEW (portrait card).
+ * OLD shots: landscape above-the-fold at VP_OLD.
  *
  * Run from troker-landing/:
  *   node flyer/capture.mjs                 # everything
@@ -30,10 +31,11 @@ fs.mkdirSync(SHOTS, { recursive: true });
 // to the local dev server; override with NEW_BASE once they're deployed.
 const BASE = process.env.NEW_BASE || process.env.NEXT_PUBLIC_PUBLISHED_BASE || "http://localhost:4500";
 const CONCURRENCY = Number(process.env.SHOT_CONCURRENCY || 6);
-// Capture at full desktop width (1440) so nothing on the right gets cut.
-// The card aspect ratios match these exactly: NEW 4:5 portrait, OLD 16:10 landscape.
-const VP_NEW = { width: 1440, height: 1800 };     // NEW = tall portrait (full desktop width)
-const VP_OLD = { width: 1440, height: 900 };      // OLD = landscape above-the-fold
+// NEW: realistic browser viewport for layout (100svh ≈ 900px), then clip to a
+// taller output so the JPEG includes hero + content below the fold.
+const VP_NEW = { width: 1440, height: 900 };       // render viewport
+const OUT_NEW = { width: 1440, height: 1800 };     // final JPEG size (4:5 portrait)
+const VP_OLD = { width: 1440, height: 900 };       // OLD = landscape above-the-fold
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => {
@@ -42,12 +44,21 @@ const args = Object.fromEntries(
   })
 );
 
-// ---- load businesses from the generated TS module (no build step needed) ----
-function loadBusinesses() {
-  const src = fs.readFileSync(path.join(__dirname, "..", "src", "content", "businesses.generated.ts"), "utf8");
+// ---- load businesses from generated TS modules (all trades) ----
+function loadGenerated(file) {
+  const src = fs.readFileSync(path.join(__dirname, "..", "src", "content", file), "utf8");
   const json = src.slice(src.indexOf("["), src.lastIndexOf("]") + 1);
   // eslint-disable-next-line no-eval
   return eval(json);
+}
+function loadBusinesses() {
+  return [
+    ...loadGenerated("businesses.generated.ts"),
+    ...loadGenerated("businesses.roofing.generated.ts"),
+    ...loadGenerated("businesses.hvac.generated.ts"),
+    ...loadGenerated("businesses.pool.generated.ts"),
+    ...loadGenerated("businesses.pest.generated.ts"),
+  ];
 }
 
 let list = loadBusinesses();
@@ -56,10 +67,10 @@ console.log(`Loaded ${list.length} businesses · base ${BASE}`);
 
 const exists = (f) => fs.existsSync(path.join(SHOTS, f));
 
-async function shoot(page, url, outFile, vp, { settle = 2500 } = {}) {
+async function shoot(page, url, outFile, viewport, outSize, { settle = 2500 } = {}) {
   const out = path.join(SHOTS, outFile);
   if (!args.force && fs.existsSync(out)) return "skip";
-  await page.setViewportSize(vp);
+  await page.setViewportSize(viewport);
   try {
     await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
   } catch {
@@ -74,10 +85,11 @@ async function shoot(page, url, outFile, vp, { settle = 2500 } = {}) {
       if (kill.test(el.textContent || "")) try { el.click(); } catch {}
     });
   }).catch(() => {});
-  // full-viewport-width capture (no horizontal crop) at the card's aspect ratio
+  // Clip from the document top — can be taller than the render viewport so NEW
+  // shots include hero (100svh) plus the section beneath it.
   await page.screenshot({
     path: out,
-    clip: { x: 0, y: 0, width: vp.width, height: vp.height },
+    clip: { x: 0, y: 0, width: outSize.width, height: outSize.height },
     type: "jpeg",
     quality: 82,
   });
@@ -112,10 +124,10 @@ async function run() {
   const jobs = [];
   for (const b of list) {
     if (args.only !== "new" && b.existingWebsite) {
-      jobs.push({ url: b.existingWebsite, file: `${b.slug}-old.jpg`, kind: "old", slug: b.slug, vp: VP_OLD });
+      jobs.push({ url: b.existingWebsite, file: `${b.slug}-old.jpg`, kind: "old", slug: b.slug, viewport: VP_OLD, outSize: VP_OLD });
     }
     if (args.only !== "old") {
-      jobs.push({ url: `${BASE}/p/${b.slug}`, file: `${b.slug}-new.jpg`, kind: "new", slug: b.slug, vp: VP_NEW });
+      jobs.push({ url: `${BASE}/p/${b.slug}`, file: `${b.slug}-new.jpg`, kind: "new", slug: b.slug, viewport: VP_NEW, outSize: OUT_NEW });
     }
   }
 
@@ -125,7 +137,7 @@ async function run() {
     const page = await ctx.newPage();
     while (jobs.length) {
       const j = jobs.shift();
-      const r = await shoot(page, j.url, j.file, j.vp);
+      const r = await shoot(page, j.url, j.file, j.viewport, j.outSize);
       done++;
       if (r === "ok") ok++; else if (r === "skip") skip++; else { fail++; fails.push(`${j.kind} ${j.slug} ${j.url}`); }
       if (done % 20 === 0 || !jobs.length) process.stdout.write(`\r  ${done} done · ${ok} ok · ${skip} skip · ${fail} fail   `);
