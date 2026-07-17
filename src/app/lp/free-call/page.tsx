@@ -15,7 +15,7 @@ import { LpDataLayer } from "./LpDataLayer";
 export const metadata: Metadata = {
   title: "Get a Free Call — BuildLocal",
   description:
-    "Skip the research. Drop your name and number and our team will call you within 24 hours. We build websites for trades businesses — $0 setup, no contracts.",
+    "Skip the research. Drop your name and number and our team will call you within 24 hours. We build websites for trades businesses — buy outright for $3,500 or free with a marketing plan.",
 };
 
 const painPoints = [
@@ -64,7 +64,7 @@ const faqs = [
   {
     question: "Do I have to commit to anything?",
     answer:
-      "No. The call is completely free with zero obligation. If you decide to move forward, plans start at $195/mo with no setup fees and no contracts.",
+      "No. The call is completely free with zero obligation. If you decide to move forward, you can buy a website outright for $3,500 or start a marketing plan from $300/mo — no setup fees, no contracts.",
   },
 ];
 
@@ -95,7 +95,7 @@ export default function FreeCallPage() {
       <LpOffer
         title="When you're ready, here's what's included"
         features={offerFeatures}
-        priceAnchor="Plans start at $195/mo — no setup fees, no contracts."
+        priceAnchor="Buy outright for $3,500 or marketing plans from $300/mo — no setup fees, no contracts."
         ctaLabel="Have Our Team Call Me"
         ctaAction="scroll"
         scrollTarget="#callback-form"

@@ -6,15 +6,24 @@ import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 import { useScroll } from '@/components/ui/use-scroll';
 import { useContactForm } from '@/context/ContactFormContext';
 
-const navLinks = [
-  { label: "Industries", href: "/industries/roofing", isDropdown: true },
-  { label: "Our Work", href: "/portfolio" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
+type NavDropdownItem = { label: string; href: string };
+type NavLink = {
+  label: string;
+  href: string;
+  isDropdown?: boolean;
+  dropdownLinks?: NavDropdownItem[];
+  viewAll?: NavDropdownItem;
+};
+
+const serviceDropdownLinks: NavDropdownItem[] = [
+  { label: "Website Design", href: "/services/website-design" },
+  { label: "SEO", href: "/services/seo" },
+  { label: "Google Ads", href: "/services/google-ads" },
+  { label: "Facebook & Instagram Ads", href: "/services/facebook-ads" },
+  { label: "AEO / AI Search", href: "/services/aeo" },
 ];
 
-const industryDropdownLinks = [
+const industryDropdownLinks: NavDropdownItem[] = [
   { label: "Roofing", href: "/industries/roofing" },
   { label: "HVAC", href: "/industries/hvac" },
   { label: "Plumbing", href: "/industries/plumbing" },
@@ -25,6 +34,26 @@ const industryDropdownLinks = [
   { label: "Concrete", href: "/industries/concrete-hardscaping" },
   { label: "Fencing", href: "/industries/fencing" },
   { label: "General Contracting", href: "/industries/general-contracting" },
+];
+
+const navLinks: NavLink[] = [
+  {
+    label: "Services",
+    href: "/services/seo",
+    isDropdown: true,
+    dropdownLinks: serviceDropdownLinks,
+  },
+  {
+    label: "Industries",
+    href: "/industries/roofing",
+    isDropdown: true,
+    dropdownLinks: industryDropdownLinks,
+    viewAll: { label: "View All Industries →", href: "/industries/trades-home-services" },
+  },
+  { label: "Our Work", href: "/portfolio" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export function Nav({ brandName }: { brandName: string }) {
@@ -92,7 +121,7 @@ export function Nav({ brandName }: { brandName: string }) {
                   </a>
                   <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all" style={{ transitionDuration: "0.2s" }}>
                     <div className="bg-white rounded-lg shadow-xl border border-dark/8 py-2 min-w-[220px]">
-                      {industryDropdownLinks.map((item) => (
+                      {link.dropdownLinks?.map((item) => (
                         <a
                           key={item.href}
                           href={item.href}
@@ -101,14 +130,16 @@ export function Nav({ brandName }: { brandName: string }) {
                           {item.label}
                         </a>
                       ))}
-                      <div className="border-t border-dark/8 mt-1 pt-1">
-                        <a
-                          href="/industries/trades-home-services"
-                          className="block px-4 py-2 font-sans text-sm text-brand font-medium hover:bg-dark/[0.03] transition-all"
-                        >
-                          View All Industries →
-                        </a>
-                      </div>
+                      {link.viewAll && (
+                        <div className="border-t border-dark/8 mt-1 pt-1">
+                          <a
+                            href={link.viewAll.href}
+                            className="block px-4 py-2 font-sans text-sm text-brand font-medium hover:bg-dark/[0.03] transition-all"
+                          >
+                            {link.viewAll.label}
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -126,9 +157,6 @@ export function Nav({ brandName }: { brandName: string }) {
 
           {/* Desktop CTA + Pricing */}
           <div className="hidden md:flex items-center gap-4">
-            <span className="font-mono text-sm tracking-wide text-dark/50 whitespace-nowrap">
-              Websites from <strong className="text-brand font-semibold">$195/mo</strong>
-            </span>
             <button
               onClick={() => openModal()}
               data-track="nav-cta"
@@ -177,22 +205,37 @@ export function Nav({ brandName }: { brandName: string }) {
               'flex h-full w-full flex-col justify-between gap-y-2 p-6',
             )}
           >
-            <div className="grid gap-y-1">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="flex items-center rounded-md px-3 py-3 text-lg font-sans font-medium text-dark transition-colors hover:bg-dark/[0.04]"
-                  onClick={() => setOpen(false)}
-                >
-                  {link.label}
-                </a>
-              ))}
+            <div className="grid gap-y-1 overflow-y-auto">
+              {navLinks.map((link) =>
+                link.isDropdown && link.dropdownLinks ? (
+                  <div key={link.label} className="py-1">
+                    <p className="px-3 pt-2 pb-1 text-xs font-mono uppercase tracking-wider text-dark/40">
+                      {link.label}
+                    </p>
+                    {link.dropdownLinks.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="flex items-center rounded-md px-3 py-2.5 text-base font-sans font-medium text-dark/80 transition-colors hover:bg-dark/[0.04]"
+                        onClick={() => setOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="flex items-center rounded-md px-3 py-3 text-lg font-sans font-medium text-dark transition-colors hover:bg-dark/[0.04]"
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
             </div>
             <div className="flex flex-col gap-3">
-              <p className="font-mono text-sm text-dark/50 text-center">
-                Websites from <strong className="text-brand">$195/mo</strong>
-              </p>
               <button
                 onClick={() => { setOpen(false); openModal(); }}
                 data-track="nav-mobile-cta"

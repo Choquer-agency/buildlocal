@@ -1,0 +1,10 @@
+goodman-s-landscape-maintenance-llc	HTTP 403	http://www.goodmanslandscape.com/
+stonecreek-roofing	HTTP 403	https://www.stonecreekroofingaz.com/
+1st-choice-plumbing-air-and-insulation	HTTP 403 (after origin retry; tried https://1stchoicemechanicalaz.com/air-conditioning-phoenix-az/)	https://1stchoicemechanicalaz.com/air-conditioning-phoenix-az/
+norris-air	HTTP 403	https://www.norrisair.com/
+chandler-air	HTTP 521	https://www.chandlerair.com/%3Futm_source%3DGMB%26utm_medium%3Dlocal
+tropical-pool-services	HTTP 404	https://www.tropicalpoolservices.com/
+hayden-s-pool-service-and-repair	page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://haydenspools.com/ Call log: [2m - navigating to "https://haydenspools.com/", waiting until "domcontentloaded"[22m	https://haydenspools.com/
+bills-pest-termite-control	HTTP 403	https://billstermiteco.com/
+orange-pest-control	HTTP 403	http://www.orangepestaz.com/
+simply-green-pest-control	HTTP 403	https://www.simplygreenpest.com/

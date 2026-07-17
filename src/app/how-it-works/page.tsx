@@ -46,9 +46,9 @@ const detailedSteps = [
   {
     num: "01",
     title: "Pick Your Plan",
-    subtitle: "Choose from 4 tiers",
+    subtitle: "One-time site or a marketing plan",
     description:
-      "Browse our four straightforward plans — from a single-page starter at $99/month to a full multi-page site with advanced features at $495/month. Every plan includes hosting, SSL, and monthly updates. No setup fees, no contracts.",
+      "Buy a custom website outright for a one-time $3,500, or get it free with a monthly marketing plan — from $300/month (Starter) to $1,500/month (Dominate). Every plan includes hosting, SSL, SEO, and ongoing updates. No setup fees, no contracts.",
     color: "#F79C42",
   },
   {

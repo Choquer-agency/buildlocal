@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const config = getStaticDomainConfig();
   const title = "Pricing | BuildLocal";
   const description =
-    "Simple, transparent monthly pricing for managed websites. No setup fees, no contracts, no hidden costs. Plans from $99 to $495/month — everything included.";
+    "We build your website free with any monthly marketing plan — or buy one outright for $3,500. Marketing plans from $300 to $1,500/month. No setup fees, no contracts.";
 
   return {
     title,
@@ -68,15 +68,15 @@ const includedFeatures = [
     color: "#71CFA3",
   },
   {
-    title: "Basic SEO",
+    title: "SEO Foundation",
     description:
-      "On-page SEO fundamentals so your business can be found on Google from day one.",
+      "On-page SEO and Google Business Profile setup so customers can find you from day one.",
     color: "#FFDF40",
   },
   {
-    title: "Monthly Updates",
+    title: "Ongoing Updates",
     description:
-      "Need something changed? We handle content and design updates every month.",
+      "Need something changed? We handle content and design updates as part of your plan.",
     color: "#F79C42",
   },
 ];
@@ -98,13 +98,13 @@ export default function PricingPage() {
               </span>
             </div>
 
-            <h1 className="font-sans font-medium text-fluid-h1 leading-[1.1] tracking-tight text-dark max-w-[20ch] mb-6">
-              Simple, transparent pricing.
+            <h1 className="font-sans font-medium text-fluid-h1 leading-[1.1] tracking-tight text-dark max-w-[22ch] mb-6">
+              Get a website. Get customers.
             </h1>
 
-            <p className="font-sans text-fluid-large text-dark opacity-60 leading-relaxed max-w-[48ch]">
-              No setup fees. No contracts. No hidden costs. Just a monthly plan
-              that covers everything.
+            <p className="font-sans text-fluid-large text-dark opacity-60 leading-relaxed max-w-[52ch]">
+              Buy a custom website outright for a one-time $3,500 — or get it free
+              with any monthly marketing plan. No setup fees, no contracts.
             </p>
           </div>
         </div>
@@ -115,11 +115,12 @@ export default function PricingPage() {
         <div className="section-space-main">
           <div className="u-container">
             <h2 className="font-sans font-medium text-fluid-h2 leading-[1.15] tracking-tight text-dark mb-4">
-              What&apos;s included in every plan
+              Every marketing plan starts with a website
             </h2>
-            <p className="font-sans text-fluid-main text-dark opacity-50 leading-relaxed max-w-[52ch] mb-12">
-              Every plan comes with the essentials your business needs to
-              succeed online — no add-ons or upsells required.
+            <p className="font-sans text-fluid-main text-dark opacity-50 leading-relaxed max-w-[54ch] mb-12">
+              Sign up for any plan and we build your custom website free, then
+              layer on the marketing that brings in customers. Here&apos;s what
+              comes standard before we even start driving leads.
             </p>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

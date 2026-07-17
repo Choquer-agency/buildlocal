@@ -30,6 +30,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+.vercel.bak
+
+# campaign scratch / local-only working files
+_inbox/
+scripts/data/_*.log
+scripts/data/_crawl-stage/
 
 # typescript
 *.tsbuildinfo

@@ -76,7 +76,7 @@ export function getTestimonials(_locality?: string): Testimonial[] {
     },
     {
       quote:
-        "We went from zero online presence to being booked solid within two months. I can't believe how fast they got us up and running. Best $195 I spend every month.",
+        "We went from zero online presence to being booked solid within two months. I can't believe how fast they got us up and running. Best $300 I spend every month.",
       name: "Sarah Mitchell",
       title: "Owner",
       company: "Spotless Cleaning Co.",
@@ -233,15 +233,15 @@ export const solutionCards = [
   },
   {
     icon: "Zap",
-    title: "No Upfront\nCost",
+    title: "Free With Any\nPlan",
     description:
-      "$0 setup fee. Your custom website, hosting, SSL, and ongoing support are all included in one simple monthly plan. Start for as little as $99/month.",
+      "Get your custom website built free with any monthly marketing plan — hosting, SSL, and support included. Or buy it outright for a one-time $3,500. No setup fees either way.",
   },
   {
     icon: "Handshake",
     title: "We Handle\nEverything",
     description:
-      "Hosting, updates, SEO, security, and support — all managed by our team. You focus on your business, we keep your website fast, secure, and generating leads.",
+      "Website, hosting, SEO, content, ads, and support — all managed by our team. You focus on your business, we keep the leads coming in. Marketing plans from $300/month.",
   },
 ];
 
@@ -263,7 +263,7 @@ export function getExpandedFaqs(
       category: "billing",
       question: "What happens to my website if I cancel?",
       answer:
-        "You own your domain name and all of your content. If you cancel, we'll help you transition your domain and provide all your content and images. The website itself is built on our managed platform, so you'd need a new host, but you'll never lose your domain or content.",
+        "If you bought your website outright for $3,500, it's yours — keep it running wherever you like. If you got it free with a marketing plan and later cancel, you keep your domain and all of your content, and we'll help you transition. The site is built on our managed platform, so you'd need a new host, but you'll never lose your domain or content.",
     },
     {
       category: "billing",
@@ -275,13 +275,13 @@ export function getExpandedFaqs(
       category: "billing",
       question: "Is there really no setup fee?",
       answer:
-        "Correct. $0 setup fee on every plan. We design, build, and launch your website at no upfront cost. Your first monthly payment is due when the site goes live.",
+        "Correct. $0 setup fee on every marketing plan — we design, build, and launch your website at no upfront cost, and your first monthly payment is due when the site goes live. If you'd rather just own the site outright, that's a one-time $3,500 with nothing recurring.",
     },
     {
       category: "service",
       question: "What's included in my monthly plan?",
       answer:
-        "Every plan includes custom website design, mobile-responsive development, managed hosting, SSL certificate, basic SEO, a monthly content change allowance, and ongoing support. Higher tiers add more pages, service area pages, blog content, and advanced SEO.",
+        "Every marketing plan starts with a free custom website — mobile-responsive design, managed hosting, SSL, on-page SEO, a monthly change allowance, and ongoing support. From there, higher tiers add service-area pages, blog content, link building, paid ads management, and dedicated reporting to drive more leads.",
     },
     {
       category: "service",
@@ -323,13 +323,13 @@ export function getExpandedFaqs(
       category: "pricing",
       question: "How much does a BuildLocal website cost?",
       answer:
-        "Plans range from $99 to $495 per month depending on the size and features you need. Starter is $99/mo for a single-page site, Professional is $195/mo for a multi-page site, Growth is $295/mo with advanced SEO and service area pages, and Premium is $495/mo with ongoing SEO and blog content. No setup fees on any plan.",
+        "You have two options. Buy a custom website outright for a one-time $3,500 — it's yours to keep with no monthly commitment. Or get the website built free when you sign up for a monthly marketing plan. Marketing plans range from $300/mo (Starter) to $1,500/mo (Dominate) depending on how aggressively you want to grow. No setup fees on any plan.",
     },
     {
       category: "pricing",
-      question: "What's the difference between the tiers?",
+      question: "What's the difference between the marketing plans?",
       answer:
-        "Starter ($99/mo) is a single-page scrolling site — great for getting online fast. Professional ($195/mo) adds multiple pages for your services. Growth ($295/mo) includes service area pages, StoryBrand messaging, and blog-ready structure. Premium ($495/mo) adds monthly blog content, Google Business Profile optimization, local SEO, and quarterly performance reviews.",
+        "Each plan adds a new way to get customers. Starter ($300/mo) gets you found — free website, Google Business Profile, and SEO foundation. Growth ($500/mo) adds an ongoing SEO engine and monthly content for organic rankings. Pro ($750/mo) adds Google Ads and AEO (AI-search optimization) so you're at the top of Google and recommended by ChatGPT. Premium ($1,000/mo) adds Facebook & Instagram ads with retargeting. Dominate ($1,500/mo) scales everything — full multi-channel coverage across SEO, Google, Meta, and AI search, plus multi-location expansion. (Ad spend is billed separately on the ad tiers.)",
     },
     {
       category: "pricing",
@@ -490,10 +490,10 @@ const baseComparison: ComparisonRow[] = [
     freelancer: "$75-150/hr",
   },
   {
-    feature: "Monthly cost",
-    buildLocal: "$99-$495/mo",
+    feature: "Cost",
+    buildLocal: "$3,500 site / marketing $300-$1,500/mo",
     diyBuilder: "$15-40/mo + your time",
-    freelancer: "$0 + hourly fees",
+    freelancer: "$2K-$10K + hourly fees",
   },
   {
     feature: "Time to launch",

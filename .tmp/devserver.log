@@ -1,0 +1,26 @@
+
+> troker-landing@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ⚠ Invalid next.config.mjs options detected: 
+ ⚠     Unrecognized key(s) in object: 'outputFileTracingIncludes'
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ✓ Ready in 2.4s
+ ✓ Compiled /src/middleware in 147ms (72 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 5.9s (718 modules)
+ GET / 200 in 6915ms
+ ✓ Compiled in 1039ms (340 modules)
+ ○ Compiling /p/[business] ...
+ ✓ Compiled /p/[business] in 2.5s (858 modules)
+ GET /p/mighty-dog-roofing-east-valley 200 in 4628ms
+ GET /p/mighty-dog-roofing-east-valley 200 in 86ms
+ ✓ Compiled /favicon.ico in 479ms (549 modules)
+ GET /favicon.ico 200 in 643ms
+ GET /p/mighty-dog-roofing-east-valley 200 in 1041ms
+[?25h

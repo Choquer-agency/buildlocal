@@ -1,0 +1,23 @@
+import http from 'node:http';
+import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+const CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const port=9381;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const p=spawn(CHROME,['--headless=new',`--remote-debugging-port=${port}`,'--hide-scrollbars','--window-size=1440,1000',`--user-data-dir=/tmp/cdp-kore-${port}`,'http://localhost:4500/p/kore-roofing'],{stdio:'ignore'});
+const get=u=>new Promise((res,rej)=>http.get(u,r=>{let d='';r.on('data',c=>d+=c);r.on('end',()=>res(JSON.parse(d)));}).on('error',rej));
+let tabs;
+for(let i=0;i<20;i++){ await wait(1000); try{ tabs=await get(`http://127.0.0.1:${port}/json`); if(tabs&&tabs.length) break; }catch{} }
+const page=tabs.find(t=>t.type==='page'&&t.webSocketDebuggerUrl)||tabs[0];
+const WebSocket=(await import('ws')).default;
+const sock=new WebSocket(page.webSocketDebuggerUrl,{perMessageDeflate:false});
+let id=0;const cbs={};
+const send=(m,params={})=>new Promise(r=>{const i=++id;cbs[i]=r;sock.send(JSON.stringify({id:i,method:m,params}));});
+sock.on('message',d=>{const m=JSON.parse(d);if(m.id&&cbs[m.id])cbs[m.id](m);});
+await new Promise((r,rej)=>{sock.on('open',r);sock.on('error',rej);});
+await send('Page.enable');
+await wait(4000);
+const {result}=await send('Page.captureScreenshot',{format:'png'});
+fs.writeFileSync('./_shots/kore.png',Buffer.from(result.data,'base64'));
+console.log('SAVED');
+p.kill();process.exit(0);

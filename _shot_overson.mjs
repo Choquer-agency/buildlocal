@@ -1,0 +1,31 @@
+import http from 'node:http';
+import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
+const CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const port=9351;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const udd=fs.mkdtempSync(os.tmpdir()+'/cr-');
+const p=spawn(CHROME,['--headless=new',`--remote-debugging-port=${port}`,`--user-data-dir=${udd}`,'--no-first-run','--hide-scrollbars','--window-size=1440,1000','about:blank'],{stdio:'ignore'});
+const get=u=>new Promise((res,rej)=>http.get(u,r=>{let d='';r.on('data',c=>d+=c);r.on('end',()=>res(JSON.parse(d)));}).on('error',rej));
+let tabs;
+for(let i=0;i<30;i++){ try{ tabs=await get(`http://127.0.0.1:${port}/json`); if(tabs&&tabs[0]&&tabs[0].webSocketDebuggerUrl) break; }catch(e){} await wait(300); }
+if(!tabs||!tabs[0]){ console.log('no tabs'); p.kill(); process.exit(1); }
+console.log('ws url ok');
+const WebSocket=(await import('ws')).default;
+const sock=new WebSocket(tabs[0].webSocketDebuggerUrl);
+let id=0;const cbs={};
+const send=(m,params={})=>new Promise(r=>{const i=++id;cbs[i]=r;sock.send(JSON.stringify({id:i,method:m,params}));});
+sock.on('message',d=>{const m=JSON.parse(d);if(m.id&&cbs[m.id])cbs[m.id](m);});
+await new Promise((r,rej)=>{sock.on('open',r);sock.on('error',rej);});
+await send('Page.enable');await send('Runtime.enable');
+await send('Page.navigate',{url:'http://localhost:4500/p/overson-roofing'});
+await wait(4500);
+let shot=await send('Page.captureScreenshot',{format:'png',clip:{x:0,y:0,width:1440,height:1000,scale:1.5}});
+fs.writeFileSync('_shots/overson-hero.png',Buffer.from(shot.result.data,'base64'));
+const ev=await send('Runtime.evaluate',{expression:`(()=>{const a=[...document.querySelectorAll('a[href*="/services/"]')].find(e=>e.querySelector('img')); if(!a) return JSON.stringify({y:1100,h:1450}); const r=a.getBoundingClientRect(); return JSON.stringify({y:Math.max(0,r.top+window.scrollY-110), h:1400});})()`,returnByValue:true});
+const {y,h}=JSON.parse(ev.result.result.value);
+shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:0,y,width:1440,height:h,scale:1.5}});
+fs.writeFileSync('_shots/overson-services.png',Buffer.from(shot.result.data,'base64'));
+console.log('done grid y',y);
+p.kill();process.exit(0);

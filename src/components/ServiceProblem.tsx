@@ -78,9 +78,12 @@ export function ServiceProblem({ painPoints, eyebrow, heading }: ServiceProblemP
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-          {painPoints.map((point) => (
-            <div key={point.title} className="sp-card p-6 text-center">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-5xl xl:max-w-7xl mx-auto">
+          {painPoints.map((point, i) => (
+            <div
+              key={point.title}
+              className={`sp-card p-6 text-center${i >= 4 ? " sm:hidden xl:block" : ""}`}
+            >
               <div className="flex justify-center mb-5">
                 <PixelX color={iconColor} />
               </div>

@@ -36,7 +36,7 @@ export const comparisonMap: Record<string, ComparisonConfig> = {
       "Squarespace is a solid DIY builder — but for busy trades business owners who don't have time to design, write content, and manage a website, BuildLocal is the better choice. You get a professional site without doing any of the work.",
     rows: [
       { feature: "Custom design", buildLocal: "Fully custom, built for you", competitor: "Template-based, you customize", winner: "buildlocal" },
-      { feature: "Monthly price", buildLocal: "$195-$595/mo", competitor: "$16-$49/mo + your time", winner: "tie" },
+      { feature: "Monthly price", buildLocal: "$3,500 site or $300-$1,500/mo", competitor: "$16-$49/mo + your time", winner: "tie" },
       { feature: "Setup required", buildLocal: "None — we do everything", competitor: "You build it yourself", winner: "buildlocal" },
       { feature: "SEO included", buildLocal: "Yes — local SEO built in", competitor: "Basic tools, you configure", winner: "buildlocal" },
       { feature: "Content writing", buildLocal: "Written for you", competitor: "You write it", winner: "buildlocal" },
@@ -69,7 +69,7 @@ export const comparisonMap: Record<string, ComparisonConfig> = {
       "Wix is fine for personal projects and hobby sites. But for a trades business that needs to generate leads, look professional, and rank on Google — a professionally built and managed site from BuildLocal delivers better results with zero effort from you.",
     rows: [
       { feature: "Custom design", buildLocal: "Fully custom, built for you", competitor: "Template-based, drag-and-drop", winner: "buildlocal" },
-      { feature: "Monthly price", buildLocal: "$195-$595/mo", competitor: "$17-$36/mo + your time", winner: "tie" },
+      { feature: "Monthly price", buildLocal: "$3,500 site or $300-$1,500/mo", competitor: "$17-$36/mo + your time", winner: "tie" },
       { feature: "Setup required", buildLocal: "None — we do everything", competitor: "You build it yourself", winner: "buildlocal" },
       { feature: "SEO included", buildLocal: "Local SEO built in", competitor: "Basic SEO tools included", winner: "buildlocal" },
       { feature: "Content writing", buildLocal: "Written for you", competitor: "You write or use AI", winner: "buildlocal" },
@@ -103,7 +103,7 @@ export const comparisonMap: Record<string, ComparisonConfig> = {
       "GoDaddy is a domain registrar that added a website builder as an upsell. BuildLocal is a web design agency that builds conversion-focused sites for trades businesses. If you want results, not just a website, the choice is clear.",
     rows: [
       { feature: "Custom design", buildLocal: "Fully custom, built for you", competitor: "Basic templates, limited customization", winner: "buildlocal" },
-      { feature: "Monthly price", buildLocal: "$195-$595/mo", competitor: "$10-$25/mo + your time", winner: "tie" },
+      { feature: "Monthly price", buildLocal: "$3,500 site or $300-$1,500/mo", competitor: "$10-$25/mo + your time", winner: "tie" },
       { feature: "Setup required", buildLocal: "None", competitor: "You build it yourself", winner: "buildlocal" },
       { feature: "SEO", buildLocal: "Local SEO built in by experts", competitor: "Basic SEO wizard", winner: "buildlocal" },
       { feature: "Content quality", buildLocal: "Professionally written", competitor: "AI-generated or self-written", winner: "buildlocal" },
@@ -128,11 +128,11 @@ export const comparisonMap: Record<string, ComparisonConfig> = {
       "BuildLocal vs Scorpion comparison for contractor and home service websites. Same results, fraction of the cost. See how we compare.",
     heroH1: "BuildLocal vs Scorpion: Better Websites at a Fraction of the Cost",
     heroSubhead:
-      "Scorpion charges $2,000-$5,000/month for marketing packages that lock you into long contracts. BuildLocal delivers professional websites for trades businesses starting at $195/month with no contracts. Here's the full comparison.",
+      "Scorpion charges $2,000-$5,000/month for marketing packages that lock you into long contracts. BuildLocal delivers professional websites for trades businesses — buy outright for $3,500 or get one free with a marketing plan from $300/month, no contracts. Here's the full comparison.",
     verdict:
       "Scorpion is a full-service marketing agency with enterprise pricing. If you're a large home service company spending $10K+/month on marketing, Scorpion might make sense. But for most trades businesses, BuildLocal delivers the website and SEO foundation you need at 1/10th the cost.",
     rows: [
-      { feature: "Monthly cost", buildLocal: "$195-$595/mo", competitor: "$2,000-$5,000+/mo", winner: "buildlocal" },
+      { feature: "Monthly cost", buildLocal: "$3,500 site or $300-$1,500/mo", competitor: "$2,000-$5,000+/mo", winner: "buildlocal" },
       { feature: "Contracts", buildLocal: "No contracts, cancel anytime", competitor: "12-24 month contracts typical", winner: "buildlocal" },
       { feature: "Custom website", buildLocal: "Yes — fully custom", competitor: "Yes — but cookie-cutter for their clients", winner: "tie" },
       { feature: "SEO included", buildLocal: "Local SEO fundamentals", competitor: "Full SEO + PPC packages", winner: "competitor" },
@@ -142,7 +142,7 @@ export const comparisonMap: Record<string, ComparisonConfig> = {
       { feature: "Best for", buildLocal: "Small-mid trades businesses", competitor: "Large home service companies", winner: "tie" },
     ],
     faqs: [
-      { category: "pricing", question: "How much does Scorpion cost compared to BuildLocal?", answer: "Scorpion typically charges $2,000-$5,000/month with 12-24 month contracts and setup fees of $1,000-$3,000. BuildLocal starts at $195/month with no contracts and no setup fees. For a small trades business, that's the difference between a manageable expense and a major financial commitment." },
+      { category: "pricing", question: "How much does Scorpion cost compared to BuildLocal?", answer: "Scorpion typically charges $2,000-$5,000/month with 12-24 month contracts and setup fees of $1,000-$3,000. With BuildLocal you can own a website outright for a one-time $3,500, or run a full marketing plan from $300/month with no contracts and no setup fees. For a small trades business, that's the difference between a manageable expense and a major financial commitment." },
       { category: "general", question: "Is Scorpion worth the higher price?", answer: "Scorpion includes more services — paid advertising management, reputation management, and full SEO campaigns. If you need all of that and have the budget, it can be worth it. But if you primarily need a great website with SEO basics and don't want to spend $3K+/month, BuildLocal is the smarter choice." },
       { category: "service", question: "Do I own my website with Scorpion?", answer: "This varies, but many Scorpion clients report that their websites are built on Scorpion's proprietary platform and are difficult or impossible to take with you when you leave. With BuildLocal, you always own your website and can take it with you if you cancel." },
       { category: "general", question: "Can BuildLocal compete with Scorpion's SEO results?", answer: "For local SEO — showing up when people in your city search for your trade — BuildLocal websites are built with the same fundamentals. We don't run paid ad campaigns or large-scale link building like Scorpion, but our sites are optimized to rank locally right out of the box." },
@@ -164,7 +164,7 @@ export const comparisonMap: Record<string, ComparisonConfig> = {
       "WordPress is powerful but demands technical knowledge, ongoing maintenance, and security vigilance. For trades business owners who want a website that works without constant attention, BuildLocal eliminates the complexity while delivering better results.",
     rows: [
       { feature: "Setup difficulty", buildLocal: "None — fully done for you", competitor: "High — hosting, themes, plugins, configuration", winner: "buildlocal" },
-      { feature: "Monthly cost", buildLocal: "$195-$595/mo all-inclusive", competitor: "$30-$100/mo hosting + $2K-$10K build", winner: "buildlocal" },
+      { feature: "Cost", buildLocal: "$3,500 site or $300-$1,500/mo all-inclusive", competitor: "$30-$100/mo hosting + $2K-$10K build", winner: "buildlocal" },
       { feature: "Security", buildLocal: "Managed — always secure", competitor: "You manage updates, patches, plugins", winner: "buildlocal" },
       { feature: "Speed", buildLocal: "Fast — optimized builds", competitor: "Often slow due to plugin bloat", winner: "buildlocal" },
       { feature: "Customization", buildLocal: "Custom design within our system", competitor: "Unlimited with right developer", winner: "competitor" },

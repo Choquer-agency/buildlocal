@@ -1,0 +1,17 @@
+bytes:   164452
+--- nav wordmark (Tempe Roofing text near top):
+Tempe Roofing
+--- badge initials present? (TE square):
+0
+--- brand color 0170ba occurrences:
+1
+--- real photos wired:
+biz-photos/tempe-roofing/p1
+biz-photos/tempe-roofing/p2
+biz-photos/tempe-roofing/p3
+biz-photos/tempe-roofing/p4
+biz-photos/tempe-roofing/p5
+biz-photos/tempe-roofing/p6
+biz-photos/tempe-roofing/p7
+biz-photos/tempe-roofing/p8
+biz-photos/tempe-roofing/p9

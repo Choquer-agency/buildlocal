@@ -59,7 +59,7 @@ const faqs = [
   {
     question: "What happens after I get my mockup?",
     answer:
-      "You'll review the mockup and if you love it, we can have your full site live within a week. Plans start at $195/mo with no setup fees. If it's not for you, no hard feelings — the mockup is yours to keep.",
+      "You'll review the mockup and if you love it, we can have your full site live within a week. Buy it outright for $3,500 or get it free with a marketing plan from $300/mo. If it's not for you, no hard feelings — the mockup is yours to keep.",
   },
   {
     question: "How long does the mockup take?",
@@ -95,7 +95,7 @@ export default function FreeMockupPage() {
       <LpOffer
         title="When you're ready to go live, here's what's included"
         features={offerFeatures}
-        priceAnchor="Plans start at $195/mo — no setup fees, no contracts."
+        priceAnchor="Buy outright for $3,500 or marketing plans from $300/mo — no setup fees, no contracts."
         ctaLabel="Start My Free Mockup"
         ctaAction="scroll"
         scrollTarget="#mockup-form"

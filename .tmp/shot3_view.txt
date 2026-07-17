@@ -1,0 +1,5 @@
+spawning chrome
+fetching tabs
+tabs 3
+socket open
+capturing

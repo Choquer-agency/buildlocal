@@ -40,23 +40,47 @@ export function Pricing({ region, slug }: { region: string; slug: string }) {
   return (
     <section ref={ref} id="pricing" className="theme-dark section-space-main">
       <div className="u-container">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <p className="pricing-heading eyebrow text-brand mb-4">Pricing</p>
-          <h2 className="pricing-heading font-sans font-medium text-fluid-h2 leading-[1.1] text-white max-w-[28ch] mx-auto mb-6">
-            Simple pricing.{" "}
-            <span style={{ color: "#ff9500" }}>No setup fees. No contracts.</span>
+          <h2 className="pricing-heading font-sans font-medium text-fluid-h2 leading-[1.1] text-white max-w-[30ch] mx-auto mb-6">
+            We build your website free.{" "}
+            <span style={{ color: "#ff9500" }}>Then we get you customers.</span>
           </h2>
-          <p className="pricing-heading font-sans text-fluid-main text-white opacity-50 leading-relaxed max-w-[55ch] mx-auto">
-            Every plan includes hosting, design, development, and ongoing support.
-            Pick the one that fits your business.
+          <p className="pricing-heading font-sans text-fluid-main text-white opacity-50 leading-relaxed max-w-[58ch] mx-auto">
+            Pick a monthly marketing plan and we build your custom website at no
+            cost — then drive leads with SEO, content, and local search. No setup
+            fees, no contracts, cancel anytime.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {/* Buy-outright website band */}
+        <div className="pricing-card rounded-sm p-6 sm:p-8 mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border border-white/10" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
+          <div>
+            <p className="font-mono text-sm text-white opacity-50 uppercase tracking-wider mb-1">
+              Just want the website?
+            </p>
+            <p className="font-sans text-fluid-main text-white leading-relaxed max-w-[60ch]">
+              Buy a custom website outright for a one-time{" "}
+              <strong className="font-semibold" style={{ color: "#ff9500" }}>$3,500</strong>
+              {" "}— yours to keep, no monthly commitment. Or get it{" "}
+              <span className="text-white">free</span> with any plan below.
+            </p>
+          </div>
+          <button
+            onClick={() => openModal()}
+            data-track="pricing-cta"
+            data-track-label="Buy Website $3,500"
+            className="btn-secondary flex-shrink-0"
+          >
+            <span className="text-sm">Buy a Website — $3,500</span>
+          </button>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-6">
           {pricingTiers.map((tier) => (
             <div
               key={tier.name}
-              className="pricing-card rounded-sm p-8 flex flex-col"
+              className="pricing-card rounded-sm p-8 flex flex-col w-full sm:w-[calc(50%_-_0.75rem)] lg:w-[calc(33.333%_-_1rem)] lg:max-w-[24rem]"
               style={{
                 backgroundColor: tier.featured
                   ? "rgba(255,255,255,0.1)"
@@ -132,7 +156,7 @@ export function Pricing({ region, slug }: { region: string; slug: string }) {
         </div>
 
         <p className="font-sans text-sm text-white opacity-30 text-center mt-8 max-w-[55ch] mx-auto">
-          All plans are month-to-month. Cancel anytime. Your site pays for itself with one extra customer.
+          All marketing plans are month-to-month. Cancel anytime. Most clients land one extra customer and the plan pays for itself.
         </p>
       </div>
     </section>

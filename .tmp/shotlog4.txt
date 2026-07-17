@@ -1,0 +1,20 @@
+[shot] spawning chrome
+[shot] fetching tabs
+[shot] tabs 6
+/Users/lauren/Documents/Lauren's Repo/buildlocal/node_modules/ws/lib/websocket.js:918
+      abortHandshake(
+      ^
+
+Error: Unexpected server response: 500
+    at ClientRequest.<anonymous> (/Users/lauren/Documents/Lauren's Repo/buildlocal/node_modules/ws/lib/websocket.js:918:7)
+    at ClientRequest.emit (node:events:513:28)
+    at HTTPParser.parserOnIncomingClient (node:_http_client:688:27)
+    at HTTPParser.parserOnHeadersComplete (node:_http_common:117:17)
+    at Socket.socketOnData (node:_http_client:530:22)
+    at Socket.emit (node:events:513:28)
+    at addChunk (node:internal/streams/readable:324:12)
+    at readableAddChunk (node:internal/streams/readable:297:9)
+    at Readable.push (node:internal/streams/readable:234:10)
+    at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+
+Node.js v19.4.0

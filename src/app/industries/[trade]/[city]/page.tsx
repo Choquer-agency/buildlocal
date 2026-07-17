@@ -44,7 +44,7 @@ export async function generateMetadata({
   if (!industry || !city) return {};
 
   const title = `${industry.title} ${city.name} ${city.stateCode} | Websites for ${city.name} — BuildLocal`;
-  const description = `Professional ${industry.title.toLowerCase()} for ${city.name}, ${city.state}. We build high-performance websites that get ${city.name} trades businesses more calls. Starting at $195/mo. No contracts.`;
+  const description = `Professional ${industry.title.toLowerCase()} for ${city.name}, ${city.state}. We build high-performance websites that get ${city.name} trades businesses more calls. Buy outright for $3,500 or free with a marketing plan from $300/mo. No contracts.`;
 
   return {
     title,
@@ -100,7 +100,7 @@ export default function IndustryCityPage({ params }: IndustryCityPageProps) {
       <ServiceHero
         h1={`${industry.title} in ${city.name}, ${city.stateCode}`}
         subhead={`${city.name} has ${city.population} residents and growing. If your ${industry.title.toLowerCase().replace("website design", "").trim()} business doesn't have a professional website, you're invisible to homeowners searching online. We build websites that make ${city.name} trades businesses the first call.`}
-        qualifier={`For ${city.name} ${industry.title.toLowerCase().replace("website design", "").trim()} companies that want more calls, more jobs, and a professional online presence. Starting at $195/month.`}
+        qualifier={`For ${city.name} ${industry.title.toLowerCase().replace("website design", "").trim()} companies that want more calls, more jobs, and a professional online presence. Buy your site for $3,500 or get it free with a marketing plan from $300/month.`}
         region={cityRegion}
         eyebrow={`${industry.eyebrow} · ${city.name}`}
       />
@@ -119,8 +119,8 @@ export default function IndustryCityPage({ params }: IndustryCityPageProps) {
                 <p className="font-sans text-fluid-small opacity-60">Search online before hiring</p>
               </div>
               <div>
-                <p className="font-sans font-medium text-fluid-h3 text-brand">$195</p>
-                <p className="font-sans text-fluid-small opacity-60">Per month, no contracts</p>
+                <p className="font-sans font-medium text-fluid-h3 text-brand">$3,500</p>
+                <p className="font-sans text-fluid-small opacity-60">Website, or free with marketing</p>
               </div>
               <div>
                 <p className="font-sans font-medium text-fluid-h3 text-brand">175+</p>
@@ -262,7 +262,7 @@ function generateIndustryCitySchema(
           latitude: city.latitude,
           longitude: city.longitude,
         },
-        priceRange: "$195 - $595/mo",
+        priceRange: "$$",
       },
       {
         "@type": "Service",

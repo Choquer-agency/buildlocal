@@ -10,7 +10,7 @@ import { PortfolioContent } from "./PortfolioContent";
 export async function generateMetadata(): Promise<Metadata> {
   const config = getStaticDomainConfig();
   const title = `Our Work | ${config.brandName} — 175+ Websites Built`;
-  const description = `See the websites we've built for small businesses and trades companies. 175+ sites launched, real results, and affordable managed websites from $99/month.`;
+  const description = `See the websites we've built for small businesses and trades companies. 175+ sites launched, real results. Buy a website outright for $3,500 or get one free with a marketing plan.`;
 
   return {
     title,

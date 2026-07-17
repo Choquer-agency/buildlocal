@@ -35,7 +35,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Websites for Contractors ${locality} | ${region} Trades Web Design`,
     metaDescription: (locality, region) =>
-      `Professional websites for roofers, HVAC, plumbers, electricians, and contractors in ${locality}, ${region}. Affordable managed sites starting at $99/month. Get more calls.`,
+      `Professional websites for roofers, HVAC, plumbers, electricians, and contractors in ${locality}, ${region}. Buy a site for $3,500 or get one free with a marketing plan. Get more calls.`,
     heroH1: (_locality, region) =>
       `Websites That Get ${region} Trades Companies More Jobs`,
     heroSubhead: (_locality, region) =>
@@ -101,7 +101,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: `How much does a website cost for a ${region} contractor?`,
-        answer: `Our managed website plans start at $99/month with no big upfront cost. That includes custom design, hosting, security, and ongoing support. Compare that to the $5,000-$15,000 other agencies charge upfront — and then leave you on your own.`,
+        answer: `You can buy a custom website outright for a one-time $3,500, or get it free with a marketing plan from $300/month that includes hosting, security, SEO, and ongoing support. Compare that to the $5,000-$15,000 other agencies charge upfront — and then leave you on your own.`,
       },
       {
         category: "website",
@@ -126,7 +126,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Websites for Local Businesses ${locality} | ${region} Web Design`,
     metaDescription: (locality, region) =>
-      `Professional websites for auto repair, cleaning, pest control, moving companies, and local service businesses in ${locality}, ${region}. Managed sites from $99/month.`,
+      `Professional websites for auto repair, cleaning, pest control, moving companies, and local service businesses in ${locality}, ${region}. Buy a site for $3,500 or get one free with a marketing plan from $300/month.`,
     heroH1: (_locality, region) =>
       `Websites That Bring ${region} Service Businesses More Customers`,
     heroSubhead: (_locality, region) =>
@@ -187,7 +187,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: "Is there a big upfront cost?",
-        answer: `No. Our managed website plans start at $99/month with little to no upfront cost. We spread the investment over time because we're in it with you for the long haul — not just a one-time build and goodbye.`,
+        answer: `Not unless you want one. You can own a custom website outright for a one-time $3,500, or skip the upfront cost entirely and get the site free with a marketing plan from $300/month. Either way there are no setup fees — and with a plan, we're in it with you for the long haul.`,
       },
       {
         category: "website",
@@ -217,7 +217,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Websites for Salons & Retail ${locality} | ${region} Web Design`,
     metaDescription: (locality, region) =>
-      `Beautiful websites for salons, restaurants, fitness studios, and boutiques in ${locality}, ${region}. Booking-ready, mobile-friendly, and managed for you. From $99/month.`,
+      `Beautiful websites for salons, restaurants, fitness studios, and boutiques in ${locality}, ${region}. Booking-ready, mobile-friendly, and managed for you. Buy outright for $3,500 or free with a marketing plan from $300/month.`,
     heroH1: (_locality, region) =>
       `Beautiful Websites for ${region} Retail & Lifestyle Businesses`,
     heroSubhead: (_locality, region) =>
@@ -288,7 +288,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: `How much does a website cost for a ${region} salon or restaurant?`,
-        answer: `Our managed plans start at $99/month — no massive upfront cost. For businesses that need booking integration, menus, or e-commerce, our mid-tier plans cover everything you need. Every plan includes hosting, updates, and support.`,
+        answer: `You can buy a website outright for a one-time $3,500, or get it free with a marketing plan from $300/month — no massive upfront cost. For businesses that need booking integration, menus, or e-commerce, our mid-tier plans cover everything you need. Every plan includes hosting, updates, SEO, and support.`,
       },
       {
         category: "general",
@@ -308,7 +308,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
     metaTitle: (locality, region) =>
       `Websites for Professional Services ${locality} | ${region} Web Design`,
     metaDescription: (locality, region) =>
-      `Professional websites for accountants, consultants, insurance agents, and advisors in ${locality}, ${region}. Credible, lead-generating sites managed for you. From $99/month.`,
+      `Professional websites for accountants, consultants, insurance agents, and advisors in ${locality}, ${region}. Credible, lead-generating sites managed for you. Buy outright for $3,500 or free with a marketing plan from $300/month.`,
     heroH1: (_locality, region) =>
       `Professional Websites for ${region} Service Firms`,
     heroSubhead: (_locality, region) =>
@@ -379,7 +379,7 @@ export const industryMap: Record<string, IndustryPageConfig> = {
       {
         category: "pricing",
         question: `How much does a professional services website cost in ${region}?`,
-        answer: `Our managed plans start at $99/month with no large upfront cost. Most professional service firms land in the $199-$349/month range for a fully custom site with lead generation features, blog capability, and ongoing management.`,
+        answer: `You can buy a website outright for a one-time $3,500, or get it free with a marketing plan from $300/month. Most professional service firms land in our $500-$750/month plans for lead-generation features, blog content, and ongoing local SEO and management.`,
       },
       {
         category: "general",

@@ -10,7 +10,7 @@ import { FAQContent } from "./FAQContent";
 export async function generateMetadata(): Promise<Metadata> {
   const config = getStaticDomainConfig();
   const title = `FAQ | ${config.brandName} — Frequently Asked Questions`;
-  const description = `Common questions about ${config.brandName}'s affordable managed websites for small businesses. Learn about pricing, plans, process, and what's included from $99/month.`;
+  const description = `Common questions about ${config.brandName}'s websites and local marketing for small businesses. Learn about our $3,500 outright website, marketing plans from $300/month, the process, and what's included.`;
 
   return {
     title,

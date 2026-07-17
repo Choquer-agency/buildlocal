@@ -23,10 +23,12 @@ const businessTypes = [
 ];
 
 const planInterests = [
-  "Starter — $99/mo",
-  "Professional — $195/mo",
-  "Growth — $295/mo (Most Popular)",
-  "Premium — $495/mo",
+  "Website only — $3,500 one-time",
+  "Starter — $300/mo",
+  "Growth — $500/mo (Most Popular)",
+  "Pro — $750/mo",
+  "Premium — $1,000/mo",
+  "Dominate — $1,500/mo",
   "Not sure yet",
 ];
 

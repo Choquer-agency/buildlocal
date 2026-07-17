@@ -136,15 +136,15 @@ export const defaultConfig: DomainConfig = {
   country: "US",
   domainType: "agency",
   brandName: "BuildLocal",
-  metaTitle: "BuildLocal | Professional Managed Websites for Trades & Small Businesses",
+  metaTitle: "BuildLocal | Websites & Local Marketing for Trades & Small Businesses",
   metaDescription:
-    "We design, build, and manage high-performance websites for trades businesses and small companies in Arizona. No setup fees, no contracts. Fully managed from $195/month. 175+ websites built.",
+    "We build trades and small businesses a website that gets found — buy outright for $3,500 or get it free with a marketing plan from $300/mo. SEO, content & local search. 175+ websites built.",
   locality: "Phoenix",
   stateCode: "AZ",
   nearbyAreas: "Phoenix, Scottsdale, Mesa, Tempe, Chandler, Gilbert, and cities across Arizona",
-  heroH1: "A brand new website starting at $195/mo — built to convert.",
+  heroH1: "A brand new website built to get you more customers.",
   heroSubhead:
-    "We design, optimize, and manage high-performance websites for trades businesses and small companies. Every site is built with SEO, conversion, and growth at its core. No setup fees, no contracts.",
+    "We design and build your custom website — buy it outright for $3,500, or get it free with a monthly marketing plan that drives leads through SEO, content, and local search. Built for trades and small businesses.",
   schemaAddress: {
     locality: "Phoenix",
     region: "AZ",

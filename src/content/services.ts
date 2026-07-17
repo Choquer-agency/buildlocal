@@ -32,7 +32,7 @@ export const serviceMap: Record<string, ServicePageConfig> = {
     metaTitle: (locality, region) =>
       `Website Design ${locality} | Affordable ${region} Web Design`,
     metaDescription: (locality, region) =>
-      `Custom website design for small businesses in ${locality}, ${region}. Mobile-friendly, fast-loading sites that turn visitors into customers. Starting at $99/month.`,
+      `Custom website design for small businesses in ${locality}, ${region}. Mobile-friendly, fast-loading sites that turn visitors into customers. Buy outright for $3,500 or free with a marketing plan.`,
     heroH1: (_locality, region) =>
       `Website Design That Actually Works for ${region} Small Businesses`,
     heroSubhead: (_locality, region) =>
@@ -133,7 +133,7 @@ export const serviceMap: Record<string, ServicePageConfig> = {
     metaTitle: (locality, region) =>
       `Website Management ${locality} | ${region} Managed Hosting`,
     metaDescription: (locality, region) =>
-      `Managed website hosting and maintenance for ${region} businesses. Uptime monitoring, monthly updates, backups, and security — all handled for you. Plans from $99/month in ${locality}.`,
+      `Managed website hosting and maintenance for ${region} businesses. Uptime monitoring, updates, backups, and security — all handled for you. Included free with any marketing plan from $300/month in ${locality}.`,
     heroH1: (_locality, region) =>
       `Website Management & Hosting for ${region} Businesses`,
     heroSubhead: (_locality, region) =>
@@ -420,7 +420,415 @@ export const serviceMap: Record<string, ServicePageConfig> = {
       {
         category: "pricing",
         question: "How much does GBP optimization cost?",
-        answer: `GBP optimization is included in our website management plans starting at $99/month. For businesses that want standalone GBP management without a website, we offer dedicated plans as well. Either way, the ROI is hard to beat — a single new customer from Google Maps pays for months of management.`,
+        answer: `GBP optimization is included in our marketing plans starting at $300/month. For businesses that want standalone GBP management, we offer dedicated plans as well. Either way, the ROI is hard to beat — a single new customer from Google Maps pays for months of management.`,
+      },
+    ],
+    showComparison: false,
+    showPortfolio: true,
+  },
+
+  /* ════════════════════════════════════════════════════════════
+     MARKETING SERVICES — SEO, Google Ads, Facebook Ads, AEO
+     ════════════════════════════════════════════════════════════ */
+
+  seo: {
+    slug: "seo",
+    title: "Search Engine Optimization",
+    eyebrow: "SEO Services",
+    problemEyebrow: "Why You're Not Showing Up on Google",
+    problemHeading: "If you're not on page one, you don't exist.",
+    processHeading: "How we get you ranking in four steps.",
+    metaTitle: (locality, region) =>
+      `SEO Services ${locality} | Local SEO for ${region} Businesses — BuildLocal`,
+    metaDescription: (locality, region) =>
+      `Local SEO that gets ${region} businesses found on Google. Rank for the searches your customers actually use and turn organic traffic into booked jobs. Included with marketing plans from $300/month. No contracts.`,
+    heroH1: (_locality, region) =>
+      `SEO That Gets ${region} Businesses to the Top of Google`,
+    heroSubhead: (_locality, region) =>
+      `When someone searches for what you do, you need to be the first name they see. We build local SEO campaigns that get ${region} businesses ranking, drive qualified traffic, and turn searches into booked jobs.`,
+    heroQualifier: (_locality, region) =>
+      `For ${region} businesses that want steady, compounding leads from Google instead of paying for every single click.`,
+    painPoints: [
+      {
+        title: "You're buried on page two or worse",
+        description:
+          "Three-quarters of people never scroll past the first page of Google. If you're not in the top results for your services, your competitors are getting the calls that should be yours.",
+      },
+      {
+        title: "You're paying for every lead",
+        description:
+          "Shared lead platforms and paid ads charge you again and again. SEO builds an asset that keeps generating leads long after the work is done — at a lower cost per lead every month.",
+      },
+      {
+        title: "Your site isn't built for search",
+        description:
+          "Missing title tags, slow pages, no local content, no schema. Google can't tell what you do or where you do it, so it ranks someone else ahead of you.",
+      },
+      {
+        title: "You have no Google Maps presence",
+        description:
+          "The local map pack is where local searches convert. Without an optimized Google Business Profile, reviews, and consistent listings, you're invisible in local search.",
+      },
+      {
+        title: "You don't know what's working",
+        description:
+          "No tracking, no reporting, no idea which keywords bring calls. You're flying blind and can't tell whether your marketing is actually paying off.",
+      },
+    ],
+    processSteps: [
+      {
+        step: 1,
+        title: "Audit & Research",
+        description:
+          "We audit your website, analyze your competitors, and identify the exact keywords your customers are actually searching for.",
+      },
+      {
+        step: 2,
+        title: "On-Page & Technical",
+        description:
+          "We optimize titles, meta, headings, schema, site speed, and content so Google clearly understands and trusts your site.",
+      },
+      {
+        step: 3,
+        title: "Local & Off-Page",
+        description:
+          "We optimize your Google Business Profile, build local citations, and earn quality links that grow your authority.",
+      },
+      {
+        step: 4,
+        title: "Content & Reporting",
+        description:
+          "We publish targeted content every month and send you clear reports showing your rankings, traffic, and leads.",
+      },
+    ],
+    faqs: (locality, region) => [
+      {
+        category: "process",
+        question: "How long does SEO take to work?",
+        answer: `SEO is a long-term investment. Most ${region} businesses see meaningful movement within 3-4 months and significant results by 6-12 months. Unlike ads, those results compound and keep paying off after you stop spending.`,
+      },
+      {
+        category: "pricing",
+        question: "How much does SEO cost?",
+        answer: `SEO is included in our marketing plans starting at $300/month, with more aggressive campaigns in our $500-$1,500/month tiers. There are no setup fees and no contracts — you can cancel anytime.`,
+      },
+      {
+        category: "service",
+        question: "Do you guarantee #1 rankings?",
+        answer: `No honest SEO company guarantees a specific position — Google's algorithm changes constantly. What we guarantee is proven, white-hat work: technical fixes, quality content, and local optimization that reliably moves your rankings up over time.`,
+      },
+      {
+        category: "service",
+        question: "What's the difference between SEO and Google Ads?",
+        answer: `Google Ads put you at the top instantly but stop the moment you stop paying. SEO takes longer but builds lasting visibility at a declining cost per lead. Most ${locality} businesses do best running both together — we can manage that for you.`,
+      },
+      {
+        category: "general",
+        question: "Will SEO work for my industry?",
+        answer: `Local SEO works for virtually any business that serves a geographic area — trades, home services, professional services, retail, and more. The less your competitors invest in SEO, the faster you can win.`,
+      },
+    ],
+    showComparison: false,
+    showPortfolio: true,
+  },
+
+  "google-ads": {
+    slug: "google-ads",
+    title: "Google Ads Management",
+    eyebrow: "Google Ads (PPC)",
+    problemEyebrow: "Why Most Google Ads Waste Money",
+    problemHeading: "Most businesses light their ad budget on fire.",
+    processHeading: "How we turn clicks into customers in four steps.",
+    metaTitle: (locality, region) =>
+      `Google Ads Management ${locality} | PPC for ${region} Businesses — BuildLocal`,
+    metaDescription: (locality, region) =>
+      `Google Ads management that turns clicks into calls for ${region} businesses. Show up at the top of Google instantly, stop wasting spend, and track every lead. Managed in our marketing plans from $300/month.`,
+    heroH1: (_locality, region) =>
+      `Google Ads That Bring ${region} Customers Calling Today`,
+    heroSubhead: (_locality, region) =>
+      `SEO is a marathon — Google Ads is the sprint. We build and manage high-converting search campaigns that put your ${region} business at the very top of Google the moment customers search, so the phone starts ringing now.`,
+    heroQualifier: (_locality, region) =>
+      `For ${region} businesses that want qualified leads immediately, with a managed campaign that doesn't waste a single dollar.`,
+    painPoints: [
+      {
+        title: "You're bidding on the wrong keywords",
+        description:
+          "Broad, untargeted keywords burn through your budget on clicks that never convert. We target high-intent searches from people who are ready to buy.",
+      },
+      {
+        title: "No negative keywords, wasted spend",
+        description:
+          "Without a tight negative keyword list, you pay for irrelevant clicks all day long. Most DIY accounts waste 30-50% of their budget right here.",
+      },
+      {
+        title: "Your ads send people to a weak page",
+        description:
+          "Sending paid traffic to a generic homepage kills conversions. The right landing page can double or triple the leads you get from the same spend.",
+      },
+      {
+        title: "You can't tell which ads make money",
+        description:
+          "No call tracking, no conversion tracking, no idea what your cost per lead is. You can't optimize what you don't measure.",
+      },
+      {
+        title: "You set it and forgot it",
+        description:
+          "Google Ads needs constant tuning — bids, keywords, ad copy, and budgets shift every week. An unmanaged account quietly bleeds money.",
+      },
+    ],
+    processSteps: [
+      {
+        step: 1,
+        title: "Strategy & Setup",
+        description:
+          "We research your market, build a tightly targeted keyword list, and structure campaigns around the searches most likely to become customers.",
+      },
+      {
+        step: 2,
+        title: "Ads & Landing Pages",
+        description:
+          "We write compelling ad copy and build conversion-focused landing pages so every click has the best chance to become a lead.",
+      },
+      {
+        step: 3,
+        title: "Tracking & Launch",
+        description:
+          "We set up call and conversion tracking, then launch with controlled budgets and scale what works.",
+      },
+      {
+        step: 4,
+        title: "Optimize & Report",
+        description:
+          "We tune bids, keywords, and copy continuously, and send you clear reports showing spend, leads, and cost per lead.",
+      },
+    ],
+    faqs: (locality, region) => [
+      {
+        category: "pricing",
+        question: "How much should I spend on Google Ads?",
+        answer: `Ad spend is separate from our management fee and goes directly to Google. Most ${region} small businesses start with $500-$2,000/month in ad spend depending on their market and goals. We'll recommend a budget based on your industry and the cost per lead in your area.`,
+      },
+      {
+        category: "pricing",
+        question: "Is management included in my plan?",
+        answer: `Google Ads management is available in our Premium and Dominate marketing plans. The monthly plan covers our management; your ad spend is billed separately by Google so you stay in full control of your budget.`,
+      },
+      {
+        category: "process",
+        question: "How fast will I see leads?",
+        answer: `Fast — that's the whole point of paid ads. Campaigns typically start generating clicks within 24-48 hours of launch and qualified leads within the first week or two as we optimize.`,
+      },
+      {
+        category: "service",
+        question: "Google Ads or SEO — which should I do?",
+        answer: `Ads deliver leads immediately but stop when you stop paying. SEO builds lasting visibility over months. The smartest play for most ${locality} businesses is both: ads for immediate leads while SEO compounds in the background.`,
+      },
+      {
+        category: "billing",
+        question: "Do you manage the budget so I don't overspend?",
+        answer: `Yes. We set daily and monthly caps, monitor spend closely, and you'll never be charged more than your agreed budget. You see exactly where every dollar goes.`,
+      },
+    ],
+    showComparison: false,
+    showPortfolio: true,
+  },
+
+  "facebook-ads": {
+    slug: "facebook-ads",
+    title: "Facebook & Instagram Ads",
+    eyebrow: "Meta Ads (Facebook & Instagram)",
+    problemEyebrow: "Why Boosting Posts Doesn't Work",
+    problemHeading: "Boosting a post is not a marketing strategy.",
+    processHeading: "How we build a Meta ad engine in four steps.",
+    metaTitle: (locality, region) =>
+      `Facebook & Instagram Ads ${locality} | Meta Ads for ${region} Businesses — BuildLocal`,
+    metaDescription: (locality, region) =>
+      `Facebook and Instagram ads that fill the pipeline for ${region} businesses. Reach local customers, generate leads, and retarget visitors who didn't convert. Managed in our marketing plans from $300/month.`,
+    heroH1: (_locality, region) =>
+      `Facebook & Instagram Ads That Put Your ${region} Business in Front of Local Customers`,
+    heroSubhead: (_locality, region) =>
+      `Your future customers are scrolling right now. We build and manage Facebook and Instagram ad campaigns that get ${region} businesses in front of the right local audience — with thumb-stopping creative and offers that convert.`,
+    heroQualifier: (_locality, region) =>
+      `For ${region} businesses that want to generate demand, not just wait for it, with social ads that actually drive leads.`,
+    painPoints: [
+      {
+        title: "Boosting posts wastes money",
+        description:
+          "The 'Boost' button optimizes for likes, not customers. Real campaigns use proper targeting, objectives, and creative built to generate leads.",
+      },
+      {
+        title: "You're targeting the wrong people",
+        description:
+          "Showing your ads to everyone means wasting budget on people who'll never buy. We target by location, interests, and behavior to reach ready buyers.",
+      },
+      {
+        title: "Your creative gets scrolled past",
+        description:
+          "On social, the creative is the campaign. Weak images and generic copy get ignored. We build scroll-stopping ads designed for your audience.",
+      },
+      {
+        title: "No follow-up, no retargeting",
+        description:
+          "97% of visitors don't convert the first time. Without retargeting, you lose them forever. We bring them back with the right message at the right time.",
+      },
+      {
+        title: "You can't tell if it's working",
+        description:
+          "Vanity metrics like reach and likes don't pay the bills. We track leads and cost per lead so you know exactly what your ads return.",
+      },
+    ],
+    processSteps: [
+      {
+        step: 1,
+        title: "Audience & Offer",
+        description:
+          "We define your ideal local audience and craft an offer compelling enough to stop the scroll and drive action.",
+      },
+      {
+        step: 2,
+        title: "Creative & Copy",
+        description:
+          "We design thumb-stopping images and video with copy written to generate clicks, leads, and messages.",
+      },
+      {
+        step: 3,
+        title: "Launch & Pixel",
+        description:
+          "We install the Meta Pixel, set up lead tracking, and launch campaigns with audiences built to convert.",
+      },
+      {
+        step: 4,
+        title: "Optimize & Retarget",
+        description:
+          "We test creative, scale the winners, and retarget people who engaged but didn't convert — then report on every lead.",
+      },
+    ],
+    faqs: (locality, region) => [
+      {
+        category: "pricing",
+        question: "How much do Facebook ads cost?",
+        answer: `Like Google Ads, your ad spend is separate from our management fee and goes directly to Meta. Most ${region} businesses start around $400-$1,500/month in ad spend. We'll recommend a budget based on your goals and audience size.`,
+      },
+      {
+        category: "pricing",
+        question: "Is Facebook ads management in my plan?",
+        answer: `Meta ads management is available in our Premium and Dominate plans. Your monthly plan covers strategy, creative, and management; ad spend is billed separately by Meta.`,
+      },
+      {
+        category: "service",
+        question: "Do Facebook ads work for trades and local businesses?",
+        answer: `Absolutely. Facebook and Instagram are powerful for local lead generation, brand awareness, and retargeting — especially for home services, contractors, and any business with strong before-and-after visuals.`,
+      },
+      {
+        category: "service",
+        question: "Will you make the ad creative?",
+        answer: `Yes. We design the images, write the copy, and can produce simple video ads. If you have project photos or job-site footage, even better — authentic local creative often outperforms polished stock.`,
+      },
+      {
+        category: "general",
+        question: "Facebook ads or Google ads?",
+        answer: `Google Ads capture people actively searching for your service. Facebook and Instagram create demand by putting you in front of local people before they search. Many ${locality} businesses run both to both capture and create demand.`,
+      },
+    ],
+    showComparison: false,
+    showPortfolio: true,
+  },
+
+  aeo: {
+    slug: "aeo",
+    title: "Answer Engine Optimization (AEO)",
+    eyebrow: "AEO & AI Search",
+    problemEyebrow: "Why AI Search Changes Everything",
+    problemHeading: "Your customers are asking AI — not just Google — now.",
+    processHeading: "How we get you cited by AI in four steps.",
+    metaTitle: (locality, region) =>
+      `AEO Services ${locality} | AI Search Optimization for ${region} Businesses — BuildLocal`,
+    metaDescription: (locality, region) =>
+      `Get your ${region} business recommended by ChatGPT, Google AI Overviews, and Perplexity. Answer Engine Optimization (AEO) for the new era of AI search. Included with marketing plans from $300/month.`,
+    heroH1: (_locality, region) =>
+      `Get Your ${region} Business Recommended by AI Search`,
+    heroSubhead: (_locality, region) =>
+      `More people are asking ChatGPT, Perplexity, and Google's AI Overviews for recommendations instead of scrolling search results. We optimize your ${region} business so it's the one AI cites and recommends when customers ask.`,
+    heroQualifier: (_locality, region) =>
+      `For forward-thinking ${region} businesses that want to win the next era of search before their competitors even know it exists.`,
+    painPoints: [
+      {
+        title: "AI is answering instead of linking",
+        description:
+          "Google AI Overviews and ChatGPT now answer questions directly, often without a single click to a website. If you're not the source they cite, you're invisible in AI search.",
+      },
+      {
+        title: "Your content isn't AI-readable",
+        description:
+          "AI engines pull from clear, well-structured, factual content. If your site is thin, vague, or poorly structured, AI skips you for a competitor it can understand.",
+      },
+      {
+        title: "No structured data or entity signals",
+        description:
+          "AI relies on schema markup, consistent business info, and authority signals to know who you are and trust you. Without them, you never make the shortlist.",
+      },
+      {
+        title: "Competitors are getting cited, not you",
+        description:
+          "When someone asks AI for the best option near them, a name comes up. Make sure it's yours — not the competitor who optimized for AI first.",
+      },
+      {
+        title: "You have no idea if AI mentions you",
+        description:
+          "Most businesses have never checked whether ChatGPT or Perplexity recommends them. We track your AI visibility so you know where you stand and how to improve.",
+      },
+    ],
+    processSteps: [
+      {
+        step: 1,
+        title: "AI Visibility Audit",
+        description:
+          "We check whether ChatGPT, Perplexity, and Google AI Overviews currently mention your business — and what they say about your competitors.",
+      },
+      {
+        step: 2,
+        title: "Content & Structure",
+        description:
+          "We create clear, question-and-answer style content and passages built to be quoted and cited by AI engines.",
+      },
+      {
+        step: 3,
+        title: "Schema & Entity Signals",
+        description:
+          "We add structured data, tighten your business information across the web, and build the authority signals AI trusts.",
+      },
+      {
+        step: 4,
+        title: "Track & Improve",
+        description:
+          "We monitor your citations and visibility across AI platforms and refine continuously as the engines evolve.",
+      },
+    ],
+    faqs: (locality, region) => [
+      {
+        category: "service",
+        question: "What is AEO (Answer Engine Optimization)?",
+        answer: `AEO is the practice of optimizing your business to be recommended and cited by AI answer engines like ChatGPT, Google AI Overviews, Perplexity, and Copilot. It's the natural evolution of SEO for a world where AI answers questions directly.`,
+      },
+      {
+        category: "service",
+        question: "Is AEO different from SEO?",
+        answer: `They overlap but aren't the same. SEO aims to rank your pages in search results; AEO aims to make your business the answer AI gives. Strong SEO foundations help, but AEO adds the structured content, entity signals, and citability that AI engines specifically reward. We do both together.`,
+      },
+      {
+        category: "general",
+        question: "Does AEO actually drive customers?",
+        answer: `Increasingly, yes. A growing share of searches now end with an AI answer instead of a click. Being the business AI recommends puts you in front of high-intent ${region} customers at the exact moment they're deciding — often before they ever reach a traditional search result.`,
+      },
+      {
+        category: "pricing",
+        question: "How much does AEO cost?",
+        answer: `AEO is built into our marketing plans starting at $300/month and is a core focus of our higher tiers. There are no setup fees and no contracts.`,
+      },
+      {
+        category: "general",
+        question: "Is it too early to invest in AI search?",
+        answer: `It's exactly the right time. AI search is growing fast and most local businesses haven't optimized for it at all. Getting in early means you become the cited source before your competitors — an advantage that's hard for them to claw back later.`,
       },
     ],
     showComparison: false,
