@@ -23,7 +23,7 @@ function toRec(d: Record<string, unknown>): CrmRecord {
 }
 
 export interface CrmRow {
-  campaign?: boolean; trade?: string;
+  campaign?: boolean; firstCampaign?: boolean; trade?: string;
   slug: string; name: string; owner?: string; ownerLink?: string;
   phone: string; email?: string; locality: string; street?: string;
   existingWebsite?: string; rating: number; reviewCount: number; photosCount?: number;
@@ -55,16 +55,20 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
   const [state, setState] = useState<Record<string, CrmRecord>>(
     Object.fromEntries(allRows.map((r) => [r.slug, r.record || { ...DEFAULT_CRM }]))
   );
-  // Top-level scope: the 5-pillar campaign (500) vs hidden overflow landscaping (400).
-  const [view, setView] = useState<"campaign" | "overflow">("campaign");
+  // Top-level scope: First Campaign (Batch 1, 200) · full 5-pillar campaign (500) ·
+  // hidden overflow landscaping (400).
+  const [view, setView] = useState<"first" | "campaign" | "overflow">("campaign");
   const [tradeFilter, setTradeFilter] = useState("");
   const counts = useMemo(() => ({
+    first: allRows.filter((r) => r.firstCampaign).length,
     campaign: allRows.filter((r) => r.campaign).length,
     overflow: allRows.filter((r) => !r.campaign).length,
   }), [allRows]);
   const rows = useMemo(
-    () => allRows.filter((r) => (view === "campaign" ? r.campaign : !r.campaign)
-      && (!tradeFilter || (r.trade || "landscaping") === tradeFilter)),
+    () => allRows.filter((r) => {
+      const inView = view === "first" ? !!r.firstCampaign : view === "campaign" ? !!r.campaign : !r.campaign;
+      return inView && (!tradeFilter || (r.trade || "landscaping") === tradeFilter);
+    }),
     [allRows, view, tradeFilter]
   );
   const [tab, setTab] = useState<"all" | CrmRecord["status"]>("all");
@@ -161,10 +165,16 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
           <div>
             <p className="font-mono text-xs uppercase tracking-wider text-brand mb-1">BuildLocal · Internal CRM</p>
             <h1 className="font-sans font-medium text-2xl">
-              {view === "campaign" ? "AZ 5-Pillar Campaign — 500" : "Overflow Landscaping (hidden)"}
+              {view === "first" ? "First Campaign — Batch 1 (mailed 2026-07-09)" : view === "campaign" ? "AZ 5-Pillar Campaign — 500" : "Overflow Landscaping (hidden)"}
             </h1>
-            {/* Scope toggle: campaign 500 vs overflow 400 */}
+            {/* Scope toggle: first campaign (batch 1, 200) · campaign 500 · overflow 400 */}
             <div className="mt-2 inline-flex rounded-lg bg-white/10 p-0.5 text-sm font-sans">
+              <button
+                onClick={() => { setView("first"); setTradeFilter(""); }}
+                className={`px-3 py-1 rounded-md transition-colors ${view === "first" ? "bg-brand text-dark font-medium" : "text-white/70 hover:text-white"}`}
+              >
+                First Campaign · {counts.first}
+              </button>
               <button
                 onClick={() => setView("campaign")}
                 className={`px-3 py-1 rounded-md transition-colors ${view === "campaign" ? "bg-brand text-dark font-medium" : "text-white/70 hover:text-white"}`}
@@ -202,7 +212,7 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
         </div>
         {/* Filters + export */}
         <div className="px-3 md:px-5 py-2 flex items-center gap-2 flex-wrap text-xs">
-          {view === "campaign" && (
+          {view !== "overflow" && (
             <FilterSel label="Industry" value={tradeFilter} onChange={setTradeFilter} opts={[["", "All 5 trades"], ...PILLARS]} />
           )}
           <FilterSel label="Website" value={websiteFilter} onChange={(v) => setWebsiteFilter(v as "all" | "yes" | "no")} opts={[["all", "All"], ["yes", "Has site"], ["no", "No site"]]} />

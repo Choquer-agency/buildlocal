@@ -26,6 +26,9 @@ const qrNum = (b: { qrCode?: string }) => {
 };
 const tradeOf = (b: { trade?: string }) => b.trade || "landscaping";
 const isCampaign = (b: { qrCode?: string }) => /^[a-z]{2}\d{4}$/.test(b.qrCode || "") && qrNum(b) <= 100;
+// First Campaign = Batch 1, the Lob mail drop of 2026-07-09: the first 40 of each
+// pillar (qr xx0001–xx0040). Exactly matches flyer/lob-batch1-2026-07-09.csv (200).
+const isFirstCampaign = (b: { qrCode?: string }) => /^[a-z]{2}\d{4}$/.test(b.qrCode || "") && qrNum(b) <= 40;
 
 export default async function CrmPage() {
   // Campaign first (grouped by pillar, then number), then overflow by number.
@@ -42,6 +45,7 @@ export default async function CrmPage() {
 
   const rows: CrmRow[] = businesses.map((b) => ({
     campaign: isCampaign(b),
+    firstCampaign: isFirstCampaign(b),
     trade: b.trade || "landscaping",
     slug: b.slug,
     name: b.name,
