@@ -31,7 +31,8 @@ export function LeadModal({
 
   if (!open) return null;
 
-  const canStep1 = form.name.trim() && form.phone.trim();
+  const emailValid = /\S+@\S+\.\S+/.test(form.email.trim());
+  const canStep1 = !!(form.name.trim() && form.phone.trim() && emailValid);
 
   async function submitLead(selectedPkg: string) {
     if (sent) return;
@@ -49,16 +50,16 @@ export function LeadModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 z-[100] flex sm:items-center sm:justify-center sm:p-4"
       style={{ background: "rgba(255,149,0,0.82)", backdropFilter: "blur(8px)" }}
       onClick={onClose}
     >
       <div
-        className={`relative w-full bg-white shadow-2xl font-sans overflow-y-auto max-h-[92svh] sm:max-h-[94vh] rounded-2xl ${step === 4 ? "sm:max-w-3xl" : "sm:max-w-xl"}`}
+        className={`relative bg-white font-sans flex flex-col w-full h-full sm:h-auto sm:max-h-[94vh] sm:rounded-2xl sm:shadow-2xl overflow-hidden ${step === 4 ? "sm:max-w-3xl" : "sm:max-w-xl"}`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* progress bar */}
-        <div className="h-1.5 bg-dark/5">
+        <div className="h-1.5 bg-dark/5 shrink-0">
           <div className="h-full transition-all duration-300" style={{ width: `${(step / 4) * 100}%`, background: ORANGE }} />
         </div>
 
@@ -66,7 +67,9 @@ export function LeadModal({
           <X size={20} className="text-dark/50" />
         </button>
 
-        <div className="p-8 sm:p-10">
+        {/* Mobile: full-screen takeover, content vertically centered (scrolls if tall). Desktop: sized card. */}
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <div className="min-h-full flex flex-col justify-center sm:block px-5 py-8 sm:px-10 sm:py-10">
           {/* STEP 1 — contact */}
           {step === 1 && (
             <div>
@@ -76,7 +79,7 @@ export function LeadModal({
               <div className="grid gap-3">
                 <input autoFocus placeholder="Your name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inputCls} />
                 <input placeholder="Phone number" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={inputCls} />
-                <input placeholder="Email (optional)" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputCls} />
+                <input placeholder="Email" type="email" inputMode="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inputCls} />
               </div>
               <button disabled={!canStep1} onClick={() => setStep(2)}
                 className="mt-7 w-full inline-flex items-center justify-center gap-2 rounded-full py-3.5 font-semibold text-white disabled:opacity-40 transition-opacity"
@@ -116,7 +119,7 @@ export function LeadModal({
               <p className="font-mono text-xs uppercase tracking-wider mb-3" style={{ color: ORANGE }}>Step 3 of 4</p>
               <h2 className="font-sans font-medium text-fluid-h3 text-dark mb-1">Pick the plan that fits</h2>
               <p className="text-dark/55 mb-5">Website included free with every plan. Change or cancel anytime.</p>
-              <div className="grid gap-2.5 max-h-[42vh] overflow-y-auto pr-1 -mr-1">
+              <div className="grid gap-2.5 sm:max-h-[42vh] sm:overflow-y-auto sm:pr-1 sm:-mr-1">
                 {pricingTiers.map((t) => {
                   const selected = pkg === t.name;
                   const tagline = t.description.split(".")[0];
@@ -163,7 +166,7 @@ export function LeadModal({
               <p className="text-dark/60 text-sm leading-relaxed max-w-[46ch] mx-auto mb-4">
                 Last step — grab a time with Bryce and we&apos;ll get {businessName} live{pkg ? ` on the ${pkg} plan` : ""}.
               </p>
-              <div className="rounded-xl overflow-hidden border border-dark/10 text-left" style={{ height: "min(58vh, 520px)" }}>
+              <div className="rounded-xl overflow-hidden border border-dark/10 text-left h-[62vh] sm:h-[520px]">
                 <Cal
                   namespace="buildlocal"
                   calLink={CAL_LINK}
@@ -176,6 +179,7 @@ export function LeadModal({
               </p>
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>
