@@ -49,12 +49,12 @@ export function LeadModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center sm:p-4 overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto"
       style={{ background: "rgba(255,149,0,0.82)", backdropFilter: "blur(8px)" }}
       onClick={onClose}
     >
       <div
-        className={`relative w-full bg-white shadow-2xl font-sans overflow-y-auto min-h-[100svh] sm:min-h-0 sm:max-h-[94vh] sm:rounded-2xl ${step === 4 ? "sm:max-w-3xl" : "sm:max-w-xl"}`}
+        className={`relative w-full bg-white shadow-2xl font-sans overflow-y-auto max-h-[92svh] sm:max-h-[94vh] rounded-2xl ${step === 4 ? "sm:max-w-3xl" : "sm:max-w-xl"}`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* progress bar */}
