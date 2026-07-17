@@ -18,11 +18,16 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BASE = (process.env.NEXT_PUBLIC_PUBLISHED_BASE || "https://demo.buildlocal.agency").replace(/\/+$/, "");
 
-// Map the template's local asset refs → hosted URLs on the deploy.
+// FONTS are INLINED as data-URIs (subsetted woff2). Cross-origin @font-face is
+// blocked by the renderer's CORS policy, so a hosted font URL silently fails and
+// everything falls back to Arial (→ overflow). Inlining avoids the fetch entirely.
+// The subsets are ~13 KB each, so the whole flyer stays well under Lob's 100k.
+const fontUri = (rel) => `data:font/woff2;base64,${fs.readFileSync(path.join(__dirname, rel)).toString("base64")}`;
 const FONT = {
-  "assets/fonts/ppneuemontreal-semibolditalic.otf": { url: `${BASE}/fonts/PPNeueMontreal-SemiBoldItalic.woff2`, fmt: "woff2" },
-  "assets/fonts/IBMPlexMono-Regular.ttf": { url: `${BASE}/fonts/IBMPlexMono-Regular.ttf`, fmt: "truetype" },
+  "assets/fonts/ppneuemontreal-semibolditalic.otf": { uri: fontUri("assets/fonts/subset/ppnm.woff2"), fmt: "woff2" },
+  "assets/fonts/IBMPlexMono-Regular.ttf": { uri: fontUri("assets/fonts/subset/ibmmono.woff2"), fmt: "woff2" },
 };
+// IMAGES load fine cross-origin (no CORS needed for <img>), so keep them hosted.
 const SVG = {
   "assets/logo.svg": `${BASE}/m/logo.svg`,
   "assets/peace.svg": `${BASE}/m/peace.svg`,
@@ -30,11 +35,14 @@ const SVG = {
 
 for (const side of ["front", "back"]) {
   let html = fs.readFileSync(path.join(__dirname, `${side}.html`), "utf8");
-  // fonts: url('assets/fonts/X.otf') format('opentype')  ->  hosted url + format
+  // fonts: url('assets/fonts/X') format('...')  ->  inlined woff2 data-URI
   html = html.replace(/url\('(assets\/fonts\/[^']+)'\)\s*format\('[^']+'\)/g, (m, p) => {
     const f = FONT[p];
-    return f ? `url('${f.url}') format('${f.fmt}')` : m;
+    return f ? `url(${f.uri}) format('${f.fmt}')` : m;
   });
+  // font-display:block hides text until the font loads; swap shows a fallback
+  // instantly instead (harmless now that fonts are inlined, but safer).
+  html = html.replace(/font-display:\s*block/g, "font-display:swap");
   // local svgs -> hosted urls
   html = html.replace(/src="(assets\/[^"]+\.svg)"/g, (m, p) => (SVG[p] ? `src="${SVG[p]}"` : m));
   const out = path.join(__dirname, `lob-${side}.html`);

@@ -40,3 +40,8 @@ scripts/data/_crawl-stage/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env*
+
+# flyer local render artifacts
+flyer/_render-*.png
+flyer/_lobfill-*.html
