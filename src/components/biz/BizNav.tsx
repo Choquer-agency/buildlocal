@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Phone, Menu, X, ArrowRight, ChevronDown, ChevronRight } from "lucide-react";
 import { Theme } from "@/lib/themes";
 import { ServiceMenuItem } from "@/content/businesses";
