@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { Link2, ExternalLink, Copy, Check, X, ChevronDown, ChevronUp, Download } from "lucide-react";
 import {
-  CrmRecord, SALES_STATUSES, BUILD_STAGES, statusMeta, buildMeta, DEFAULT_CRM,
+  CrmRecord, SALES_STATUSES, statusMeta, DEFAULT_CRM,
 } from "@/lib/crm-types";
 import { api } from "../../../convex/_generated/api";
 
@@ -75,7 +75,6 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
   const [q, setQ] = useState("");
   const [websiteFilter, setWebsiteFilter] = useState<"all" | "yes" | "no">("all");
   const [cityFilter, setCityFilter] = useState("");
-  const [buildFilter, setBuildFilter] = useState<"all" | CrmRecord["buildStage"]>("all");
   const [sort, setSort] = useState<{ key: SortKey; dir: 1 | -1 }>({ key: null, dir: 1 });
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [drawer, setDrawer] = useState<string | null>(null);
@@ -118,7 +117,6 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
     if (websiteFilter === "yes" && !r.existingWebsite) return false;
     if (websiteFilter === "no" && r.existingWebsite) return false;
     if (cityFilter && r.locality !== cityFilter) return false;
-    if (buildFilter !== "all" && (rec.themeOverride ? "customized" : rec.buildStage) !== buildFilter) return false;
     if (ql && !`${r.name} ${r.owner ?? ""} ${r.locality} ${r.phone} ${r.qrCode}`.toLowerCase().includes(ql)) return false;
     return true;
   });
@@ -217,7 +215,6 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
           )}
           <FilterSel label="Website" value={websiteFilter} onChange={(v) => setWebsiteFilter(v as "all" | "yes" | "no")} opts={[["all", "All"], ["yes", "Has site"], ["no", "No site"]]} />
           <FilterSel label="City" value={cityFilter} onChange={setCityFilter} opts={[["", "All cities"], ...cities.map((c) => [c, c] as [string, string])]} />
-          <FilterSel label="Build" value={buildFilter} onChange={(v) => setBuildFilter(v as typeof buildFilter)} opts={[["all", "All"], ...BUILD_STAGES.map((b) => [b.value, b.label] as [string, string])]} />
           <button onClick={exportCsv} className="ml-auto inline-flex items-center gap-1.5 rounded-md border border-dark/15 px-3 py-1.5 hover:bg-dark/5 font-medium">
             <Download size={13} /> Export CSV
           </button>
@@ -232,10 +229,6 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
           <select onChange={(e) => e.target.value && bulkApply({ status: e.target.value as CrmRecord["status"] })} defaultValue="" className="rounded-md border border-dark/15 px-2 py-1 text-sm">
             <option value="" disabled>Choose…</option>
             {SALES_STATUSES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
-          </select>
-          <select onChange={(e) => e.target.value && bulkApply({ buildStage: e.target.value as CrmRecord["buildStage"] })} defaultValue="" className="rounded-md border border-dark/15 px-2 py-1 text-sm">
-            <option value="" disabled>Set build…</option>
-            {BUILD_STAGES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
           </select>
           <button onClick={() => setSelected(new Set())} className="text-sm text-dark/50 hover:text-dark underline ml-2">Clear</button>
         </div>
@@ -255,13 +248,9 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
                 <th className={th}>Phone</th>
                 <th className={th}>City</th>
                 <th className={th}>Website</th>
-                <SortH k="rating" label="★" />
-                <SortH k="reviewCount" label="Rev" />
                 <th className={th}>Status</th>
                 <SortH k="deal" label="Deal $" />
-                <th className={th}>Build</th>
                 <SortH k="lastScan" label="Last scan" />
-                <th className={th}>Site</th>
                 <th className={th}>Notes</th>
               </tr>
             </thead>
@@ -270,7 +259,6 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
                 const rec = state[r.slug] || DEFAULT_CRM;
                 const lastScan = relTime(lastScanOf(rec));
                 const sm = statusMeta(rec.status);
-                const bm = buildMeta(rec.themeOverride ? "customized" : rec.buildStage);
                 return (
                   <tr key={r.slug} className={`hover:bg-grey/50 ${selected.has(r.slug) ? "bg-brand/5" : ""}`}>
                     <td className={td}><input type="checkbox" checked={selected.has(r.slug)} onChange={(e) => setSelected((s) => { const n = new Set(s); if (e.target.checked) n.add(r.slug); else n.delete(r.slug); return n; })} /></td>
@@ -289,9 +277,23 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
                     <td className={`${td} min-w-[110px] text-xs`}>{r.owner ? (r.ownerLink ? <a href={r.ownerLink} target="_blank" className="text-blue-600 hover:underline">{r.owner}</a> : r.owner) : <span className="text-dark/30">—</span>}</td>
                     <td className={`${td} whitespace-nowrap text-xs`}>{r.phone ? <a href={`tel:${r.phone}`} className="text-blue-600 hover:underline">{r.phone}</a> : "—"}</td>
                     <td className={`${td} text-xs`}>{r.locality}</td>
-                    <td className={td}>{r.existingWebsite ? <div className="flex items-center gap-1.5"><span className="rounded-full bg-green-100 text-green-700 text-[11px] font-medium px-2 py-0.5">Yes</span><CopyCell url={r.existingWebsite} kind="link" action="open" /></div> : <span className="rounded-full bg-red-100 text-red-600 text-[11px] font-medium px-2 py-0.5">No site</span>}</td>
-                    <td className={`${td} whitespace-nowrap`}>{r.rating?.toFixed(1)}</td>
-                    <td className={td}>{r.reviewCount}</td>
+                    <td className={td}>
+                      <div className="flex items-center gap-1.5">
+                        {r.existingWebsite
+                          ? <span className="rounded-full bg-green-100 text-green-700 text-[11px] font-medium px-2 py-0.5">Yes</span>
+                          : <span className="rounded-full bg-red-100 text-red-600 text-[11px] font-medium px-2 py-0.5">No</span>}
+                        {/* Orange box → the site WE built for them */}
+                        <a href={r.siteUrl} target="_blank" rel="noreferrer" title="Site we built" className="grid place-items-center w-7 h-7 rounded-md bg-brand hover:opacity-90">
+                          <Link2 size={14} className="text-dark" />
+                        </a>
+                        {/* White box → their existing/old website (only if they have one) */}
+                        {r.existingWebsite && (
+                          <a href={r.existingWebsite} target="_blank" rel="noreferrer" title="Their old website" className="grid place-items-center w-7 h-7 rounded-md border border-dark/15 bg-white hover:bg-dark/5">
+                            <ExternalLink size={14} className="text-dark" />
+                          </a>
+                        )}
+                      </div>
+                    </td>
                     <td className={td}>
                       <select value={rec.status} onChange={(e) => update(r.slug, { status: e.target.value as CrmRecord["status"] })} className="rounded-md border-0 text-xs font-medium px-2 py-1.5 cursor-pointer" style={{ background: sm.bg, color: sm.color }}>
                         {SALES_STATUSES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
@@ -302,13 +304,7 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
                         <input type="number" defaultValue={rec.dealValue ?? ""} onBlur={(e) => update(r.slug, { dealValue: e.target.value ? Number(e.target.value) : undefined })} placeholder="—" className="w-16 rounded-md border border-dark/12 px-1.5 py-1 text-xs focus:ring-2" />
                       </div>
                     </td>
-                    <td className={td}>
-                      <select value={rec.themeOverride ? "customized" : rec.buildStage} onChange={(e) => update(r.slug, { buildStage: e.target.value as CrmRecord["buildStage"] })} className="rounded-md border-0 text-xs font-medium px-2 py-1.5 cursor-pointer" style={{ background: bm.bg, color: bm.color }}>
-                        {BUILD_STAGES.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
-                      </select>
-                    </td>
                     <td className={`${td} whitespace-nowrap text-xs`}>{lastScan ?<span className="text-amber-600 font-medium">⚡ {lastScan}</span> : <span className="text-dark/30">—</span>}</td>
-                    <td className={td}><CopyCell url={r.siteUrl} kind="site" action="open" /></td>
                     <td className={td}><input defaultValue={rec.notes ?? ""} onBlur={(e) => update(r.slug, { notes: e.target.value || undefined })} placeholder="notes…" className="w-28 rounded-md border border-dark/12 px-2 py-1 text-xs focus:ring-2" /></td>
                   </tr>
                 );
@@ -446,28 +442,5 @@ function CodeChip({ code }: { code: string }) {
     <button onClick={() => { navigator.clipboard.writeText(code); setCopied(true); setTimeout(() => setCopied(false), 1200); }} className="inline-flex items-center gap-1 rounded-md bg-dark/5 hover:bg-dark/10 px-2 py-1 font-mono text-xs text-dark" title="Click to copy code">
       {copied ? <Check size={12} className="text-green-600" /> : <Copy size={12} className="text-dark/40" />}{code}
     </button>
-  );
-}
-function CopyCell({ url, kind, action = "copy" }: { url: string; kind: "link" | "site"; action?: "copy" | "open" }) {
-  const [copied, setCopied] = useState(false);
-  const [hover, setHover] = useState(false);
-  const copy = (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); navigator.clipboard.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 1200); };
-  const icon = copied ? <Check size={14} className="text-green-600" /> : kind === "site" ? <Link2 size={14} className="text-dark/60" /> : <ExternalLink size={14} className="text-dark/60" />;
-  return (
-    <span className="relative inline-block" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      {action === "open" ? (
-        <a href={url} target="_blank" rel="noreferrer" className="grid place-items-center w-7 h-7 rounded-md border border-dark/12 hover:bg-dark/5" title="Open in new tab">{icon}</a>
-      ) : (
-        <button onClick={copy} className="grid place-items-center w-7 h-7 rounded-md border border-dark/12 hover:bg-dark/5" title="Click to copy URL">{icon}</button>
-      )}
-      {hover && (
-        <span className="absolute z-30 top-full left-0 mt-1 whitespace-nowrap rounded-md bg-dark text-white text-[11px] px-2.5 py-1.5 shadow-lg flex items-center gap-2">
-          <span className="max-w-[280px] truncate">{url}</span>
-          {action === "open"
-            ? <button onClick={copy} className="text-brand hover:underline">copy</button>
-            : <a href={url} target="_blank" rel="noreferrer" className="text-brand hover:underline" onClick={(e) => e.stopPropagation()}>open ↗</a>}
-        </span>
-      )}
-    </span>
   );
 }

@@ -20,6 +20,7 @@ export type SalesStatus =
   | "new"
   | "mailed"
   | "scanned"
+  | "lead"
   | "contacted"
   | "no_answer"
   | "quoted"
@@ -32,6 +33,7 @@ export const SALES_STATUSES: { value: SalesStatus; label: string; color: string;
   { value: "new", label: "New", color: "#6b7280", bg: "#f3f4f6" },
   { value: "mailed", label: "Flyer Mailed", color: "#2563eb", bg: "#dbeafe" },
   { value: "scanned", label: "QR Scanned ⚡", color: "#b45309", bg: "#fef3c7" },
+  { value: "lead", label: "Lead 🔥", color: "#be123c", bg: "#ffe4e6" },
   { value: "contacted", label: "Contacted", color: "#7c3aed", bg: "#ede9fe" },
   { value: "no_answer", label: "No Answer", color: "#ea580c", bg: "#ffedd5" },
   { value: "quoted", label: "Quote Sent", color: "#0d9488", bg: "#ccfbf1" },

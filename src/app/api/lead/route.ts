@@ -14,11 +14,13 @@ export async function POST(req: NextRequest) {
 
   try {
     const current = await getRecord(slug);
-    const activity = [...(current.activity || []), { ts: new Date().toISOString(), label: `💰 ${summary}` }].slice(-100);
+    const activity = [...(current.activity || []), { ts: new Date().toISOString(), label: `🔥 Became a lead — ${summary}` }].slice(-100);
     const notes = current.notes ? `${current.notes}\n${summary}` : summary;
-    // advance to "contacted" only if still early in the pipeline
-    const early = ["new", "mailed", "scanned"].includes(current.status);
-    await patchRecord(slug, { activity, notes, ...(early ? { status: "contacted" } : {}) });
+    // Mark as a Lead the moment they submit interest — unless the deal is already
+    // further along (contacted/quoted/won) or closed (lost), which we don't downgrade.
+    const keep: (typeof current.status)[] = ["contacted", "no_answer", "quoted", "won", "lost"];
+    const setLead = !keep.includes(current.status);
+    await patchRecord(slug, { activity, notes, ...(setLead ? { status: "lead" as const } : {}) });
   } catch (e) {
     console.error("lead log failed:", e);
   }
