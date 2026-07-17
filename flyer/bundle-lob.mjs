@@ -23,9 +23,16 @@ const BASE = (process.env.NEXT_PUBLIC_PUBLISHED_BASE || "https://demo.buildlocal
 // everything falls back to Arial (→ overflow). Inlining avoids the fetch entirely.
 // The subsets are ~13 KB each, so the whole flyer stays well under Lob's 100k.
 const fontUri = (rel) => `data:font/woff2;base64,${fs.readFileSync(path.join(__dirname, rel)).toString("base64")}`;
+// Dual source per @font-face: inlined subset first (self-contained), then the
+// CORS-hosted font as a fallback — so it renders whether Lob honors the data-URI
+// or the cross-origin fetch.
 const FONT = {
-  "assets/fonts/ppneuemontreal-semibolditalic.otf": { uri: fontUri("assets/fonts/subset/ppnm.woff2"), fmt: "woff2" },
-  "assets/fonts/IBMPlexMono-Regular.ttf": { uri: fontUri("assets/fonts/subset/ibmmono.woff2"), fmt: "woff2" },
+  "assets/fonts/ppneuemontreal-semibolditalic.otf": {
+    src: `url(${fontUri("assets/fonts/subset/ppnm.woff2")}) format('woff2'), url('${BASE}/fonts/PPNeueMontreal-SemiBoldItalic.woff2') format('woff2')`,
+  },
+  "assets/fonts/IBMPlexMono-Regular.ttf": {
+    src: `url(${fontUri("assets/fonts/subset/ibmmono.woff2")}) format('woff2'), url('${BASE}/fonts/IBMPlexMono-Regular.ttf') format('truetype')`,
+  },
 };
 // IMAGES load fine cross-origin (no CORS needed for <img>), so keep them hosted.
 const SVG = {
@@ -35,10 +42,10 @@ const SVG = {
 
 for (const side of ["front", "back"]) {
   let html = fs.readFileSync(path.join(__dirname, `${side}.html`), "utf8");
-  // fonts: url('assets/fonts/X') format('...')  ->  inlined woff2 data-URI
+  // fonts: url('assets/fonts/X') format('...')  ->  inlined data-URI + hosted fallback
   html = html.replace(/url\('(assets\/fonts\/[^']+)'\)\s*format\('[^']+'\)/g, (m, p) => {
     const f = FONT[p];
-    return f ? `url(${f.uri}) format('${f.fmt}')` : m;
+    return f ? f.src : m;
   });
   // font-display:block hides text until the font loads; swap shows a fallback
   // instantly instead (harmless now that fonts are inlined, but safer).
