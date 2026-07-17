@@ -1,0 +1,26 @@
+# Superset of .gitignore (kept explicit so it applies regardless of precedence)
+node_modules
+.next
+out
+/build
+.vercel
+.git
+.DS_Store
+
+# secrets / local-only
+.env
+.env.local
+.env*.local
+.convex
+
+# 1.5GB of tracked scratch screenshots — never used at build or runtime
+.tmp
+
+# 202MB of flyer SOURCE screenshots — only used offline to build the Lob CSV,
+# not imported by the app and not served (served shots live in public/m/)
+flyer/shots
+
+# other scratch
+_inbox
+scripts/data/_crawl-stage
+scripts/data/_*.log
