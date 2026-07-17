@@ -14,23 +14,49 @@ const code = process.argv[2];
 if (!code) { console.error("Usage: node scripts/process-assets.mjs <code|slug>"); process.exit(1); }
 
 const root = process.cwd();
-const GEN = path.join(root, "src/content/businesses.generated.ts");
 const ASSETS_JSON = path.join(root, "src/content/asset-overrides.json");
 
+// All 5 pillars — landscaping (flat in _inbox/) plus the 4 trades (nested in
+// _inbox/<trade>/). Resolve the code/slug against every list.
+const GEN_FILES = [
+  "src/content/businesses.generated.ts",
+  "src/content/businesses.roofing.generated.ts",
+  "src/content/businesses.hvac.generated.ts",
+  "src/content/businesses.pool.generated.ts",
+  "src/content/businesses.pest.generated.ts",
+];
+function load(file) {
+  const s = fs.readFileSync(path.join(root, file), "utf8");
+  const M = "BusinessProfile[] = ";
+  return JSON.parse(s.slice(s.indexOf(M) + M.length, s.lastIndexOf(";")));
+}
+
 // resolve code → slug
-const src = fs.readFileSync(GEN, "utf8");
-const M = "BusinessProfile[] = ";
-const all = JSON.parse(src.slice(src.indexOf(M) + M.length, src.lastIndexOf(";")));
+const all = GEN_FILES.flatMap(load);
 const biz = all.find((b) => b.qrCode === code) || all.find((b) => b.slug === code);
 if (!biz) { console.error(`No business for code/slug "${code}"`); process.exit(1); }
 const slug = biz.slug;
 
-// Find the inbox folder by code (folders are named "az0007 — Business Name").
+// Find the inbox folder by code. Folders are named "<code> - Business Name" and
+// live either flat in _inbox/ (landscaping) or one level down in _inbox/<trade>/.
 const inboxRoot = path.join(root, "_inbox");
-const dirs = fs.existsSync(inboxRoot) ? fs.readdirSync(inboxRoot, { withFileTypes: true }).filter((d) => d.isDirectory()) : [];
-const match = dirs.find((d) => d.name === code || d.name.startsWith(`${code} `) || d.name.startsWith(`${code}-`) || d.name.startsWith(`${code}—`));
-const inbox = match ? path.join(inboxRoot, match.name) : path.join(inboxRoot, code);
-if (!fs.existsSync(inbox)) { console.error(`Drop files in _inbox/${code}…/ first (folder not found)`); process.exit(1); }
+const matchesCode = (name) =>
+  name === code || name.startsWith(`${code} `) || name.startsWith(`${code}-`) || name.startsWith(`${code}—`);
+function findInbox(dir, depth) {
+  if (!fs.existsSync(dir)) return null;
+  const ents = fs.readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory());
+  const hit = ents.find((d) => matchesCode(d.name));
+  if (hit) return path.join(dir, hit.name);
+  if (depth > 0) {
+    for (const d of ents) {
+      const found = findInbox(path.join(dir, d.name), depth - 1);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+const inbox = findInbox(inboxRoot, 1);
+if (!inbox || !fs.existsSync(inbox)) { console.error(`Drop files in _inbox/${code}…/ first (folder not found)`); process.exit(1); }
 
 const outDir = path.join(root, "public/biz-photos", slug);
 fs.mkdirSync(outDir, { recursive: true });

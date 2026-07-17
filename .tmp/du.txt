@@ -1,0 +1,6 @@
+4.0K	/private/tmp/claude-502/-Users-lauren-Documents-Lauren-s-Repo-buildlocal/94137bd5-8487-47a7-8b11-e9cf24e3aa66/tasks
+total 8
+drwxr-xr-x@ 4 lauren  wheel  128 Jun 11 09:24 .
+drwxr-xr-x@ 3 lauren  wheel   96 Jun 11 09:16 ..
+-rw-r--r--@ 1 lauren  wheel   53 Jun 11 09:23 b3n80jb5a.output
+-rw-r--r--@ 1 lauren  wheel    0 Jun 11 09:24 bsf7znzt4.output

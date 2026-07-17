@@ -46,7 +46,7 @@ export default async function AreaPage({ params }: PageProps) {
         <div className="u-container pt-32 md:pt-44 pb-14 md:pb-20">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 lg:items-end">
             <div>
-              <p className="font-mono text-xs uppercase tracking-wider mb-4 inline-flex items-center gap-2" style={{ color: theme.accent }}>
+              <p className="font-mono text-xs uppercase tracking-wider mb-4 inline-flex items-center gap-2" style={{ color: theme.accentOnWhite ?? theme.accent }}>
                 <MapPin size={13} /> {area}, {b.address.region}
               </p>
               <h1 className="font-head font-medium leading-[1.04] text-dark" style={{ fontSize: "clamp(2.3rem, 4.2vw, 4.4rem)" }}>
@@ -57,7 +57,7 @@ export default async function AreaPage({ params }: PageProps) {
               <p className="font-biz text-fluid-main text-dark/60 leading-relaxed mb-5 max-w-[46ch]">
                 {tw.areaBody(b.name, area, az)}
               </p>
-              <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.accent, color: theme.onAccent }}>
+              <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.ctaBg ?? theme.accent, color: theme.ctaFg ?? theme.onAccent }}>
                 Get a Free Quote <ArrowRight size={17} />
               </a>
             </div>

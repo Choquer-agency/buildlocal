@@ -32,6 +32,20 @@ export interface BusinessService {
   image?: string;
 }
 
+/**
+ * Optional grouped Services nav menu. When a business defines `serviceMenu`, the
+ * nav dropdown renders these (with nested sub-menus for items that have
+ * `children`) instead of the flat `services` list. Used to mirror a business's
+ * real site IA (e.g. Hardscapes ▸ / Softscapes ▸). Slugs must exist in `services`.
+ */
+export interface ServiceMenuItem {
+  label: string;
+  /** Links to /services/<slug>. Omit on a pure header that only has children. */
+  slug?: string;
+  /** Sub-services shown in a flyout panel. */
+  children?: ServiceMenuItem[];
+}
+
 export interface BusinessHours {
   day: string; // "Monday"
   hours: string; // "7:00 AM – 5:00 PM" or "Closed"
@@ -82,6 +96,8 @@ export interface BusinessProfile {
 
   // ── Offerings ──
   services: BusinessService[];
+  /** Optional grouped nav menu (sub-services). Falls back to flat `services`. */
+  serviceMenu?: ServiceMenuItem[];
 
   // ── Hours ──
   hours: BusinessHours[];
@@ -89,14 +105,24 @@ export interface BusinessProfile {
   // ── Media ──
   photos: string[]; // GMB photo URLs (use placeholders until scraped)
   logoText?: string; // short brand mark if no logo image
+  logoWordmark?: string; // nav-only text beside the pill when there's no logo image (defaults to `name`); use to show a brand line without changing body copy
   logo?: string; // logo image path (set during touch-ups → /biz-photos/<slug>/logo.webp)
   logoBlend?: string; // optional CSS mix-blend-mode for the logo (e.g. "darken" to drop a white bg)
+  logoScale?: number; // optional nav-logo size multiplier (1 = default; e.g. 0.8 shrinks a wide wordmark)
+  logoBadge?: boolean; // when false, hide the colored letter-badge and show wordmark text only (no logo image)
   fontKey?: string; // optional font override key (see src/lib/biz-fonts.ts)
   brandColor?: string; // primary brand color (hex) from their real branding
   brandColor2?: string; // secondary brand color (hex)
   heroVideo?: string; // optional hero background video URL/path
   bgOverride?: string; // optional neutral hex to replace secondary-tinted section bgs (softBg/heroBg)
+  iconChipBg?: string; // optional hex to override the icon-chip tile background (defaults to softBg)
+  iconChipFg?: string; // optional hex for the icon color on the chip (defaults to onColor(iconChipBg) → accent)
+  ctaBg?: string; // optional hex to color the primary CTA buttons independently of the accent (defaults to accent)
+  ctaFg?: string; // optional hex for the CTA button text/icon on ctaBg (defaults to onColor(ctaBg) → onAccent)
   chromeDark?: boolean; // dark (near-black) nav + footer so a WHITE logo stays visible
+  navBg?: string; // optional hex to paint the nav pill a brand color (white text + contrasting CTA) — use for logos with BOTH white and dark parts that need a colored backdrop
+  showAllServices?: boolean; // render every service as a card instead of the default 6-card teaser grid
+  hideServicesNav?: boolean; // hide the Services dropdown in the nav (for portfolio firms with no services menu)
 
   // ── Source ──
   existingWebsite?: string; // if they already had one (crawled for extra data)

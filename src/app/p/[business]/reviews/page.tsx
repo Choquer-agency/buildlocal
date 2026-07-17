@@ -23,7 +23,7 @@ export default async function ReviewsPage({ params }: PageProps) {
         <div className="u-container pt-28 md:pt-32 pb-10">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div>
-              <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>Reviews</p>
+              <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnSoft ?? theme.accent }}>Reviews</p>
               <h1 className="font-head font-medium leading-[1.05] text-dark mb-4" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3.8rem)" }}>
                 Loved by {b.address.locality} homeowners
               </h1>
@@ -38,7 +38,7 @@ export default async function ReviewsPage({ params }: PageProps) {
               <p className="font-biz text-fluid-main text-dark/60 leading-relaxed max-w-[46ch] mb-7">
                 Here&apos;s what homeowners across {b.address.locality} and the surrounding area say about working with {b.name}.
               </p>
-              <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.accent, color: theme.onAccent }}>
+              <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.ctaBg ?? theme.accent, color: theme.ctaFg ?? theme.onAccent }}>
                 Get a Free Quote <ArrowRight size={17} />
               </a>
             </div>

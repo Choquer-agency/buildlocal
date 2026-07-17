@@ -1,0 +1,14 @@
+node:internal/process/esm_loader:79
+    internalBinding('errors').triggerUncaughtException(
+                              ^
+
+Error: connect ECONNREFUSED 127.0.0.1:9343
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1495:16) {
+  errno: -61,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 9343
+}
+
+Node.js v19.4.0

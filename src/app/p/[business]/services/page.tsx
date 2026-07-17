@@ -32,7 +32,7 @@ export default async function ServicesPage({ params }: PageProps) {
               <p className="font-biz text-fluid-main text-dark/60 leading-relaxed mb-5 max-w-[46ch]">
                 {tw.servicesIntro(b.name, az)}
               </p>
-              <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.accent, color: theme.onAccent }}>
+              <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.ctaBg ?? theme.accent, color: theme.ctaFg ?? theme.onAccent }}>
                 Get a Free Quote <ArrowRight size={17} />
               </a>
             </div>

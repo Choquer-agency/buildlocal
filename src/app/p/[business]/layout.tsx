@@ -21,6 +21,11 @@ export function generateMetadata({ params }: LayoutProps): Metadata {
     robots: { index: false, follow: false },
     title: b.generatedCopy.metaTitle,
     description: b.generatedCopy.metaDescription,
+    // Override the root BuildLocal "BL" favicon so demo sites don't reveal BuildLocal
+    // in the browser tab. Their own logo if we have one, else a blank icon.
+    icons: b.logo
+      ? { icon: b.logo }
+      : { icon: "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22/%3E" },
   };
 }
 
@@ -33,8 +38,8 @@ export default async function BusinessLayout({ children, params }: LayoutProps) 
   return (
     <div className="font-biz" style={{ ["--biz-heading" as string]: font.stack } as React.CSSProperties}>
       {font.googleHref && <link rel="stylesheet" href={font.googleHref} />}
-      <BizNav slug={b.slug} name={b.name} logo={b.logo} logoBlend={b.logoBlend} logoText={b.logoText} phone={b.phone} theme={theme}
-        dark={b.chromeDark} services={b.services.map((s) => ({ name: s.name, slug: s.slug }))} areas={b.serviceAreas} />
+      <BizNav slug={b.slug} name={b.name} logo={b.logo} logoBlend={b.logoBlend} logoScale={b.logoScale} logoText={b.logoText} logoWordmark={b.logoWordmark} logoBadge={b.logoBadge} phone={b.phone} theme={theme}
+        dark={b.chromeDark} navBg={b.navBg} services={b.services.map((s) => ({ name: s.name, slug: s.slug }))} serviceMenu={b.serviceMenu} hideServices={b.hideServicesNav} areas={b.serviceAreas} />
       {children}
       <BizFooter b={b} theme={theme} dark={b.chromeDark} />
       <BuildLocalPromo slug={b.slug} businessName={b.name} />

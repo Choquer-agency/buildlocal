@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { ConvexHttpClient } from "convex/browser";
 import { CrmRecord, DEFAULT_CRM } from "./crm-types";
-import { Theme, getTheme, customTheme, tint } from "./themes";
+import { Theme, getTheme, customTheme, tint, onColor } from "./themes";
 import { api } from "../../convex/_generated/api";
 
 const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL;
@@ -79,6 +79,7 @@ export async function recordScan(slug: string): Promise<CrmRecord> {
  */
 export async function resolveTheme(b: {
   slug: string; themeId: number; brandColor?: string; brandColor2?: string; bgOverride?: string;
+  iconChipBg?: string; iconChipFg?: string; ctaBg?: string; ctaFg?: string;
 }): Promise<Theme> {
   const rec = await getRecord(b.slug);
   const o = rec.themeOverride;
@@ -90,5 +91,13 @@ export async function resolveTheme(b: {
   // Per-business: replace the secondary-tinted section backgrounds with a neutral
   // (keeps the secondary as an ACCENT, just not as a wash behind whole sections).
   if (b.bgOverride) t = { ...t, softBg: b.bgOverride, heroBg: tint(b.bgOverride, 0.5) };
+  // Per-business: recolor the small icon-chip tiles (e.g. brand yellow tile + black icon).
+  if (b.iconChipBg) t = { ...t, iconChipBg: b.iconChipBg, iconChipFg: b.iconChipFg ?? onColor(b.iconChipBg) };
+  // iconChipFg can also be set on its own (recolor just the glyph, keep the default chip).
+  else if (b.iconChipFg) t = { ...t, iconChipFg: b.iconChipFg };
+  // Per-business: color the primary CTA buttons independently of the accent.
+  if (b.ctaBg) t = { ...t, ctaBg: b.ctaBg, ctaFg: b.ctaFg ?? onColor(b.ctaBg) };
+  // ctaFg can also be set on its own (recolor just the CTA text/icon, keep accent as bg).
+  else if (b.ctaFg) t = { ...t, ctaFg: b.ctaFg };
   return t;
 }

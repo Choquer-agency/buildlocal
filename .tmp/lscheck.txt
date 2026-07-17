@@ -1,0 +1,2 @@
+ls: /tmp/bw_hero.png: No such file or directory
+ls: /tmp/bw_svc.png: No such file or directory

@@ -19,7 +19,7 @@ export default async function AreasPage({ params }: PageProps) {
     <>
       <section className="section-space-small" style={{ background: theme.heroBg }}>
         <div className="u-container">
-          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnHero ?? theme.accent }}>
             Where we work
           </p>
           <h1 className="font-head font-medium text-fluid-h1 leading-[1.1] text-dark max-w-[22ch]">

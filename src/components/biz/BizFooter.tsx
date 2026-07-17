@@ -35,15 +35,15 @@ export function BizFooter({ b, theme, dark }: { b: BusinessProfile; theme: Theme
             <p className={`text-sm leading-relaxed mb-6 max-w-sm ${faint}`}>{b.generatedCopy.serviceAreaBlurb}</p>
             <div className="flex flex-col gap-2.5 text-sm">
               <a href={telHref(b.phone)} className="link-accent inline-flex items-center gap-2.5">
-                <Phone size={15} style={{ color: theme.accent }} /> {b.phone}
+                <Phone size={15} style={{ color: dark ? theme.accent : (theme.accentOnWhite ?? theme.accent) }} /> {b.phone}
               </a>
               {b.email && (
                 <a href={`mailto:${b.email}`} className="link-accent inline-flex items-center gap-2.5">
-                  <Mail size={15} style={{ color: theme.accent }} /> {b.email}
+                  <Mail size={15} style={{ color: dark ? theme.accent : (theme.accentOnWhite ?? theme.accent) }} /> {b.email}
                 </a>
               )}
               <span className={`inline-flex items-start gap-2.5 ${muted}`}>
-                <MapPin size={15} style={{ color: theme.accent }} className="mt-0.5" />
+                <MapPin size={15} style={{ color: dark ? theme.accent : (theme.accentOnWhite ?? theme.accent) }} className="mt-0.5" />
                 {b.address.street ? `${b.address.street}, ` : ""}{b.address.locality}, {b.address.region} {b.address.postalCode ?? ""}
               </span>
             </div>

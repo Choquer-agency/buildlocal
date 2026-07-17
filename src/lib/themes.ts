@@ -27,6 +27,24 @@ export interface Theme {
   onAccent: string;
   /** Optional secondary brand color (highlights, alternate accents). */
   accent2?: string;
+  /** Accent color for eyebrows/icons on the soft section bg, contrast-corrected. */
+  accentOnSoft?: string;
+  /** Accent color for eyebrows/icons on the hero section bg, contrast-corrected. */
+  accentOnHero?: string;
+  /** Accent color for eyebrows/icons on a plain white section bg, contrast-corrected. */
+  accentOnWhite?: string;
+  /** Solid fill for small icon chips — keeps the vivid brand secondary even when sections are pale. */
+  chipBg?: string;
+  /** Icon/text color that reads on chipBg, contrast-corrected. */
+  accentOnChip?: string;
+  /** Per-business override for icon-chip tiles (background). When set, all icon chips use it. */
+  iconChipBg?: string;
+  /** Per-business override for the icon color sitting on iconChipBg. */
+  iconChipFg?: string;
+  /** Per-business override for the primary CTA buttons (background) — independent of accent. */
+  ctaBg?: string;
+  /** Per-business override for the CTA button text/icon color on ctaBg. */
+  ctaFg?: string;
 }
 
 export const THEMES: Theme[] = [
@@ -123,6 +141,29 @@ export function onColor(hex: string): string {
   return lum > 0.6 ? "#0c0c0c" : "#ffffff";
 }
 
+/** WCAG relative luminance (sRGB-linearized). */
+function relLum(hex: string): number {
+  const [r, g, b] = parseHex(hex).map((v) => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+/** WCAG contrast ratio between two colors (1 = identical, 21 = black/white). */
+export function contrastRatio(a: string, b: string): number {
+  const la = relLum(a), lb = relLum(b);
+  const [hi, lo] = la > lb ? [la, lb] : [lb, la];
+  return (hi + 0.05) / (lo + 0.05);
+}
+/**
+ * Accent color that stays legible on a given background. When the brand accent
+ * lacks AA contrast against `bg` (e.g. an olive-green eyebrow on a yellow brand
+ * section), fall back to the background's readable ink (near-black / white).
+ */
+export function readableAccent(accent: string, bg: string, min = 4.5): string {
+  return contrastRatio(accent, bg) >= min ? accent : onColor(bg);
+}
+
 /**
  * Build a cohesive theme from a primary (and optional secondary) brand color.
  * When a secondary is given, the soft section backgrounds take on that hue, so
@@ -130,16 +171,30 @@ export function onColor(hex: string): string {
  */
 export function customTheme(accent: string, secondary?: string): Theme {
   const hasSec = !!secondary;
+  // Secondary-tinted sections are kept pale (close to the single-color path) so a
+  // vivid brand secondary reads as a soft wash, not a saturated color block.
+  const heroBg = hasSec ? tint(secondary!, 0.85) : tint(accent, 0.93);
+  const softBg = hasSec ? tint(secondary!, 0.75) : tint(accent, 0.88);
   return {
     id: -1,
     name: "Custom",
     accent,
     accentDark: darken(accent, 0.22),
     accent2: secondary || accent,
-    heroBg: hasSec ? tint(secondary!, 0.45) : tint(accent, 0.93),
-    softBg: hasSec ? tint(secondary!, 0.25) : tint(accent, 0.88),
+    heroBg,
+    softBg,
     darkBg: darken(accent, 0.78),
     onAccent: onColor(accent),
+    // Brand swatches are arbitrary, so a primary on a secondary-tinted section can
+    // clash (green eyebrow on yellow). Pre-correct accent text for those sections.
+    accentOnSoft: readableAccent(accent, softBg),
+    accentOnHero: readableAccent(accent, heroBg),
+    // A light brand color (e.g. yellow) as copy/icons on a plain white section is
+    // illegible — fall back to near-black ink there.
+    accentOnWhite: readableAccent(accent, "#ffffff"),
+    // Icon chips keep the original vivid secondary wash even though sections are pale.
+    chipBg: hasSec ? tint(secondary!, 0.25) : softBg,
+    accentOnChip: readableAccent(accent, hasSec ? tint(secondary!, 0.25) : softBg),
   };
 }
 

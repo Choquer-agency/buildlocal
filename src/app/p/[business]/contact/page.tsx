@@ -48,11 +48,11 @@ export default async function ContactPage({ params }: PageProps) {
           <div className="u-container grid lg:grid-cols-2 gap-12 items-start">
             {/* Left: details + hours */}
             <div>
-              <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>Get in touch</p>
+              <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnWhite ?? theme.accent }}>Get in touch</p>
               <h2 className="font-head font-medium text-fluid-h3 text-dark mb-6">Reach {b.name}</h2>
               <div className="grid gap-4 mb-8">
                 <a href={telHref(b.phone)} className="flex items-center gap-4">
-                  <span className="grid place-items-center rounded-xl flex-shrink-0" style={{ width: 48, height: 48, background: theme.softBg, color: theme.accent }}><Phone size={20} /></span>
+                  <span className="grid place-items-center rounded-xl flex-shrink-0" style={{ width: 48, height: 48, background: theme.iconChipBg ?? theme.softBg, color: theme.iconChipFg ?? theme.accent }}><Phone size={20} /></span>
                   <span>
                     <span className="block font-mono text-xs uppercase tracking-wider text-dark/45">Call</span>
                     <span className="block font-biz font-semibold text-fluid-large text-dark">{b.phone}</span>
@@ -60,7 +60,7 @@ export default async function ContactPage({ params }: PageProps) {
                 </a>
                 {b.email && (
                   <a href={`mailto:${b.email}`} className="flex items-center gap-4">
-                    <span className="grid place-items-center rounded-xl flex-shrink-0" style={{ width: 48, height: 48, background: theme.softBg, color: theme.accent }}><Mail size={20} /></span>
+                    <span className="grid place-items-center rounded-xl flex-shrink-0" style={{ width: 48, height: 48, background: theme.iconChipBg ?? theme.softBg, color: theme.iconChipFg ?? theme.accent }}><Mail size={20} /></span>
                     <span>
                       <span className="block font-mono text-xs uppercase tracking-wider text-dark/45">Email</span>
                       <span className="block font-biz font-semibold text-fluid-main text-dark">{b.email}</span>
@@ -68,7 +68,7 @@ export default async function ContactPage({ params }: PageProps) {
                   </a>
                 )}
                 <div className="flex items-center gap-4">
-                  <span className="grid place-items-center rounded-xl flex-shrink-0" style={{ width: 48, height: 48, background: theme.softBg, color: theme.accent }}><MapPin size={20} /></span>
+                  <span className="grid place-items-center rounded-xl flex-shrink-0" style={{ width: 48, height: 48, background: theme.iconChipBg ?? theme.softBg, color: theme.iconChipFg ?? theme.accent }}><MapPin size={20} /></span>
                   <span>
                     <span className="block font-mono text-xs uppercase tracking-wider text-dark/45">Service area</span>
                     <span className="block font-biz font-semibold text-fluid-main text-dark">{b.address.locality}, {b.address.region}</span>

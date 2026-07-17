@@ -85,7 +85,7 @@ export function BizContactForm({
         type="submit"
         disabled={status === "sending"}
         className="inline-flex items-center justify-center rounded-md py-3.5 font-biz font-medium text-fluid-main disabled:opacity-60 transition-opacity"
-        style={{ background: theme.accent, color: theme.onAccent }}
+        style={{ background: theme.ctaBg ?? theme.accent, color: theme.ctaFg ?? theme.onAccent }}
       >
         {status === "sending" ? "Sending…" : "Get My Free Quote"}
       </button>

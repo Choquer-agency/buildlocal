@@ -89,7 +89,7 @@ export function BizHero({ b, theme }: { b: BusinessProfile; theme: Theme }) {
             <h1 className="font-head font-medium leading-[1.04] tracking-tight mb-6" style={{ fontSize: "clamp(2.1rem, 4vw, 4.2rem)" }}>
               {c.heroH1}
             </h1>
-            <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-biz font-semibold text-fluid-main shadow-lg hover:opacity-90 transition-opacity" style={{ background: theme.accent, color: theme.onAccent }}>
+            <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-biz font-semibold text-fluid-main shadow-lg hover:opacity-90 transition-opacity" style={{ background: theme.ctaBg ?? theme.accent, color: theme.ctaFg ?? theme.onAccent }}>
               Get a Free Quote <ArrowRight size={18} />
             </a>
           </div>
@@ -145,7 +145,7 @@ function marqueeWords(b: BusinessProfile): string[] {
 }
 
 export function BizServicesGrid({ b, theme, heading }: { b: BusinessProfile; theme: Theme; heading?: string }) {
-  const services = b.services.slice(0, 6);
+  const services = b.showAllServices ? b.services : b.services.slice(0, 6);
   const words = marqueeWords(b);
   const marquee = [...words, ...words].map((w, i) => (
     <span key={i} className="inline-flex items-center">
@@ -158,7 +158,7 @@ export function BizServicesGrid({ b, theme, heading }: { b: BusinessProfile; the
       <div className="section-space-main">
         {/* Centered heading */}
         <div className="u-container text-center">
-          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnWhite ?? theme.accent }}>
             What we offer
           </p>
           <h2 className="font-head font-medium text-fluid-h2 leading-[1.12] text-dark max-w-[34ch] mx-auto mb-12">
@@ -257,7 +257,7 @@ export function BizWhyChooseUs({ b, theme, serviceName }: { b: BusinessProfile; 
 
           {/* Right: copy + points + CTA */}
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnWhite ?? theme.accent }}>
               Why us
             </p>
             <h2 className="font-head font-medium text-fluid-h2 leading-[1.12] text-dark mb-5">
@@ -271,7 +271,7 @@ export function BizWhyChooseUs({ b, theme, serviceName }: { b: BusinessProfile; 
             <div className="grid gap-5 mb-9">
               {points.map((p) => (
                 <div key={p.title} className="flex items-start gap-4">
-                  <span className="grid place-items-center rounded-full flex-shrink-0" style={{ width: 44, height: 44, background: theme.softBg, color: theme.accent }}>
+                  <span className="grid place-items-center rounded-full flex-shrink-0" style={{ width: 44, height: 44, background: theme.iconChipBg ?? theme.chipBg ?? theme.softBg, color: theme.iconChipFg ?? theme.accentOnChip ?? theme.accentOnSoft ?? theme.accent }}>
                     {p.icon}
                   </span>
                   <div>
@@ -281,7 +281,7 @@ export function BizWhyChooseUs({ b, theme, serviceName }: { b: BusinessProfile; 
                 </div>
               ))}
             </div>
-            <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.accent, color: theme.onAccent }}>
+            <a href={`/p/${b.slug}/contact`} className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-biz font-semibold text-fluid-main hover:opacity-90 transition-opacity" style={{ background: theme.ctaBg ?? theme.accent, color: theme.ctaFg ?? theme.onAccent }}>
               Get in touch <ArrowRight size={17} />
             </a>
           </div>
@@ -301,7 +301,7 @@ export function BizAbout({ b, theme }: { b: BusinessProfile; theme: Theme }) {
       <div className="section-space-main">
         <div className="u-container grid lg:grid-cols-2 gap-12 items-start">
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnHero ?? theme.accent }}>
               About {b.name}
             </p>
             <h2 className="font-head font-medium text-fluid-h2 leading-[1.12] mb-6" style={{ color: t.strong }}>
@@ -358,7 +358,7 @@ export function BizReviews({ b, theme, all = false }: { b: BusinessProfile; them
       <div className="section-space-main">
         {/* Heading + 1-sentence body, centered */}
         <div className="u-container text-center mb-12">
-          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnSoft ?? theme.accent }}>
             Reviews
           </p>
           <h2 className="font-head font-medium text-fluid-h2 leading-[1.12] max-w-[22ch] mx-auto mb-4" style={{ color: t.strong }}>
@@ -404,7 +404,7 @@ export function BizAreas({ b, theme }: { b: BusinessProfile; theme: Theme }) {
       <div className="section-space-main">
         <div className="u-container grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnSoft ?? theme.accent }}>
               Service area
             </p>
             <h2 className="font-head font-medium text-fluid-h2 leading-[1.12] max-w-[16ch] mb-5" style={{ color: t.strong }}>
@@ -447,7 +447,7 @@ export function BizGallery({ b, theme }: { b: BusinessProfile; theme: Theme }) {
     <section style={{ background: theme.softBg }}>
       <div className="section-space-main">
         <div className="u-container">
-          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+          <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnSoft ?? theme.accent }}>
             Recent work
           </p>
           <h2 className="font-head font-medium text-fluid-h2 leading-[1.12] max-w-[20ch] mb-10" style={{ color: t.strong }}>
@@ -540,7 +540,7 @@ export function BizContactSection({ b, theme }: { b: BusinessProfile; theme: The
       <div className="section-space-main">
         <div className="u-container grid lg:grid-cols-2 gap-12 items-start">
           <div>
-            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnHero ?? theme.accent }}>
               Get in touch
             </p>
             <h2 className="font-head font-medium text-fluid-h3 leading-[1.15] mb-5" style={{ color: t.strong }}>

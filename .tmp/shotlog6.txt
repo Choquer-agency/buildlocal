@@ -1,0 +1,8 @@
+[shot] spawning chrome
+[shot] fetching tabs
+[shot] tabs 6
+[shot] using about:blank
+[shot] ws open
+[shot] navigated, waiting render
+[shot] hero written
+[shot] svc written y 1105.859375

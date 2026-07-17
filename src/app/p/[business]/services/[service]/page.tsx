@@ -56,7 +56,7 @@ export default async function ServiceDetail({ params }: PageProps) {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             {/* Left: text */}
             <div className="flex flex-col justify-center">
-              <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>
+              <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnWhite ?? theme.accent }}>
                 {b.address.locality} · {b.primaryCategory}
               </p>
               <h1 className="font-head font-medium leading-[1.05] text-dark mb-5" style={{ fontSize: "clamp(2.2rem, 3.5vw, 3.8rem)" }}>
@@ -65,7 +65,7 @@ export default async function ServiceDetail({ params }: PageProps) {
               <p className="font-biz text-fluid-large text-dark/60 leading-relaxed max-w-[46ch] mb-7">
                 {s.body || s.blurb}
               </p>
-              <a href={`/p/${b.slug}/contact`} className="inline-flex w-fit items-center gap-2 rounded-full px-7 py-3.5 font-biz font-semibold text-fluid-main mb-9 hover:opacity-90 transition-opacity" style={{ background: theme.accent, color: theme.onAccent }}>
+              <a href={`/p/${b.slug}/contact`} className="inline-flex w-fit items-center gap-2 rounded-full px-7 py-3.5 font-biz font-semibold text-fluid-main mb-9 hover:opacity-90 transition-opacity" style={{ background: theme.ctaBg ?? theme.accent, color: theme.ctaFg ?? theme.onAccent }}>
                 Get a Free Quote <ArrowRight size={17} />
               </a>
               <ul className="grid sm:grid-cols-2 gap-3">
@@ -94,7 +94,7 @@ export default async function ServiceDetail({ params }: PageProps) {
       <section className="bg-white">
         <div className="section-space-main">
           <div className="u-container">
-            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accent }}>What you get</p>
+            <p className="font-mono text-xs uppercase tracking-wider mb-4" style={{ color: theme.accentOnWhite ?? theme.accent }}>What you get</p>
             <h2 className="font-head font-medium text-fluid-h2 leading-[1.12] text-dark max-w-[22ch] mb-12">
               {s.name}, done the right way
             </h2>
@@ -103,7 +103,7 @@ export default async function ServiceDetail({ params }: PageProps) {
               <div className="grid sm:grid-cols-2 gap-x-8 gap-y-9">
                 {features.map((f) => (
                   <div key={f.title}>
-                    <span className="grid place-items-center rounded-xl mb-3" style={{ width: 46, height: 46, background: theme.softBg, color: theme.accent }}>
+                    <span className="grid place-items-center rounded-xl mb-3" style={{ width: 46, height: 46, background: theme.iconChipBg ?? theme.softBg, color: theme.iconChipFg ?? theme.accent }}>
                       {f.icon}
                     </span>
                     <h3 className="font-biz font-semibold text-dark mb-1.5">{f.title}</h3>

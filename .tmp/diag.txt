@@ -1,0 +1,5 @@
+-rwxr-xr-x@ 39 root  wheel  367696 Jun  5 12:04 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+--- ws module:
+ws OK
+--- node version:
+v19.4.0

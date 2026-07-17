@@ -1,0 +1,35 @@
+import http from 'node:http';
+import fs from 'node:fs';
+import { spawn } from 'node:child_process';
+const log=(...a)=>fs.appendFileSync('.tmp/shot_dbg.log',a.join(' ')+'\n');
+const CHROME='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const port=9355;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+try{
+const p=spawn(CHROME,['--headless=new',`--remote-debugging-port=${port}`,'--hide-scrollbars','--user-data-dir=/private/tmp/ro0060-chrome','--window-size=1440,1000','about:blank'],{stdio:'ignore'});
+await wait(2500);
+const get=u=>new Promise((res,rej)=>http.get(u,r=>{let d='';r.on('data',c=>d+=c);r.on('end',()=>res(JSON.parse(d)));}).on('error',rej));
+const tabs=await get(`http://127.0.0.1:${port}/json`);
+const tab=tabs.find(t=>t.type==='page')||tabs[0];
+log('tabs',tabs.length,'using',tab.type);
+const WebSocket=(await import('ws')).default;
+const sock=new WebSocket(tab.webSocketDebuggerUrl);
+let id=0;const cbs={};
+const send=(m,params={})=>new Promise(r=>{const i=++id;cbs[i]=r;sock.send(JSON.stringify({id:i,method:m,params}));});
+sock.on('message',d=>{const m=JSON.parse(d);if(m.id&&cbs[m.id])cbs[m.id](m);});
+await new Promise(r=>sock.on('open',r));
+await send('Page.enable');
+await send('Runtime.enable');
+await send('Page.navigate',{url:'http://localhost:4500/p/the-scottsdale-roofing-company'});
+await wait(4000);
+const ev=await send('Runtime.evaluate',{expression:`(()=>{const a=[...document.querySelectorAll('a[href*="/services/"]')].find(e=>e.querySelector('img')); if(!a) return JSON.stringify({y:1100,h:1750}); const r=a.getBoundingClientRect(); return JSON.stringify({y:Math.max(0,r.top+window.scrollY-110), h:1800});})()`,returnByValue:true});
+const {y,h}=JSON.parse(ev.result.result.value);
+log('grid y',y,'h',h);
+const shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:0,y,width:1440,height:h,scale:1}});
+fs.writeFileSync('.tmp/ro0060_svc.png',Buffer.from(shot.result.data,'base64'));
+const hero=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:0,y:0,width:1440,height:900,scale:1}});
+fs.writeFileSync('.tmp/ro0060_hero.png',Buffer.from(hero.result.data,'base64'));
+log('done');
+p.kill();
+}catch(e){log('ERR',e.stack||e.message);process.exit(2);}
+process.exit(0);
