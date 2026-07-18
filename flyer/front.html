@@ -25,26 +25,26 @@
   .contact { position: absolute; right: 0; top: 0.04in; text-align: right; font-style: italic; font-weight: 600; color: #000; font-size: 16px; line-height: 1.42; }
 
   /* --- Headline: 3 rows, ONE uniform size (scales down only for long names) --- */
-  .headline { position: absolute; left: -1px; top: 1.0in; font-style: italic; font-weight: 600; color: #000; letter-spacing: -1px; font-size: {{headline_font}}px; line-height: 0.99; }
+  .headline { position: absolute; left: -1px; top: 0.5in; font-style: italic; font-weight: 600; color: #000; letter-spacing: -1px; font-size: {{headline_font}}px; line-height: 0.99; }
   .headline .row { display: block; white-space: nowrap; }
   /* highlighted "website" — yellow angled box (parallelogram); text keeps the same italic lean as the rows above */
   .headline .hl { display: inline-block; position: relative; padding: 0 0.14in 0.03in; margin-top: 0.03in; }
   .headline .hl:before { content:''; position:absolute; inset:0; background:#FCE34A; transform: skewX(-11deg); z-index:-1; }
 
-  /* --- Scan CTA bottom-left --- */
-  .cta { position: absolute; left: 0; bottom: 0.16in; width: 2.95in; }
-  .cta .kicker { font-family:'IBM Plex Mono', monospace; font-weight:400; font-size:15px; letter-spacing:0.5px; text-transform:uppercase; color:#000; margin-bottom:0.07in; }
-  .cta .big { font-style: italic; font-weight: 600; font-size: 52px; line-height: 0.77; color:#000; letter-spacing:-1px; }
-  .cta .peace { display:inline-flex; align-items:center; vertical-align:-0.14in; margin:0 0.04in; }
-  .cta .peace img { height:0.6in; display:block; }
+  /* --- Scan CTA (lower-left, above the QR) --- */
+  .cta { position: absolute; left: 0; bottom: 1.55in; width: 3.3in; }
+  .cta .kicker { font-family:'IBM Plex Mono', monospace; font-weight:400; font-size:14px; letter-spacing:0.5px; text-transform:uppercase; color:#000; margin-bottom:0.06in; }
+  .cta .big { font-style: italic; font-weight: 600; font-size: 40px; line-height: 0.8; color:#000; letter-spacing:-1px; }
+  .cta .peace { display:inline-flex; align-items:center; vertical-align:-0.1in; margin:0 0.03in; }
+  .cta .peace img { height:0.46in; display:block; }
 
-  /* QR — centered in the lane between the CTA text and the ink-free zone, with
-     equal orange margin on both sides (CTA ends ~2.95in, ink-free starts 4.975in) */
-  .qr { position: absolute; left: 2.815in; bottom: 0.2in; width: 1.55in; height: 1.55in; background:#fff; padding:0.06in; }
+  /* QR — stacked directly UNDER the CTA text, left-aligned */
+  .qr { position: absolute; left: 0; bottom: 0.2in; width: 1.2in; height: 1.2in; background:#fff; padding:0.05in; }
   .qr img { width:100%; height:100%; display:block; }
 
-  /* === INK-FREE — Lob prints recipient address + postage here. LEAVE BLANK. === */
-  #ink-free { position: absolute; right: 0.4in; bottom: 0.4in; width: 3.9in; height: 2.3in; background:#fff; }
+  /* === INK-FREE — Lob prints recipient address + postage here (bigger than first
+     thought — sized to Lob's real address block). LEAVE BLANK. === */
+  #ink-free { position: absolute; right: 0.25in; bottom: 0.25in; width: 5in; height: 3.5in; background:#fff; }
 </style>
 </head>
 <body>

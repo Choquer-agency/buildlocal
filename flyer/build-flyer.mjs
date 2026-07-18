@@ -94,7 +94,9 @@ const code = b.qrCode || b.slug;
 const noWebsite = shotUri("_no-website.jpg") || "";
 const vars = {
   business_name: displayName,
-  headline_font: headlineFont(displayName),
+  // ~0.8x the auto size so the 3-line headline sits higher and clears Lob's
+  // (larger-than-expected) address block on the lower-right.
+  headline_font: Math.round(headlineFont(displayName) * 0.8),
   deserves_line: b.existingWebsite ? "deserves a better" : "deserves a",
   qr_image_url: await qrDataUri(code),
   old_shot_url: (b.existingWebsite && shotUri(`${b.slug}-old.jpg`)) || noWebsite,
