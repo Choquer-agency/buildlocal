@@ -37,19 +37,33 @@ function writeFile(data: Record<string, CrmRecord>) {
   fs.writeFileSync(FILE, JSON.stringify(data, null, 2));
 }
 
+function localRecord(slug: string): CrmRecord {
+  return { ...DEFAULT_CRM, ...(readFile()[slug] || {}) };
+}
+
 /* ── public API ── */
 export async function getRecord(slug: string): Promise<CrmRecord> {
-  if (useConvex) return toRecord(await client().query(api.crm.get, { slug }));
-  return { ...DEFAULT_CRM, ...(readFile()[slug] || {}) };
+  if (useConvex) {
+    try {
+      return toRecord(await client().query(api.crm.get, { slug }));
+    } catch (error) {
+      console.warn(`[crm-store] Convex read failed for ${slug}; using local CRM state.`, error);
+    }
+  }
+  return localRecord(slug);
 }
 
 export async function getRecords(slugs: string[]): Promise<Record<string, CrmRecord>> {
   const out: Record<string, CrmRecord> = {};
   for (const s of slugs) out[s] = { ...DEFAULT_CRM };
   if (useConvex) {
-    const all = (await client().query(api.crm.list)) as Record<string, unknown>[];
-    for (const d of all) out[d.slug as string] = toRecord(d);
-    return out;
+    try {
+      const all = (await client().query(api.crm.list)) as Record<string, unknown>[];
+      for (const d of all) out[d.slug as string] = toRecord(d);
+      return out;
+    } catch (error) {
+      console.warn("[crm-store] Convex list read failed; using local CRM state.", error);
+    }
   }
   const file = readFile();
   for (const s of slugs) out[s] = { ...DEFAULT_CRM, ...(file[s] || {}) };

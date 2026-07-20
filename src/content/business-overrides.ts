@@ -24,12 +24,1061 @@ export type BusinessOverride = Partial<Omit<BusinessProfile, "generatedCopy" | "
   address?: Partial<BusinessProfile["address"]>;
 };
 
+type OverrideService = { name: string; slug: string; blurb: string };
+
+function pestPhotoOverride(slug: string, services: OverrideService[]): BusinessOverride {
+  const imageFor = (service: OverrideService) => {
+    const label = `${service.name} ${service.slug}`.toLowerCase();
+    if (label.includes("termite")) return "/biz-photos/pest-shared/termite.webp";
+    if (label.includes("rodent") || label.includes("gopher")) return "/biz-photos/pest-shared/rodent.webp";
+    if (label.includes("scorpion")) return "/biz-photos/pest-shared/scorpion.webp";
+    if (label.includes("mosquito")) return "/biz-photos/pest-shared/mosquito.webp";
+    if (label.includes("weed") || label.includes("lawn")) return "/biz-photos/pest-shared/weed.webp";
+    if (label.includes("bed bug")) return "/biz-photos/pest-shared/bedbug.webp";
+    if (label.includes("commercial")) return "/biz-photos/pest-shared/commercial.webp";
+    return "/biz-photos/pest-shared/general.webp";
+  };
+  const boundServices = services.map((service) => ({ ...service, image: imageFor(service) }));
+  return {
+    showAllServices: true,
+    photos: [`/biz-photos/${slug}/hero.webp`, ...Array.from(new Set(boundServices.map((service) => service.image)))],
+    services: boundServices,
+  };
+}
+
 /**
  * MANUAL touch-ups (copy, font, services, name). Edit this object by hand.
  * Image/logo paths are managed automatically in asset-overrides.json by
  * scripts/process-assets.mjs — both are merged below (manual wins on conflict).
  */
+const pestServiceOverrides = (slug: string): BusinessProfile["services"] => [
+  { name: "General Pest Control", slug: "pest-control", image: `/biz-photos/${slug}/pest-control.webp`, blurb: "Targeted exterior and interior pest control for common household insects and spiders." },
+  { name: "Scorpion Control", slug: "scorpion-control", image: `/biz-photos/${slug}/scorpion-control.webp`, blurb: "Focused inspection and treatment designed for scorpions around Arizona homes." },
+  { name: "Termite Control", slug: "termite-control", image: `/biz-photos/${slug}/termite-control.webp`, blurb: "Termite inspection and treatment to address active colonies and protect the property." },
+  { name: "Rodent Control", slug: "rodent-control", image: `/biz-photos/${slug}/rodent-control.webp`, blurb: "Rodent removal and exclusion work that addresses entry points and recurring activity." },
+  { name: "Bed Bug Treatment", slug: "bed-bug", image: `/biz-photos/${slug}/bed-bug.webp`, blurb: "Detailed bed bug inspection and treatment for affected sleeping and living areas." },
+  { name: "Weed & Bee Control", slug: "weed-bee", image: `/biz-photos/${slug}/weed-bee.webp`, blurb: "Targeted weed management and careful control of problematic bee activity around the property." },
+];
+
+const pestPhotos = (slug: string): string[] => [
+  `/biz-photos/${slug}/hero.webp`,
+  `/biz-photos/${slug}/pest-control.webp`,
+  `/biz-photos/${slug}/scorpion-control.webp`,
+  `/biz-photos/${slug}/termite-control.webp`,
+  `/biz-photos/${slug}/rodent-control.webp`,
+  `/biz-photos/${slug}/bed-bug.webp`,
+  `/biz-photos/${slug}/weed-bee.webp`,
+];
+
 const manual: Record<string, BusinessOverride> = {
+  // pc0011-pc0020 — original Arizona heroes plus a compatible pest-specialty photo library.
+  "eco-valley-pest-control": {
+    photos: ["/biz-photos/eco-valley-pest-control/hero-original.webp", "/biz-photos/eco-valley-pest-control/general.webp", "/biz-photos/eco-valley-pest-control/termite.webp", "/biz-photos/eco-valley-pest-control/mosquito.webp", "/biz-photos/eco-valley-pest-control/wildlife.webp"],
+    services: [
+      { name: "Pest Control & Exterminator", slug: "pest-control", image: "/biz-photos/eco-valley-pest-control/general.webp", blurb: "Targeted residential pest service designed around Arizona homes and common Valley invaders." },
+      { name: "Termite Inspections & Treatment", slug: "termite-control", image: "/biz-photos/eco-valley-pest-control/termite.webp", blurb: "Detailed termite inspections and appropriate treatment recommendations protect vulnerable wood and foundations." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/eco-valley-pest-control/mosquito.webp", blurb: "Focused mosquito treatments reduce activity around patios, landscaping, and outdoor living areas." },
+      { name: "Wildlife Removal & Control", slug: "wildlife-control", image: "/biz-photos/eco-valley-pest-control/wildlife.webp", blurb: "Humane wildlife removal and exclusion helps prevent animals from returning to rooflines and structures." },
+      { name: "Emergency Pest Control", slug: "emergency-pest-control", image: "/biz-photos/eco-valley-pest-control/general.webp", blurb: "Responsive help for urgent pest problems that cannot wait for a routine appointment." },
+    ],
+  },
+  "rainbow-pest-control": {
+    photos: ["/biz-photos/rainbow-pest-control/hero-original.webp", "/biz-photos/rainbow-pest-control/ant.webp", "/biz-photos/rainbow-pest-control/scorpion.webp", "/biz-photos/rainbow-pest-control/rodent.webp"],
+    services: [
+      { name: "Ant Control", slug: "ant-control", image: "/biz-photos/rainbow-pest-control/ant.webp", blurb: "Precise ant identification and treatment addresses trails, entry points, and nesting activity." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/rainbow-pest-control/scorpion.webp", blurb: "Arizona-focused inspection and treatment reduces scorpion activity around the home and yard." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/rainbow-pest-control/rodent.webp", blurb: "Rodent control combines inspection, exclusion, and monitored solutions for lasting protection." },
+    ],
+  },
+  "greenleaf-pest-control-mesa": {
+    photos: ["/biz-photos/greenleaf-pest-control-mesa/hero-original.webp", "/biz-photos/greenleaf-pest-control-mesa/general.webp", "/biz-photos/greenleaf-pest-control-mesa/scorpion.webp", "/biz-photos/greenleaf-pest-control-mesa/termite.webp", "/biz-photos/greenleaf-pest-control-mesa/rodent.webp", "/biz-photos/greenleaf-pest-control-mesa/weed.webp"],
+    services: [
+      { name: "Pest Control", slug: "pest-control", image: "/biz-photos/greenleaf-pest-control-mesa/general.webp", blurb: "Ongoing home protection targets common Arizona pests at entry points and harborage areas." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/greenleaf-pest-control-mesa/scorpion.webp", blurb: "Detailed scorpion inspections and targeted service reduce activity around foundations and block walls." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/greenleaf-pest-control-mesa/termite.webp", blurb: "Inspection and treatment options address subterranean termite pressure around Mesa properties." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/greenleaf-pest-control-mesa/rodent.webp", blurb: "Inspection, exclusion, and monitoring help remove rodents and limit future entry." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/greenleaf-pest-control-mesa/weed.webp", blurb: "Precision weed service controls unwanted growth in desert gravel and landscaped areas." },
+    ],
+  },
+  "orange-pest-control": {
+    photos: ["/biz-photos/orange-pest-control/hero-original.webp", "/biz-photos/orange-pest-control/scorpion.webp", "/biz-photos/orange-pest-control/termite.webp", "/biz-photos/orange-pest-control/ant.webp", "/biz-photos/orange-pest-control/spider.webp", "/biz-photos/orange-pest-control/rodent.webp", "/biz-photos/orange-pest-control/bee-wasp.webp"],
+    services: [
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/orange-pest-control/scorpion.webp", blurb: "Targeted Arizona scorpion service focuses on hiding places, access points, and exterior pressure." },
+      { name: "Termite Services", slug: "termite-services", image: "/biz-photos/orange-pest-control/termite.webp", blurb: "Thorough inspections and property-appropriate termite treatments protect structures from hidden damage." },
+      { name: "Ant Control", slug: "ant-control", image: "/biz-photos/orange-pest-control/ant.webp", blurb: "Focused ant treatments address active trails and colonies rather than surface activity alone." },
+      { name: "Spider Control", slug: "spider-control", image: "/biz-photos/orange-pest-control/spider.webp", blurb: "Web removal and targeted service reduce spiders around eaves, patios, garages, and entryways." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/orange-pest-control/rodent.webp", blurb: "Rodent inspection, exclusion, and monitoring protect homes from recurring activity." },
+      { name: "Bee & Wasp Removal", slug: "bee-wasp-removal", image: "/biz-photos/orange-pest-control/bee-wasp.webp", blurb: "Careful bee and wasp removal addresses nests around rooflines and outdoor living areas." },
+    ],
+  },
+  "bulwark-exterminating": {
+    photos: ["/biz-photos/bulwark-exterminating/hero-original.webp", "/biz-photos/bulwark-exterminating/general.webp", "/biz-photos/bulwark-exterminating/termite.webp", "/biz-photos/bulwark-exterminating/mosquito.webp", "/biz-photos/bulwark-exterminating/scorpion.webp", "/biz-photos/bulwark-exterminating/seal-wall.webp", "/biz-photos/bulwark-exterminating/rodent.webp"],
+    services: [
+      { name: "Pest Control", slug: "pest-control", image: "/biz-photos/bulwark-exterminating/general.webp", blurb: "Comprehensive exterior and interior pest protection for common Mesa-area invaders." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/bulwark-exterminating/termite.webp", blurb: "Termite inspection and treatment helps protect slabs, foundations, and structural wood." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/bulwark-exterminating/mosquito.webp", blurb: "Outdoor mosquito service targets shaded resting zones and breeding conditions." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/bulwark-exterminating/scorpion.webp", blurb: "Specialized scorpion treatment addresses the pest and conditions that support its prey." },
+      { name: "Scorpion Wall", slug: "scorpion-wall", image: "/biz-photos/bulwark-exterminating/seal-wall.webp", blurb: "Physical sealing and exclusion closes common gaps scorpions use to enter the home." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/bulwark-exterminating/rodent.webp", blurb: "Rodent service combines inspection, entry-point closure, and monitored control." },
+    ],
+  },
+  "fromms-pest-control": {
+    photos: ["/biz-photos/fromms-pest-control/hero-original.webp", "/biz-photos/fromms-pest-control/general.webp", "/biz-photos/fromms-pest-control/termite.webp", "/biz-photos/fromms-pest-control/mosquito.webp", "/biz-photos/fromms-pest-control/weed.webp", "/biz-photos/fromms-pest-control/rodent.webp", "/biz-photos/fromms-pest-control/scorpion.webp"],
+    services: [
+      { name: "Pest Control", slug: "pest-control", image: "/biz-photos/fromms-pest-control/general.webp", blurb: "Practical home pest protection targets active problems and common entry points." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/fromms-pest-control/termite.webp", blurb: "Termite inspection and treatment protects Arizona properties from concealed structural damage." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/fromms-pest-control/mosquito.webp", blurb: "Focused outdoor treatment helps reduce mosquito activity where families relax and gather." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/fromms-pest-control/weed.webp", blurb: "Targeted weed applications control growth in gravel, hardscape joints, and landscaped areas." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/fromms-pest-control/rodent.webp", blurb: "Inspection, exclusion, and monitoring address rodents while limiting future access." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/fromms-pest-control/scorpion.webp", blurb: "Arizona-specific scorpion service focuses on hiding areas, prey pressure, and entry routes." },
+    ],
+  },
+  "arizona-s-best-choice-pest-and-termite-services-mesa": {
+    photos: ["/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/hero-original.webp", "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/termite.webp", "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/weed.webp", "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/mosquito.webp", "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/rodent.webp", "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/ant.webp", "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/commercial.webp"],
+    services: [
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/termite.webp", blurb: "Detailed inspections and treatment options address Arizona termite activity around structures." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/weed.webp", blurb: "Precision weed control keeps desert lots, gravel, and hardscape areas looking maintained." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/mosquito.webp", blurb: "Outdoor mosquito treatments reduce activity around landscaping and gathering spaces." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/rodent.webp", blurb: "Rodent inspection and exclusion address active problems and vulnerable access points." },
+      { name: "Ant Control", slug: "ant-control", image: "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/ant.webp", blurb: "Targeted ant control treats trails and colony sources around the property." },
+      { name: "Commercial Services", slug: "commercial-services", image: "/biz-photos/arizona-s-best-choice-pest-and-termite-services-mesa/commercial.webp", blurb: "Discreet, planned pest service supports clean and protected commercial environments." },
+    ],
+  },
+  "defense-pest-control": {
+    photos: ["/biz-photos/defense-pest-control/hero-original.webp", "/biz-photos/defense-pest-control/scorpion.webp", "/biz-photos/defense-pest-control/termite.webp", "/biz-photos/defense-pest-control/roach.webp", "/biz-photos/defense-pest-control/spider.webp", "/biz-photos/defense-pest-control/ant.webp", "/biz-photos/defense-pest-control/weed.webp"],
+    services: [
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/defense-pest-control/scorpion.webp", blurb: "Detailed nighttime inspection and targeted barriers reduce scorpion activity around Arizona homes." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/defense-pest-control/termite.webp", blurb: "Property-specific termite inspection and treatment protects foundations and structural materials." },
+      { name: "Roach Control", slug: "roach-control", image: "/biz-photos/defense-pest-control/roach.webp", blurb: "Focused cockroach treatment addresses hiding places, moisture sources, and interior activity." },
+      { name: "Spider Control", slug: "spider-control", image: "/biz-photos/defense-pest-control/spider.webp", blurb: "Web removal and targeted service reduce spiders at eaves, patios, and entryways." },
+      { name: "Ant Control", slug: "ant-control", image: "/biz-photos/defense-pest-control/ant.webp", blurb: "Ant identification and precise treatment address trails and nesting sites." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/defense-pest-control/weed.webp", blurb: "Controlled spot treatments manage unwanted weeds in desert landscaping." },
+    ],
+  },
+  "ecoguard-pest-control": {
+    photos: ["/biz-photos/ecoguard-pest-control/hero-original.webp", "/biz-photos/ecoguard-pest-control/termite.webp", "/biz-photos/ecoguard-pest-control/rodent.webp", "/biz-photos/ecoguard-pest-control/roach.webp", "/biz-photos/ecoguard-pest-control/mosquito.webp", "/biz-photos/ecoguard-pest-control/seal-wall.webp", "/biz-photos/ecoguard-pest-control/bed-bug.webp"],
+    services: [
+      { name: "Termites & Warranty", slug: "termite-control", image: "/biz-photos/ecoguard-pest-control/termite.webp", blurb: "Termite inspection, treatment, and continuing protection options help safeguard the structure." },
+      { name: "Rodents", slug: "rodent-control", image: "/biz-photos/ecoguard-pest-control/rodent.webp", blurb: "Rodent control pairs removal and monitoring with careful exclusion of entry points." },
+      { name: "Cockroaches", slug: "cockroach-control", image: "/biz-photos/ecoguard-pest-control/roach.webp", blurb: "Targeted cockroach service treats harborages and conditions that support indoor activity." },
+      { name: "Mosquitoes", slug: "mosquito-control", image: "/biz-photos/ecoguard-pest-control/mosquito.webp", blurb: "Outdoor treatments reduce mosquito pressure around patios and landscape resting zones." },
+      { name: "Scorpion Seals", slug: "scorpion-seals", image: "/biz-photos/ecoguard-pest-control/seal-wall.webp", blurb: "Detailed exclusion closes gaps and penetrations scorpions can use to enter the home." },
+      { name: "Bed Bugs", slug: "bed-bug-control", image: "/biz-photos/ecoguard-pest-control/bed-bug.webp", blurb: "Careful inspection and a defined treatment plan address bed bug activity in sleeping areas." },
+    ],
+  },
+  "varsity-termite-and-pest-control": {
+    photos: ["/biz-photos/varsity-termite-and-pest-control/hero-original.webp", "/biz-photos/varsity-termite-and-pest-control/termite.webp", "/biz-photos/varsity-termite-and-pest-control/scorpion.webp", "/biz-photos/varsity-termite-and-pest-control/pigeon.webp", "/biz-photos/varsity-termite-and-pest-control/spider.webp", "/biz-photos/varsity-termite-and-pest-control/bee-wasp.webp", "/biz-photos/varsity-termite-and-pest-control/roach.webp"],
+    services: [
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/varsity-termite-and-pest-control/termite.webp", blurb: "Termite inspection and treatment addresses hidden activity around slabs and structural wood." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/varsity-termite-and-pest-control/scorpion.webp", blurb: "Arizona-focused inspection and treatment reduces scorpions around homes and yards." },
+      { name: "Pigeon Control", slug: "pigeon-control", image: "/biz-photos/varsity-termite-and-pest-control/pigeon.webp", blurb: "Humane exclusion discourages pigeons from nesting beneath roof and solar-panel edges." },
+      { name: "Spider Control", slug: "spider-control", image: "/biz-photos/varsity-termite-and-pest-control/spider.webp", blurb: "Web removal and targeted treatment manage spider activity around the structure." },
+      { name: "Bee & Wasp Removal", slug: "bee-wasp-removal", image: "/biz-photos/varsity-termite-and-pest-control/bee-wasp.webp", blurb: "Protected removal handles nests at eaves and outdoor living areas carefully." },
+      { name: "Cockroach Extermination", slug: "cockroach-extermination", image: "/biz-photos/varsity-termite-and-pest-control/roach.webp", blurb: "Focused cockroach treatment addresses active harborages and likely access routes." },
+    ],
+  },
+  // pc0021–pc0030 — verified pest-service lineup with a distinct hero per business.
+  "aloe-pest-control": {
+    photos: pestPhotos("aloe-pest-control"),
+    services: pestServiceOverrides("aloe-pest-control"),
+  },
+  "raptor-pest-solutions": {
+    photos: pestPhotos("raptor-pest-solutions"),
+    services: pestServiceOverrides("raptor-pest-solutions"),
+  },
+  "cape-pest-control": {
+    photos: pestPhotos("cape-pest-control"),
+    services: pestServiceOverrides("cape-pest-control"),
+  },
+  "iron-mantis-pest-control": {
+    photos: pestPhotos("iron-mantis-pest-control"),
+    services: pestServiceOverrides("iron-mantis-pest-control"),
+  },
+  "simply-green-pest-control": {
+    photos: pestPhotos("simply-green-pest-control"),
+    services: pestServiceOverrides("simply-green-pest-control"),
+  },
+  "green-magic-pest-control": {
+    photos: pestPhotos("green-magic-pest-control"),
+    services: pestServiceOverrides("green-magic-pest-control"),
+  },
+  "responsible-pest-and-scorpion-control": {
+    photos: pestPhotos("responsible-pest-and-scorpion-control"),
+    services: pestServiceOverrides("responsible-pest-and-scorpion-control"),
+  },
+  "green-home-pest-control-chandler": {
+    photos: pestPhotos("green-home-pest-control-chandler"),
+    services: pestServiceOverrides("green-home-pest-control-chandler"),
+  },
+  "arizona-termite-and-pest-solutions": {
+    photos: pestPhotos("arizona-termite-and-pest-solutions"),
+    services: pestServiceOverrides("arizona-termite-and-pest-solutions"),
+  },
+  "pro-active-pest-control": {
+    photos: pestPhotos("pro-active-pest-control"),
+    services: pestServiceOverrides("pro-active-pest-control"),
+  },
+  // pc0001–pc0010 pest-control image pass: unique heroes plus a vetted, specialty-matched service library.
+  "urban-desert-pest-control": {
+    photos: ["/biz-photos/urban-desert-pest-control/hero.webp", "/biz-photos/urban-desert-pest-control/termite-control.webp", "/biz-photos/urban-desert-pest-control/rodent-control.webp", "/biz-photos/urban-desert-pest-control/scorpion-control.webp", "/biz-photos/urban-desert-pest-control/mosquito-control.webp", "/biz-photos/urban-desert-pest-control/weed-treatment.webp", "/biz-photos/urban-desert-pest-control/bed-bug-control.webp"],
+    services: [
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/urban-desert-pest-control/termite-control.webp", blurb: "Comprehensive termite treatment designed to protect your home from hidden structural damage." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/urban-desert-pest-control/rodent-control.webp", blurb: "Rodent removal, entry-point identification, and prevention to help keep rats and mice from returning." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/urban-desert-pest-control/scorpion-control.webp", blurb: "Targeted Arizona scorpion control focused on harborage areas, entry points, and exterior protection." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/urban-desert-pest-control/mosquito-control.webp", blurb: "Outdoor mosquito treatments that target resting and breeding areas so your yard is easier to enjoy." },
+      { name: "Weed Treatment", slug: "weed-treatment", image: "/biz-photos/urban-desert-pest-control/weed-treatment.webp", blurb: "Professional weed treatment for cleaner, lower-maintenance Phoenix yards and decorative gravel." },
+      { name: "Bed Bug Control", slug: "bed-bug-control", image: "/biz-photos/urban-desert-pest-control/bed-bug-control.webp", blurb: "Detailed bed-bug inspection and targeted treatment for bedrooms, furniture, and hidden harborage." },
+    ],
+  },
+  "green-home-pest-control": {
+    photos: ["/biz-photos/green-home-pest-control/hero.webp", "/biz-photos/green-home-pest-control/residential-pest-control.webp", "/biz-photos/green-home-pest-control/commercial-pest-control.webp", "/biz-photos/green-home-pest-control/termite-control.webp", "/biz-photos/green-home-pest-control/bed-bug-control.webp", "/biz-photos/green-home-pest-control/bee-removal.webp", "/biz-photos/green-home-pest-control/mosquito-control.webp"],
+    services: [
+      { name: "Residential Pest Control", slug: "residential-pest-control", image: "/biz-photos/green-home-pest-control/residential-pest-control.webp", blurb: "Whole-home pest protection with careful interior and exterior treatments tailored to your property." },
+      { name: "Commercial Pest Control", slug: "commercial-pest-control", image: "/biz-photos/green-home-pest-control/commercial-pest-control.webp", blurb: "Discreet commercial pest service for offices, retail, restaurants, and other business properties." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/green-home-pest-control/termite-control.webp", blurb: "Termite inspection and control that helps safeguard your property from costly structural damage." },
+      { name: "Bed Bug Control", slug: "bed-bug-control", image: "/biz-photos/green-home-pest-control/bed-bug-control.webp", blurb: "Focused bed-bug inspection and treatment for homes and businesses." },
+      { name: "Bee Removal", slug: "bee-removal", image: "/biz-photos/green-home-pest-control/bee-removal.webp", blurb: "Professional bee and hive removal performed with appropriate protection and careful containment." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/green-home-pest-control/mosquito-control.webp", blurb: "Seasonal yard treatments that reduce adult mosquitoes and target favorable breeding areas." },
+    ],
+  },
+  "moxie-pest-control": {
+    photos: ["/biz-photos/moxie-pest-control/hero.webp", "/biz-photos/moxie-pest-control/pest-control.webp", "/biz-photos/moxie-pest-control/rodent-control.webp", "/biz-photos/moxie-pest-control/termite-control.webp", "/biz-photos/moxie-pest-control/mosquito-control.webp"],
+    services: [
+      { name: "Pest Control", slug: "pest-control", image: "/biz-photos/moxie-pest-control/pest-control.webp", blurb: "Comprehensive home protection for common crawling insects, spiders, and other household pests." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/moxie-pest-control/rodent-control.webp", blurb: "Rodent control that addresses current activity and helps block common entry points." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/moxie-pest-control/termite-control.webp", blurb: "Advanced termite treatment and prevention for long-term property protection." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/moxie-pest-control/mosquito-control.webp", blurb: "Outdoor mosquito control designed to reduce activity around patios, shrubs, and gathering spaces." },
+    ],
+  },
+  "action-termite-and-pest-control": {
+    photos: ["/biz-photos/action-termite-and-pest-control/hero.webp", "/biz-photos/action-termite-and-pest-control/advanced-termite-treatment.webp", "/biz-photos/action-termite-and-pest-control/residential-pest-control.webp", "/biz-photos/action-termite-and-pest-control/commercial-pest-control.webp", "/biz-photos/action-termite-and-pest-control/comprehensive-pest-inspections.webp", "/biz-photos/action-termite-and-pest-control/bed-bug-extermination.webp", "/biz-photos/action-termite-and-pest-control/scorpion-control.webp"],
+    services: [
+      { name: "Advanced Termite Treatment", slug: "advanced-termite-treatment", image: "/biz-photos/action-termite-and-pest-control/advanced-termite-treatment.webp", blurb: "Advanced termite options including liquid treatment, bait systems, no-drill approaches, and detailed inspections." },
+      { name: "Residential Pest Control", slug: "residential-pest-control", image: "/biz-photos/action-termite-and-pest-control/residential-pest-control.webp", blurb: "Customized residential protection for active infestations and recurring Arizona pest pressure." },
+      { name: "Commercial Pest Control", slug: "commercial-pest-control", image: "/biz-photos/action-termite-and-pest-control/commercial-pest-control.webp", blurb: "Dependable pest management tailored to offices, restaurants, retail, warehouses, and industrial properties." },
+      { name: "Comprehensive Pest Inspections", slug: "comprehensive-pest-inspections", image: "/biz-photos/action-termite-and-pest-control/comprehensive-pest-inspections.webp", blurb: "Detailed evaluation of pest activity, entry points, conducive conditions, and treatment priorities." },
+      { name: "Bed Bug Extermination", slug: "bed-bug-extermination", image: "/biz-photos/action-termite-and-pest-control/bed-bug-extermination.webp", blurb: "Thorough bed-bug inspection and treatment for homes and commercial spaces." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/action-termite-and-pest-control/scorpion-control.webp", blurb: "Arizona scorpion control focused on inspection, exclusion points, and targeted applications." },
+    ],
+  },
+  "greenleaf-pest-control": {
+    photos: ["/biz-photos/greenleaf-pest-control/hero.webp", "/biz-photos/greenleaf-pest-control/pest-control.webp", "/biz-photos/greenleaf-pest-control/scorpion-control.webp", "/biz-photos/greenleaf-pest-control/termite-control.webp", "/biz-photos/greenleaf-pest-control/rodent-control.webp", "/biz-photos/greenleaf-pest-control/weed-control.webp"],
+    services: [
+      { name: "Pest Control", slug: "pest-control", image: "/biz-photos/greenleaf-pest-control/pest-control.webp", blurb: "Green-minded residential pest solutions tailored to Arizona homes and common invaders." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/greenleaf-pest-control/scorpion-control.webp", blurb: "Targeted scorpion inspection and control around walls, foundations, and potential entry points." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/greenleaf-pest-control/termite-control.webp", blurb: "Termite treatment and prevention that protects the structure of your home." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/greenleaf-pest-control/rodent-control.webp", blurb: "Rodent activity control paired with practical exterior exclusion work." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/greenleaf-pest-control/weed-control.webp", blurb: "Targeted weed control for gravel, beds, and other Arizona landscape areas." },
+    ],
+  },
+  "naturzone-pest-control": {
+    photos: ["/biz-photos/naturzone-pest-control/hero.webp", "/biz-photos/naturzone-pest-control/residential-pest-control.webp", "/biz-photos/naturzone-pest-control/mosquito-control.webp", "/biz-photos/naturzone-pest-control/bed-bug-extermination.webp", "/biz-photos/naturzone-pest-control/german-roach-elimination.webp", "/biz-photos/naturzone-pest-control/termite-control.webp", "/biz-photos/naturzone-pest-control/pest-and-rodent-inspection.webp"],
+    services: [
+      { name: "Residential Pest Control", slug: "residential-pest-control", image: "/biz-photos/naturzone-pest-control/residential-pest-control.webp", blurb: "Prescription-based residential pest service for common Phoenix insects, arachnids, and rodents." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/naturzone-pest-control/mosquito-control.webp", blurb: "Pet-conscious mosquito programs using targeted traps and complementary treatment methods." },
+      { name: "Bed Bug Extermination", slug: "bed-bug-extermination", image: "/biz-photos/naturzone-pest-control/bed-bug-extermination.webp", blurb: "Strategy-based bed-bug programs with multiple treatment options selected for the infestation." },
+      { name: "German Roach Elimination", slug: "german-roach-elimination", image: "/biz-photos/naturzone-pest-control/german-roach-elimination.webp", blurb: "Specialized dust-and-bait treatment for German cockroach activity with minimal household disruption." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/naturzone-pest-control/termite-control.webp", blurb: "Soil treatment designed to eliminate subterranean termite colonies and provide lasting protection." },
+      { name: "Pest & Rodent Inspection", slug: "pest-and-rodent-inspection", image: "/biz-photos/naturzone-pest-control/pest-and-rodent-inspection.webp", blurb: "A detailed property evaluation used to prescribe treatment for the conditions and activity actually found." },
+    ],
+  },
+  "west-coast-pest-control": {
+    photos: ["/biz-photos/west-coast-pest-control/hero.webp", "/biz-photos/west-coast-pest-control/pest-control.webp", "/biz-photos/west-coast-pest-control/termite-control.webp", "/biz-photos/west-coast-pest-control/bird-control.webp", "/biz-photos/west-coast-pest-control/rodent-control.webp"],
+    services: [
+      { name: "Pest Control", slug: "pest-control", image: "/biz-photos/west-coast-pest-control/pest-control.webp", blurb: "Safe, effective pest management for homes and commercial properties." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/west-coast-pest-control/termite-control.webp", blurb: "Termite inspection and treatment solutions for Arizona properties." },
+      { name: "Bird Control", slug: "bird-control", image: "/biz-photos/west-coast-pest-control/bird-control.webp", blurb: "Humane pigeon and nuisance-bird deterrence for rooflines, solar panels, and common roosting areas." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/west-coast-pest-control/rodent-control.webp", blurb: "Rodent management and exterior exclusion that targets activity and common access points." },
+    ],
+  },
+  "greenway-pest-solutions": {
+    photos: ["/biz-photos/greenway-pest-solutions/hero.webp", "/biz-photos/greenway-pest-solutions/home-pest-control.webp", "/biz-photos/greenway-pest-solutions/bed-bug-treatments.webp", "/biz-photos/greenway-pest-solutions/mosquito-control.webp", "/biz-photos/greenway-pest-solutions/bee-and-wasp-control.webp", "/biz-photos/greenway-pest-solutions/weed-control.webp"],
+    services: [
+      { name: "Home Pest Control", slug: "home-pest-control", image: "/biz-photos/greenway-pest-solutions/home-pest-control.webp", blurb: "Year-round home protection against common insects, spiders, and rodents." },
+      { name: "Bed Bug Treatments", slug: "bed-bug-treatments", image: "/biz-photos/greenway-pest-solutions/bed-bug-treatments.webp", blurb: "Experienced bed-bug inspection and targeted treatment for hidden biting pests." },
+      { name: "Mosquito Control", slug: "mosquito-control", image: "/biz-photos/greenway-pest-solutions/mosquito-control.webp", blurb: "Seasonal treatments that target adult mosquitoes and interrupt reproduction around your yard." },
+      { name: "Bee & Wasp Control", slug: "bee-and-wasp-control", image: "/biz-photos/greenway-pest-solutions/bee-and-wasp-control.webp", blurb: "Professional bee, wasp, and nest removal around eaves and other property areas." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/greenway-pest-solutions/weed-control.webp", blurb: "Effective weed control for Arizona lawns, gravel, and landscape beds." },
+    ],
+  },
+  "bills-pest-termite-control": {
+    photos: ["/biz-photos/bills-pest-termite-control/hero.webp", "/biz-photos/bills-pest-termite-control/general-pest-control.webp", "/biz-photos/bills-pest-termite-control/termite-control.webp", "/biz-photos/bills-pest-termite-control/rodent-control.webp", "/biz-photos/bills-pest-termite-control/bed-bug-treatment.webp", "/biz-photos/bills-pest-termite-control/bee-wasp-removal.webp", "/biz-photos/bills-pest-termite-control/scorpion-control.webp"],
+    services: [
+      { name: "General Pest Control", slug: "general-pest-control", image: "/biz-photos/bills-pest-termite-control/general-pest-control.webp", blurb: "General treatment for ants, roaches, spiders, and other common Arizona household pests." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/bills-pest-termite-control/termite-control.webp", blurb: "Specialized termite inspections, treatment, and preventive barriers for structural protection." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/bills-pest-termite-control/rodent-control.webp", blurb: "Rodent trapping, activity control, and exclusion recommendations for rats and mice." },
+      { name: "Bed Bug Treatment", slug: "bed-bug-treatment", image: "/biz-photos/bills-pest-termite-control/bed-bug-treatment.webp", blurb: "Advanced bed-bug elimination using inspection, heat, and targeted treatment as appropriate." },
+      { name: "Bee & Wasp Removal", slug: "bee-wasp-removal", image: "/biz-photos/bills-pest-termite-control/bee-wasp-removal.webp", blurb: "Professional bee and wasp removal that prioritizes safety around the nest area." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/bills-pest-termite-control/scorpion-control.webp", blurb: "Specialized barrier, inspection, and exclusion methods for Arizona scorpion pressure." },
+    ],
+  },
+  "phoenix-pest-and-termite-control": {
+    yearsInBusiness: 59,
+    photos: ["/biz-photos/phoenix-pest-and-termite-control/hero.webp", "/biz-photos/phoenix-pest-and-termite-control/general-pest-control.webp", "/biz-photos/phoenix-pest-and-termite-control/scorpion-control.webp", "/biz-photos/phoenix-pest-and-termite-control/termite-control.webp", "/biz-photos/phoenix-pest-and-termite-control/rodent-control.webp", "/biz-photos/phoenix-pest-and-termite-control/bed-bug-treatment.webp", "/biz-photos/phoenix-pest-and-termite-control/weed-bee-control.webp"],
+    services: [
+      { name: "General Pest Control", slug: "general-pest-control", image: "/biz-photos/phoenix-pest-and-termite-control/general-pest-control.webp", blurb: "Recurring residential and commercial control for ants, roaches, spiders, crickets, and other common pests." },
+      { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/phoenix-pest-and-termite-control/scorpion-control.webp", blurb: "Scorpion-focused inspection, barrier treatment, dusting, and entry-point attention for Arizona homes." },
+      { name: "Termite Control", slug: "termite-control", image: "/biz-photos/phoenix-pest-and-termite-control/termite-control.webp", blurb: "Termite inspection, baiting, treatment, and prevention plans for long-term structural protection." },
+      { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/phoenix-pest-and-termite-control/rodent-control.webp", blurb: "Rodent inspection and control that locates activity and helps block rats, mice, and other rodents." },
+      { name: "Bed Bug Treatment", slug: "bed-bug-treatment", image: "/biz-photos/phoenix-pest-and-termite-control/bed-bug-treatment.webp", blurb: "Professional bed-bug inspection and elimination solutions for your home." },
+      { name: "Bee, Wasp & Weed Control", slug: "bee-wasp-weed-control", image: "/biz-photos/phoenix-pest-and-termite-control/weed-bee-control.webp", blurb: "Professional stinging-insect removal plus regular weed-control options for complete exterior care." },
+    ],
+  },
+  // pc0031-pc0040 — unique company heroes plus a visually audited shared treatment library.
+  "sun-lakes-pest-control": pestPhotoOverride("sun-lakes-pest-control", assetOverrides["sun-lakes-pest-control"].services),
+  "green-mango-pest-control-chandler": pestPhotoOverride("green-mango-pest-control-chandler", assetOverrides["green-mango-pest-control-chandler"].services),
+  "truly-nolen-pest-and-termite-control": pestPhotoOverride("truly-nolen-pest-and-termite-control", assetOverrides["truly-nolen-pest-and-termite-control"].services),
+  "anteater-exterminating-inc": pestPhotoOverride("anteater-exterminating-inc", assetOverrides["anteater-exterminating-inc"].services),
+  "lunar-pest-control": pestPhotoOverride("lunar-pest-control", assetOverrides["lunar-pest-control"].services),
+  "blue-sky-pest-control": pestPhotoOverride("blue-sky-pest-control", assetOverrides["blue-sky-pest-control"].services),
+  "spark-pest-control-gilbert-office": pestPhotoOverride("spark-pest-control-gilbert-office", assetOverrides["spark-pest-control-gilbert-office"].services),
+  "scorpion-king-exterminating": pestPhotoOverride("scorpion-king-exterminating", assetOverrides["scorpion-king-exterminating"].services),
+  "firehouse-pest-control-services": pestPhotoOverride("firehouse-pest-control-services", assetOverrides["firehouse-pest-control-services"].services),
+  "magic-pest-control": pestPhotoOverride("magic-pest-control", [
+    { name: "General Pest Control", slug: "pest-control", blurb: "Practical protection for common household pests with attention to entry points and the exterior perimeter." },
+    { name: "Scorpion Control", slug: "scorpion-control", blurb: "Targeted inspection and treatment focused on the cracks, walls, and shelter areas scorpions use." },
+    { name: "Termite Control", slug: "termite-control", blurb: "Detailed termite inspection and treatment planning designed around the property's conditions." },
+    { name: "Rodent Control", slug: "rodent-control", blurb: "Rodent troubleshooting and exclusion work focused on removal and reducing future entry." },
+    { name: "Bed Bug Treatment", slug: "bed-bug", blurb: "Careful inspection and treatment for bed bug activity in sleeping and living areas." },
+    { name: "Weed & Bee Control", slug: "weed-bee", blurb: "Targeted outdoor control for persistent weeds and nuisance pest activity around the property." },
+  ]),
+  // pl0031 Blue Mountain Pool Care — official extracted service lineup.
+  "blue-mountain-pool-care": {
+    photos: [
+      "/biz-photos/blue-mountain-pool-care/hero.webp", "/biz-photos/blue-mountain-pool-care/weekly-pool-services.webp", "/biz-photos/blue-mountain-pool-care/equipment-repair-and-replacement.webp", "/biz-photos/blue-mountain-pool-care/tile-cleaning-services.webp", "/biz-photos/blue-mountain-pool-care/acid-washing-services.webp", "/biz-photos/blue-mountain-pool-care/pool-draining-services.webp", "/biz-photos/blue-mountain-pool-care/pop-up-cleaning-module-installation.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Services", slug: "weekly-pool-services", image: "/biz-photos/blue-mountain-pool-care/weekly-pool-services.webp", blurb: "Expert care for your pool on a reliable weekly schedule." },
+      { name: "Equipment Repair And Replacement", slug: "equipment-repair-and-replacement", image: "/biz-photos/blue-mountain-pool-care/equipment-repair-and-replacement.webp", blurb: "Ensure seamless pool operation with expert repairs and replacements." },
+      { name: "Tile Cleaning Services", slug: "tile-cleaning-services", image: "/biz-photos/blue-mountain-pool-care/tile-cleaning-services.webp", blurb: "Restore your pool’s beauty with expert tile cleaning solutions." },
+      { name: "Acid Washing Services", slug: "acid-washing-services", image: "/biz-photos/blue-mountain-pool-care/acid-washing-services.webp", blurb: "Revitalize your pool surface with deep-cleaning acid wash expertise." },
+      { name: "Pool Draining Services", slug: "pool-draining-services", image: "/biz-photos/blue-mountain-pool-care/pool-draining-services.webp", blurb: "Efficient water removal for a fresh, clean pool experience." },
+      { name: "Pop-Up Cleaning Module Installation", slug: "pop-up-cleaning-module-installation", image: "/biz-photos/blue-mountain-pool-care/pop-up-cleaning-module-installation.webp", blurb: "Automate your pool cleaning process for a more efficient and effective system, reducing chemical use and manual labor." },
+    ],
+  },
+  // pl0032 Arizona Pool Service — official extracted maintenance and repair lineup.
+  "arizona-pool-service": {
+    photos: [
+      "/biz-photos/arizona-pool-service/hero.webp", "/biz-photos/arizona-pool-service/weekly-pool-service.webp", "/biz-photos/arizona-pool-service/green-pool-cleanup.webp", "/biz-photos/arizona-pool-service/acid-washes-and-tile-cleans.webp", "/biz-photos/arizona-pool-service/equipment-installation.webp", "/biz-photos/arizona-pool-service/filter-cleaning.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Service", slug: "weekly-pool-service", image: "/biz-photos/arizona-pool-service/weekly-pool-service.webp", blurb: "Quality, affordable weekly swimming pool service for homeowners throughout the Phoenix area." },
+      { name: "Green Pool Cleanup", slug: "green-pool-cleanup", image: "/biz-photos/arizona-pool-service/green-pool-cleanup.webp", blurb: "Focused scrubbing and water treatment to clear algae and restore an unsightly green pool." },
+      { name: "Acid Washes and Tile Cleans", slug: "acid-washes-and-tile-cleans", image: "/biz-photos/arizona-pool-service/acid-washes-and-tile-cleans.webp", blurb: "Careful acid washing and tile cleaning to remove mineral buildup and refresh pool surfaces." },
+      { name: "Equipment Installation", slug: "equipment-installation", image: "/biz-photos/arizona-pool-service/equipment-installation.webp", blurb: "Safe, professional pool equipment repair and installation completed correctly." },
+      { name: "Filter Cleaning", slug: "filter-cleaning", image: "/biz-photos/arizona-pool-service/filter-cleaning.webp", blurb: "Thorough filter cleaning that supports efficient circulation and helps extend equipment life." },
+    ],
+  },
+  // pl0033 Pool Spa Cleaner LLC — official extracted pool, spa, rental, and equipment services.
+  "pool-spa-cleaner-llc": {
+    photos: [
+      "/biz-photos/pool-spa-cleaner-llc/hero.webp", "/biz-photos/pool-spa-cleaner-llc/airbnb-and-rental-house-pool-care.webp", "/biz-photos/pool-spa-cleaner-llc/hot-tub-services.webp", "/biz-photos/pool-spa-cleaner-llc/pool-equipment-services.webp", "/biz-photos/pool-spa-cleaner-llc/swimming-pool-service.webp",
+    ],
+    services: [
+      { name: "Airbnb & Rental House Pool Care", slug: "airbnb-and-rental-house-pool-care", image: "/biz-photos/pool-spa-cleaner-llc/airbnb-and-rental-house-pool-care.webp", blurb: "Flexible pool care that helps keep Airbnb and rental properties clean, maintained, and guest-ready." },
+      { name: "Hot Tub Services", slug: "hot-tub-services", image: "/biz-photos/pool-spa-cleaner-llc/hot-tub-services.webp", blurb: "Routine hot tub cleaning and repair to maintain a clean, safe, relaxing retreat." },
+      { name: "Pool Equipment Services", slug: "pool-equipment-services", image: "/biz-photos/pool-spa-cleaner-llc/pool-equipment-services.webp", blurb: "Efficient diagnosis, repair, and replacement for pumps, filters, heaters, and other pool equipment." },
+      { name: "Swimming Pool Service", slug: "swimming-pool-service", image: "/biz-photos/pool-spa-cleaner-llc/swimming-pool-service.webp", blurb: "Regular skimming, vacuuming, chemical balancing, and equipment checks to keep pools in excellent condition." },
+    ],
+  },
+  // pl0034 Sunflower Pools — official extracted cleaning, repair, heater, and automation lineup.
+  "sunflower-pools-service-and-repair": {
+    photos: [
+      "/biz-photos/sunflower-pools-service-and-repair/hero.webp", "/biz-photos/sunflower-pools-service-and-repair/basic-full-service-cleaning.webp", "/biz-photos/sunflower-pools-service-and-repair/tile-cleaning.webp", "/biz-photos/sunflower-pools-service-and-repair/acid-wash-chlorine-rinse.webp", "/biz-photos/sunflower-pools-service-and-repair/filters-and-pumps.webp", "/biz-photos/sunflower-pools-service-and-repair/pool-heater-installation.webp", "/biz-photos/sunflower-pools-service-and-repair/automation.webp",
+    ],
+    services: [
+      { name: "Basic/Full Service Cleaning", slug: "basic-full-service-cleaning", image: "/biz-photos/sunflower-pools-service-and-repair/basic-full-service-cleaning.webp", blurb: "Basic and full-service packages covering chemicals, brushing, baskets, vacuuming, and skimming as needed." },
+      { name: "Tile Cleaning", slug: "tile-cleaning", image: "/biz-photos/sunflower-pools-service-and-repair/tile-cleaning.webp", blurb: "Calcium-line removal for pool tile, pebble surfaces, and water features." },
+      { name: "Acid Wash/Chlorine Rinse", slug: "acid-wash-chlorine-rinse", image: "/biz-photos/sunflower-pools-service-and-repair/acid-wash-chlorine-rinse.webp", blurb: "Drained-pool acid washing and chlorine rinsing to address stains and algae." },
+      { name: "Filters & Pumps", slug: "filters-and-pumps", image: "/biz-photos/sunflower-pools-service-and-repair/filters-and-pumps.webp", blurb: "Installation and repair for pool filters and pumps across makes and models." },
+      { name: "Pool Heater Installation", slug: "pool-heater-installation", image: "/biz-photos/sunflower-pools-service-and-repair/pool-heater-installation.webp", blurb: "Installation and maintenance for pool heat pumps and heaters." },
+      { name: "Automation", slug: "automation", image: "/biz-photos/sunflower-pools-service-and-repair/automation.webp", blurb: "Pool automation installation and repair for convenient remote feature control." },
+    ],
+  },
+  // pl0035 Sun Devil Pool Supply & Service — official extracted retail, repair, cleaning, and education lineup.
+  "sun-devil-pool-supply-and-service": {
+    photos: [
+      "/biz-photos/sun-devil-pool-supply-and-service/hero.webp", "/biz-photos/sun-devil-pool-supply-and-service/pool-supplies.webp", "/biz-photos/sun-devil-pool-supply-and-service/pool-repairs.webp", "/biz-photos/sun-devil-pool-supply-and-service/pool-cleaning-services.webp", "/biz-photos/sun-devil-pool-supply-and-service/pool-school.webp",
+    ],
+    services: [
+      { name: "Pool Supplies", slug: "pool-supplies", image: "/biz-photos/sun-devil-pool-supply-and-service/pool-supplies.webp", blurb: "Pool chemicals, replacement parts, equipment, and other essential supplies." },
+      { name: "Pool Repairs", slug: "pool-repairs", image: "/biz-photos/sun-devil-pool-supply-and-service/pool-repairs.webp", blurb: "Professional diagnosis and repair for common swimming pool equipment and system issues." },
+      { name: "Pool Cleaning Services", slug: "pool-cleaning-services", image: "/biz-photos/sun-devil-pool-supply-and-service/pool-cleaning-services.webp", blurb: "Weekly pool service, tile cleaning, and acid washing for ongoing and restorative care." },
+      { name: "Pool School", slug: "pool-school", image: "/biz-photos/sun-devil-pool-supply-and-service/pool-school.webp", blurb: "Practical instruction that helps pool owners understand maintenance and everyday care." },
+    ],
+  },
+  // pl0021 Blue Tide Pool Care — services limited to work documented consistently in customer reviews.
+  "blue-tide-pool-care": {
+    photos: [
+      "/biz-photos/blue-tide-pool-care/hero.webp", "/biz-photos/blue-tide-pool-care/weekly-service.webp",
+      "/biz-photos/blue-tide-pool-care/pool-repair.webp", "/biz-photos/blue-tide-pool-care/equipment-maintenance.webp",
+      "/biz-photos/blue-tide-pool-care/green-recovery.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Service", slug: "weekly-pool-service", image: "/biz-photos/blue-tide-pool-care/weekly-service.webp", blurb: "Detailed weekly cleaning, chemical balancing, equipment checks, and responsive updates about your pool's condition." },
+      { name: "Pool Repair", slug: "pool-repair", image: "/biz-photos/blue-tide-pool-care/pool-repair.webp", blurb: "Practical diagnosis and repair for circulation, plumbing, water-feature, and other pool-system problems." },
+      { name: "Filter & Heater Maintenance", slug: "equipment-maintenance", image: "/biz-photos/blue-tide-pool-care/equipment-maintenance.webp", blurb: "Preventive filter and heater care that helps pool equipment operate reliably and efficiently." },
+      { name: "Green Pool Recovery", slug: "green-pool-recovery", image: "/biz-photos/blue-tide-pool-care/green-recovery.webp", blurb: "Focused cleanup and water treatment to restore algae-affected pools to clear, healthy condition." },
+    ],
+  },
+  // pl0022 ASP Mesa — official extracted cleaning, repair, remodeling, leak-detection, and build lineup.
+  "asp-america-s-swimming-pool-company-of-mesa": {
+    photos: [
+      "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/hero.webp", "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-cleaning.webp",
+      "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-repairs.webp", "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/equipment-repairs.webp",
+      "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-remodeling.webp", "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/leak-detection.webp",
+      "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-installation.webp",
+    ],
+    services: [
+      { name: "Pool Cleaning", slug: "pool-cleaning", image: "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-cleaning.webp", blurb: "Comprehensive recurring cleaning and water care to keep your pool sparkling, balanced, and healthy." },
+      { name: "Pool Repairs", slug: "pool-repairs", image: "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-repairs.webp", blurb: "Professional repair for pool plumbing, surfaces, circulation, and other problems from minor fixes to larger work." },
+      { name: "Pool Equipment Repairs", slug: "pool-equipment-repairs", image: "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/equipment-repairs.webp", blurb: "Diagnosis and repair for pumps, filters, heaters, controls, and essential pool equipment." },
+      { name: "Pool Remodeling", slug: "pool-remodeling", image: "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-remodeling.webp", blurb: "Pool resurfacing, replastering, retiling, and renovation that updates both appearance and performance." },
+      { name: "Pool Leak Detection", slug: "pool-leak-detection", image: "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/leak-detection.webp", blurb: "Accurate leak detection and repair to reduce water loss and protect your pool and surrounding property." },
+      { name: "Pool Installation", slug: "pool-installation", image: "/biz-photos/asp-america-s-swimming-pool-company-of-mesa/pool-installation.webp", blurb: "Professional installation for concrete, fiberglass, vinyl, luxury, and compact plunge-pool projects." },
+    ],
+  },
+  // pl0023 Trilogy Pools — official extracted maintenance, construction, remodeling, commercial, and tile-care lineup.
+  "trilogy-pools-service-and-repair-llc": {
+    yearsInBusiness: 15,
+    photos: [
+      "/biz-photos/trilogy-pools-service-and-repair-llc/hero.webp", "/biz-photos/trilogy-pools-service-and-repair-llc/pool-maintenance.webp",
+      "/biz-photos/trilogy-pools-service-and-repair-llc/pool-installation.webp", "/biz-photos/trilogy-pools-service-and-repair-llc/pool-remodeling.webp",
+      "/biz-photos/trilogy-pools-service-and-repair-llc/commercial-pools.webp", "/biz-photos/trilogy-pools-service-and-repair-llc/tile-cleaning-acid-wash.webp",
+    ],
+    services: [
+      { name: "Pool Maintenance", slug: "pool-maintenance", image: "/biz-photos/trilogy-pools-service-and-repair-llc/pool-maintenance.webp", blurb: "Flexible weekly, monthly, or quarterly full-service maintenance to keep your pool clean throughout the year." },
+      { name: "Pool Installation", slug: "pool-installation", image: "/biz-photos/trilogy-pools-service-and-repair-llc/pool-installation.webp", blurb: "Licensed custom pool design and construction for a complete Mesa backyard and outdoor-living space." },
+      { name: "Pool Remodeling", slug: "pool-remodeling", image: "/biz-photos/trilogy-pools-service-and-repair-llc/pool-remodeling.webp", blurb: "Hands-on pool redesign, renovation, tile, and interior-finish work from planning through completion." },
+      { name: "Commercial Pools", slug: "commercial-pools", image: "/biz-photos/trilogy-pools-service-and-repair-llc/commercial-pools.webp", blurb: "Commercial pool maintenance and construction tailored to businesses, communities, and public facilities." },
+      { name: "Tile Cleaning & Acid Wash", slug: "tile-cleaning-acid-wash", image: "/biz-photos/trilogy-pools-service-and-repair-llc/tile-cleaning-acid-wash.webp", blurb: "Specialized calcium removal and acid washing for stained waterline tile and pool interiors." },
+    ],
+  },
+  // pl0024 Four Seasons — unavailable official page; services grounded in recurring customer reports.
+  "four-seasons-pool-service": {
+    photos: [
+      "/biz-photos/four-seasons-pool-service/hero.webp", "/biz-photos/four-seasons-pool-service/weekly-service.webp",
+      "/biz-photos/four-seasons-pool-service/pool-repair.webp", "/biz-photos/four-seasons-pool-service/filter-service.webp",
+      "/biz-photos/four-seasons-pool-service/acid-wash-algae.webp", "/biz-photos/four-seasons-pool-service/seasonal-care.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Service", slug: "weekly-pool-service", image: "/biz-photos/four-seasons-pool-service/weekly-service.webp", blurb: "Consistent weekly cleaning, water testing, chemical balancing, and clear service updates." },
+      { name: "Pool Equipment Repair", slug: "pool-equipment-repair", image: "/biz-photos/four-seasons-pool-service/pool-repair.webp", blurb: "Responsive diagnosis, repair, and replacement for pumps, lights, controls, and other pool components." },
+      { name: "Filter Cleaning & Replacement", slug: "filter-service", image: "/biz-photos/four-seasons-pool-service/filter-service.webp", blurb: "Thorough filter cleaning and practical replacement when worn equipment can no longer perform properly." },
+      { name: "Acid Washing & Algae Removal", slug: "acid-wash-algae-removal", image: "/biz-photos/four-seasons-pool-service/acid-wash-algae.webp", blurb: "Focused acid washing and stubborn black-algae treatment to restore stained pool interiors." },
+      { name: "Seasonal Pool Care", slug: "seasonal-pool-care", image: "/biz-photos/four-seasons-pool-service/seasonal-care.webp", blurb: "Seasonal preparation and system checks that keep water and equipment ready as Arizona conditions change." },
+    ],
+    generatedCopy: { aboutBody: ["Four Seasons Pool Service gives Chandler homeowners dependable weekly maintenance, prompt equipment help, and practical guidance from an experienced local team.", "Customers value Eric's quick response, careful explanations, fair pricing, and the detailed service updates that make pool ownership easier in every season."] },
+  },
+  // pl0025 Off the Deep End — exact official three-pillar lineup.
+  "off-the-deep-end-pool-service-llc": {
+    yearsInBusiness: 18,
+    photos: [
+      "/biz-photos/off-the-deep-end-pool-service-llc/hero.webp", "/biz-photos/off-the-deep-end-pool-service-llc/cleaning-maintenance.webp",
+      "/biz-photos/off-the-deep-end-pool-service-llc/equipment-repair-install.webp", "/biz-photos/off-the-deep-end-pool-service-llc/tile-cleaning-acid-wash.webp",
+    ],
+    services: [
+      { name: "Pool Cleaning & Maintenance", slug: "pool-cleaning-and-maintenance", image: "/biz-photos/off-the-deep-end-pool-service-llc/cleaning-maintenance.webp", blurb: "Certified weekly cleaning and maintenance that keeps East Valley pools clear, balanced, and worry-free." },
+      { name: "Equipment Repair & Installation", slug: "equipment-repair-and-installation", image: "/biz-photos/off-the-deep-end-pool-service-llc/equipment-repair-install.webp", blurb: "Certified help for urgent pool-equipment repairs, planned replacements, and professional new installations." },
+      { name: "Tile Cleaning & Acid Wash", slug: "tile-cleaning-and-acid-wash", image: "/biz-photos/off-the-deep-end-pool-service-llc/tile-cleaning-acid-wash.webp", blurb: "Tile blasting and acid-wash services that remove calcium and staining to refresh your pool's finish." },
+    ],
+  },
+  // pl0026-pl0030 — verified Arizona pool services with original, explicit image bindings.
+  "crystal-falls-pool-service": {
+    photos: ["/biz-photos/crystal-falls-pool-service/hero.webp", "/biz-photos/crystal-falls-pool-service/maintenance.webp", "/biz-photos/crystal-falls-pool-service/cleaning.webp", "/biz-photos/crystal-falls-pool-service/repair.webp"],
+    services: [
+      { name: "Pool Maintenance", slug: "pool-maintenance", image: "/biz-photos/crystal-falls-pool-service/maintenance.webp", blurb: "Scheduled inspections, water balancing, and equipment checks catch issues early and keep Chandler pools swim-ready." },
+      { name: "Pool Cleaning", slug: "pool-cleaning", image: "/biz-photos/crystal-falls-pool-service/cleaning.webp", blurb: "Reliable skimming, vacuuming, tile brushing, basket care, and filter service tackle Arizona dust and debris." },
+      { name: "Pool Repair", slug: "pool-repair", image: "/biz-photos/crystal-falls-pool-service/repair.webp", blurb: "Prompt diagnosis and repair for filters, pumps, heaters, automation, water chemistry, and worn pool equipment." },
+    ],
+  },
+  "aloha-desert-pools": {
+    photos: ["/biz-photos/aloha-desert-pools/hero-original.webp", "/biz-photos/aloha-desert-pools/weekly-cleaning-original.webp", "/biz-photos/aloha-desert-pools/repair-original.webp", "/biz-photos/aloha-desert-pools/installation-automation-original.webp"],
+    services: [
+      { name: "Weekly Pool & Spa Cleaning", slug: "weekly-pool-spa-cleaning", image: "/biz-photos/aloha-desert-pools/weekly-cleaning-original.webp", blurb: "Weekly netting, brushing, basket care, equipment inspection, and chemical balancing for clear East Valley pools and spas." },
+      { name: "Pool Equipment Repairs", slug: "pool-equipment-repairs", image: "/biz-photos/aloha-desert-pools/repair-original.webp", blurb: "Repair service for pumps, filters, heaters, spas, lighting, and related pool equipment." },
+      { name: "Equipment Installation & Automation", slug: "equipment-installation-automation", image: "/biz-photos/aloha-desert-pools/installation-automation-original.webp", blurb: "Professional installation of pumps, filters, heaters, lights, salt systems, and pool automation controls." },
+    ],
+  },
+  "larimar-pool-services": {
+    photos: ["/biz-photos/larimar-pool-services/hero.webp", "/biz-photos/larimar-pool-services/weekly-maintenance.webp", "/biz-photos/larimar-pool-services/filter-cleaning.webp", "/biz-photos/larimar-pool-services/equipment-repair.webp"],
+    services: [
+      { name: "Weekly Pool Maintenance", slug: "weekly-pool-maintenance", image: "/biz-photos/larimar-pool-services/weekly-maintenance.webp", blurb: "Dependable weekly cleaning and water care keeps residential pools balanced, clear, and ready to enjoy." },
+      { name: "Filter Cleaning & Repairs", slug: "filter-cleaning-repairs", image: "/biz-photos/larimar-pool-services/filter-cleaning.webp", blurb: "Thorough filter service restores circulation and addresses worn or malfunctioning filtration components." },
+      { name: "Pool Equipment Upgrades & Repairs", slug: "equipment-upgrades-repairs", image: "/biz-photos/larimar-pool-services/equipment-repair.webp", blurb: "Professional equipment diagnosis, repairs, and practical upgrades for reliable pool operation." },
+    ],
+  },
+  "az-oasis-pools": {
+    photos: ["/biz-photos/az-oasis-pools/hero.webp", "/biz-photos/az-oasis-pools/maintenance.webp", "/biz-photos/az-oasis-pools/green-cleanup.webp", "/biz-photos/az-oasis-pools/equipment-repair.webp"],
+    services: [
+      { name: "Pool Maintenance", slug: "pool-maintenance", image: "/biz-photos/az-oasis-pools/maintenance.webp", blurb: "Cost-effective recurring service keeps water clean, clear, balanced, and safe throughout Arizona's long swim season." },
+      { name: "Green Pool Cleanup", slug: "green-pool-cleanup", image: "/biz-photos/az-oasis-pools/green-cleanup.webp", blurb: "Focused algae treatment and cleaning restores neglected green water to a sparkling backyard oasis." },
+      { name: "Equipment Repair", slug: "equipment-repair", image: "/biz-photos/az-oasis-pools/equipment-repair.webp", blurb: "Trained technicians diagnose and repair essential pool equipment to restore safe, dependable circulation." },
+    ],
+  },
+  "hayden-s-pool-service-and-repair": {
+    photos: ["/biz-photos/hayden-s-pool-service-and-repair/hero.webp", "/biz-photos/hayden-s-pool-service-and-repair/weekly-cleaning.webp", "/biz-photos/hayden-s-pool-service-and-repair/equipment-repair.webp", "/biz-photos/hayden-s-pool-service-and-repair/filter-restoration.webp"],
+    services: [
+      { name: "Weekly Pool Cleaning", slug: "weekly-pool-cleaning", image: "/biz-photos/hayden-s-pool-service-and-repair/weekly-cleaning.webp", blurb: "Weekly brushing, skimming, vacuuming, basket care, equipment checks, chemical balancing, and backwashing as needed." },
+      { name: "Pool Equipment Repair", slug: "pool-equipment-repair", image: "/biz-photos/hayden-s-pool-service-and-repair/equipment-repair.webp", blurb: "Diagnosis, repair, and replacement for pumps, motors, filters, plumbing, lights, timers, valves, and autofill systems." },
+      { name: "Filter Cleaning & Pool Restoration", slug: "filter-cleaning-restoration", image: "/biz-photos/hayden-s-pool-service-and-repair/filter-restoration.webp", blurb: "Filter cleaning, salt-cell care, acid washing, draining, and refill services restore performance and appearance." },
+    ],
+    generatedCopy: { aboutBody: ["Hayden's Pool Service & Repair is an owner-operated East Valley company focused on dependable maintenance, honest inspections, and practical repairs.", "From weekly cleaning and water care to pumps, motors, filters, plumbing, lighting, and restoration work, the goal is a safe, sparkling pool that stays ready to enjoy."] },
+  },
+
+  // pl0036-pl0040 — original East Valley pool photography with explicit service-page bindings.
+  "gilbert-pool-repairs-remodels-and-weekly-service": {
+    showAllServices: true,
+    photos: [
+      "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/hero.webp",
+      "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/maintenance.webp",
+      "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/equipment.webp",
+      "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/remodel.webp",
+    ],
+    services: [
+      { name: "Pool Design & Remodel", slug: "pool-design-and-remodel", image: "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/remodel.webp", blurb: "Thoughtful pool renovation planning and construction tailored to the existing backyard and budget." },
+      { name: "Residential Pool Cleaning", slug: "residential-pool-cleaning", image: "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/maintenance.webp", blurb: "Consistent cleaning and water care that keeps residential pools clear and ready to enjoy." },
+      { name: "Pool Equipment Installation & Repair", slug: "pool-equipment-installation-and-repair", image: "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/equipment.webp", blurb: "Professional installation, troubleshooting, and repair for essential pool systems." },
+      { name: "Interior Pool Surface", slug: "interior-pool-surface", image: "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/remodel.webp", blurb: "Interior finish options selected and installed to refresh the pool's appearance and performance." },
+      { name: "Pressure Wash Pool", slug: "pressure-wash-pool", image: "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/maintenance.webp", blurb: "Detailed surface cleaning to address buildup and help restore a cleaner pool finish." },
+      { name: "Pool Tile Repair", slug: "pool-tile-repair", image: "/biz-photos/gilbert-pool-repairs-remodels-and-weekly-service/remodel.webp", blurb: "Careful replacement of damaged or missing ceramic, glass, and natural pool tile." },
+    ],
+  },
+  "pool-service-gilbert": {
+    photos: [
+      "/biz-photos/pool-service-gilbert/hero.webp",
+      "/biz-photos/pool-service-gilbert/maintenance.webp",
+      "/biz-photos/pool-service-gilbert/equipment.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Service", slug: "pool-service", image: "/biz-photos/pool-service-gilbert/maintenance.webp", blurb: "Routine cleaning, water checks, and equipment monitoring for dependable pool care." },
+      { name: "Pool Equipment Checks", slug: "equipment-checks", image: "/biz-photos/pool-service-gilbert/equipment.webp", blurb: "Practical inspection of pumps, filters, and circulation components during service." },
+      { name: "Water Care", slug: "water-care", image: "/biz-photos/pool-service-gilbert/maintenance.webp", blurb: "Regular testing and balancing to help keep pool water clear and comfortable." },
+    ],
+  },
+  "valley-pool-service-llc": {
+    showAllServices: true,
+    photos: [
+      "/biz-photos/valley-pool-service-llc/hero.webp",
+      "/biz-photos/valley-pool-service-llc/maintenance.webp",
+      "/biz-photos/valley-pool-service-llc/equipment.webp",
+      "/biz-photos/valley-pool-service-llc/tile-cleaning.webp",
+    ],
+    services: [
+      { name: "Pool Cleaning & Maintenance", slug: "pool-cleaning-and-maintenance", image: "/biz-photos/valley-pool-service-llc/maintenance.webp", blurb: "Scheduled cleaning and water care to keep East Valley pools clear and swim-ready." },
+      { name: "Pool Equipment Repair", slug: "pool-equipment-repair", image: "/biz-photos/valley-pool-service-llc/equipment.webp", blurb: "Diagnosis and repair for leaks, pumps, filters, and related pool equipment." },
+      { name: "Pool Equipment Installation", slug: "pool-equipment-installation", image: "/biz-photos/valley-pool-service-llc/equipment.webp", blurb: "Professional installation of pumps, filters, heaters, salt systems, and automation." },
+      { name: "Acid Washing & Tile Cleaning", slug: "acid-washing-and-tile-cleaning", image: "/biz-photos/valley-pool-service-llc/tile-cleaning.webp", blurb: "Focused surface and tile cleaning to address visible staining and mineral scale." },
+    ],
+  },
+  "gilbert-pool-services-llc": {
+    photos: [
+      "/biz-photos/gilbert-pool-services-llc/hero.webp",
+      "/biz-photos/gilbert-pool-services-llc/equipment.webp",
+      "/biz-photos/gilbert-pool-services-llc/maintenance.webp",
+    ],
+    services: [
+      { name: "Pool Repair", slug: "pool-repair", image: "/biz-photos/gilbert-pool-services-llc/equipment.webp", blurb: "Responsive troubleshooting and repair for pool plumbing, circulation, and equipment issues." },
+      { name: "Equipment Diagnostics", slug: "equipment-diagnostics", image: "/biz-photos/gilbert-pool-services-llc/equipment.webp", blurb: "Careful diagnosis of pumps, filters, controls, and other essential pool components." },
+      { name: "Routine Pool Care", slug: "routine-pool-care", image: "/biz-photos/gilbert-pool-services-llc/maintenance.webp", blurb: "Practical cleaning and water checks that help keep residential pools in good condition." },
+    ],
+  },
+  "pelican-pools-llc": {
+    showAllServices: true,
+    photos: [
+      "/biz-photos/pelican-pools-llc/hero.webp",
+      "/biz-photos/pelican-pools-llc/maintenance.webp",
+      "/biz-photos/pelican-pools-llc/equipment.webp",
+      "/biz-photos/pelican-pools-llc/remodel.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Maintenance", slug: "weekly-pool-maintenance", image: "/biz-photos/pelican-pools-llc/maintenance.webp", blurb: "Regular cleaning, water testing, balancing, and equipment checks across the East Valley." },
+      { name: "Pool Remodels & Upgrades", slug: "pool-remodels-and-upgrades", image: "/biz-photos/pelican-pools-llc/remodel.webp", blurb: "Pool updates including resurfacing, tile replacement, equipment upgrades, and automation." },
+      { name: "Pool Equipment Diagnostics", slug: "pool-equipment-diagnostics", image: "/biz-photos/pelican-pools-llc/equipment.webp", blurb: "Detailed troubleshooting for circulation, filtration, controls, and related pool systems." },
+      { name: "Pool Pump & Filter Replacement", slug: "pool-pump-and-filter-replacement", image: "/biz-photos/pelican-pools-llc/equipment.webp", blurb: "Professional pump and filter replacement selected for dependable pool performance." },
+      { name: "Green To Clean", slug: "green-to-clean", image: "/biz-photos/pelican-pools-llc/maintenance.webp", blurb: "Focused cleanup, water treatment, and filtration support for algae-affected pools." },
+    ],
+  },
+  // pl0012–pl0015 — official-site service lineups with original Arizona portfolio imagery.
+  "m-e-h-pool-services-inc": {
+    photos: ["/biz-photos/m-e-h-pool-services-inc/hero.webp", "/biz-photos/m-e-h-pool-services-inc/residential-pool-service.webp", "/biz-photos/m-e-h-pool-services-inc/residential-spa-service.webp", "/biz-photos/m-e-h-pool-services-inc/commercial-services.webp", "/biz-photos/m-e-h-pool-services-inc/pool-renovations.webp", "/biz-photos/m-e-h-pool-services-inc/product-sales.webp", "/biz-photos/m-e-h-pool-services-inc/water-treatment-assistant.webp"],
+    services: [
+      { name: "Residential Pool Service", slug: "residential-pool-service", image: "/biz-photos/m-e-h-pool-services-inc/residential-pool-service.webp", blurb: "We can handle your maintenance and service needs from A to Z for residential pools." },
+      { name: "Residential Spa Service", slug: "residential-spa-service", image: "/biz-photos/m-e-h-pool-services-inc/residential-spa-service.webp", blurb: "We can handle your maintenance and service needs from A to Z for residential spas." },
+      { name: "Commercial Services", slug: "commercial-services", image: "/biz-photos/m-e-h-pool-services-inc/commercial-services.webp", blurb: "M.E.H. is licensed, bonded and insured for commercial service and repair." },
+      { name: "Pool Renovations", slug: "pool-renovations", image: "/biz-photos/m-e-h-pool-services-inc/pool-renovations.webp", blurb: "Our service department also offers pool renovations." },
+      { name: "Product Sales", slug: "product-sales", image: "/biz-photos/m-e-h-pool-services-inc/product-sales.webp", blurb: "We carry pool and spa products including pumps, filters, heaters, cleaners, covers, water treatment, accessories, and supplies." },
+      { name: "Water Treatment Assistant", slug: "water-treatment-assistant", image: "/biz-photos/m-e-h-pool-services-inc/water-treatment-assistant.webp", blurb: "Use our virtual water treatment assistant for guidance with your pool and spa water." },
+    ],
+  },
+  "baker-pool-maintenance-llc": {
+    photos: ["/biz-photos/baker-pool-maintenance-llc/hero.webp", "/biz-photos/baker-pool-maintenance-llc/pool-drain.webp", "/biz-photos/baker-pool-maintenance-llc/chlorine-wash.webp", "/biz-photos/baker-pool-maintenance-llc/acid-wash.webp", "/biz-photos/baker-pool-maintenance-llc/filter-clean.webp", "/biz-photos/baker-pool-maintenance-llc/diagnostic-visit.webp"],
+    services: [
+      { name: "Pool Drain", slug: "pool-drain", image: "/biz-photos/baker-pool-maintenance-llc/pool-drain.webp", blurb: "A professional pool drain lets you start fresh with new water and properly balanced chemicals." },
+      { name: "Chlorine Wash", slug: "chlorine-wash", image: "/biz-photos/baker-pool-maintenance-llc/chlorine-wash.webp", blurb: "A chlorine wash helps remove algae and thoroughly clean the pool after it has been drained." },
+      { name: "Acid Wash", slug: "acid-wash", image: "/biz-photos/baker-pool-maintenance-llc/acid-wash.webp", blurb: "Acid washing can remove stubborn rust stains and brighten the finish of your pool." },
+      { name: "Filter Clean", slug: "filter-clean", image: "/biz-photos/baker-pool-maintenance-llc/filter-clean.webp", blurb: "Cleaning cartridge or DE filters improves circulation and helps your pool system operate efficiently." },
+      { name: "Diagnostic Visit", slug: "diagnostic-visit", image: "/biz-photos/baker-pool-maintenance-llc/diagnostic-visit.webp", blurb: "When pool equipment is not working, we identify the problem and explain your repair options." },
+    ],
+  },
+  "octopus-pool-service-and-repair": {
+    photos: ["/biz-photos/octopus-pool-service-and-repair/hero.webp", "/biz-photos/octopus-pool-service-and-repair/pool-maintenance.webp", "/biz-photos/octopus-pool-service-and-repair/equipment-repair.webp", "/biz-photos/octopus-pool-service-and-repair/pump-maintenance.webp", "/biz-photos/octopus-pool-service-and-repair/green-pool-cleanup.webp", "/biz-photos/octopus-pool-service-and-repair/pool-acid-washing.webp"],
+    services: [
+      { name: "Pool Maintenance", slug: "pool-maintenance", image: "/biz-photos/octopus-pool-service-and-repair/pool-maintenance.webp", blurb: "Comprehensive pool maintenance keeps your water sparkling clean and healthy." },
+      { name: "Equipment Repair", slug: "equipment-repair", image: "/biz-photos/octopus-pool-service-and-repair/equipment-repair.webp", blurb: "Our technicians repair pool equipment to restore reliable, efficient operation." },
+      { name: "Pump Maintenance", slug: "pump-maintenance", image: "/biz-photos/octopus-pool-service-and-repair/pump-maintenance.webp", blurb: "Expert pump maintenance helps extend equipment life and prevent costly breakdowns." },
+      { name: "Green Pool Cleanup", slug: "green-pool-cleanup", image: "/biz-photos/octopus-pool-service-and-repair/green-pool-cleanup.webp", blurb: "Our green-pool cleanup process removes algae and debris to restore clear, usable water." },
+      { name: "Pool Acid Washing", slug: "pool-acid-washing", image: "/biz-photos/octopus-pool-service-and-repair/pool-acid-washing.webp", blurb: "Professional acid washing removes stubborn stains and refreshes the pool surface." },
+    ],
+  },
+  "can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install": {
+    name: "Can You Fix My Pool LLC",
+    yearsInBusiness: 25,
+    photos: ["/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/hero.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/cleaning-services.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/equipment-repair.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/salt-water-conversion.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/tile-cleaning.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/green-pool-cleanup.webp"],
+    services: [
+      { name: "Flexible Cleaning Services", slug: "weekly-bi-weekly-and-monthly-cleaning-services", image: "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/cleaning-services.webp", blurb: "Weekly, bi-weekly, and monthly cleaning schedules keep your pool clean and ready to enjoy." },
+      { name: "Pumps, Motors & Filters", slug: "repairs-and-parts-pumps-motors-filters", image: "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/equipment-repair.webp", blurb: "We repair essential pool equipment and replace parts for pumps, motors, and filters." },
+      { name: "Salt Water Conversion", slug: "salt-water-conversion", image: "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/salt-water-conversion.webp", blurb: "Convert a traditional chlorine pool to a professionally installed salt-water system." },
+      { name: "Tile Cleaning", slug: "tile-cleaning", image: "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/tile-cleaning.webp", blurb: "Pool tile cleaning removes scale and buildup to restore a clean waterline." },
+      { name: "Green Pool Cleanup", slug: "green-pool-cleanup", image: "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/green-pool-cleanup.webp", blurb: "Specialized cleanup brings algae-filled green pools back to a clear, swimmable condition." },
+    ],
+  },
+  // pl0002 Hollywood Pools — official extracted lineup with a dedicated original image per service.
+  "phoenix-pool-service-hollywood-pools": {
+    photos: [
+      "/biz-photos/phoenix-pool-service-hollywood-pools/hero.webp",
+      "/biz-photos/phoenix-pool-service-hollywood-pools/pool-pump-repairs.webp",
+      "/biz-photos/phoenix-pool-service-hollywood-pools/filter-installations.webp",
+      "/biz-photos/phoenix-pool-service-hollywood-pools/green-to-cleans.webp",
+      "/biz-photos/phoenix-pool-service-hollywood-pools/pool-cleaning.webp",
+    ],
+    services: [
+      { name: "Pool Pump Repairs", slug: "pool-pump-repairs", image: "/biz-photos/phoenix-pool-service-hollywood-pools/pool-pump-repairs.webp", blurb: "Accurate diagnosis and practical repairs for pool pumps, motors, valves, and circulation problems." },
+      { name: "Filter Installations", slug: "filter-installations", image: "/biz-photos/phoenix-pool-service-hollywood-pools/filter-installations.webp", blurb: "Professional pool-filter replacement and installation with clean plumbing connections and reliable flow." },
+      { name: "Green-to-Clean Service", slug: "green-to-cleans", image: "/biz-photos/phoenix-pool-service-hollywood-pools/green-to-cleans.webp", blurb: "Focused algae treatment, brushing, filtration, and water balancing to restore a neglected green pool." },
+      { name: "Pool Cleaning", slug: "pool-cleaning", image: "/biz-photos/phoenix-pool-service-hollywood-pools/pool-cleaning.webp", blurb: "Dependable recurring cleaning and chemical care that keeps Phoenix pools clear, balanced, and ready to enjoy." },
+    ],
+  },
+  // pl0005 K&K Pool Service — parked domain, so services are limited to work repeatedly documented in reviews.
+  "kandk-pool-service": {
+    name: "K&K Pool Service",
+    photos: [
+      "/biz-photos/kandk-pool-service/hero.webp",
+      "/biz-photos/kandk-pool-service/weekly-service.webp",
+      "/biz-photos/kandk-pool-service/pool-repair.webp",
+      "/biz-photos/kandk-pool-service/equipment-installation.webp",
+      "/biz-photos/kandk-pool-service/filter-cleaning.webp",
+      "/biz-photos/kandk-pool-service/salt-systems.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Service", slug: "weekly-pool-service", image: "/biz-photos/kandk-pool-service/weekly-service.webp", blurb: "Reliable weekly cleaning, water balancing, equipment checks, and clear communication about your pool's condition." },
+      { name: "Pool Equipment Repair", slug: "pool-equipment-repair", image: "/biz-photos/kandk-pool-service/pool-repair.webp", blurb: "Straightforward diagnosis and repair for pumps, filters, valves, timers, spa jets, and plumbing leaks." },
+      { name: "Equipment Installation", slug: "equipment-installation", image: "/biz-photos/kandk-pool-service/equipment-installation.webp", blurb: "Professional pump, motor, filter, and equipment replacement without pressure to buy more than your pool needs." },
+      { name: "Filter Cleaning", slug: "filter-cleaning", image: "/biz-photos/kandk-pool-service/filter-cleaning.webp", blurb: "Thorough cartridge, DE, and filter-system cleaning to restore healthy flow and efficient circulation." },
+      { name: "Salt System Service", slug: "salt-system-service", image: "/biz-photos/kandk-pool-service/salt-systems.webp", blurb: "Salt-cell inspection, cleaning, and saltwater equipment service guided by the actual condition of your system." },
+    ],
+    generatedCopy: { aboutBody: ["K&K Pool Service gives Phoenix homeowners the honest, responsive pool care they have been looking for. Aaron and the team handle weekly maintenance, equipment repairs, and practical upgrades with clear communication and fair pricing.", "Customers value a repair-first approach: the team explains what is happening, shares useful care tips, and avoids unnecessary replacement when existing equipment can be serviced."] },
+  },
+  // pl0006 SwimHappy — exact official plan and upgrade lineup, with each card explicitly illustrated.
+  "swimhappy-pool-service-and-repair": {
+    photos: [
+      "/biz-photos/swimhappy-pool-service-and-repair/hero.webp",
+      "/biz-photos/swimhappy-pool-service-and-repair/essentials-weekly.webp",
+      "/biz-photos/swimhappy-pool-service-and-repair/chemical-weekly.webp",
+      "/biz-photos/swimhappy-pool-service-and-repair/preferred-weekly.webp",
+      "/biz-photos/swimhappy-pool-service-and-repair/premier-weekly.webp",
+      "/biz-photos/swimhappy-pool-service-and-repair/variable-speed-pump.webp",
+      "/biz-photos/swimhappy-pool-service-and-repair/oxidation-system.webp",
+    ],
+    services: [
+      { name: "Essentials Weekly Service", slug: "essentials-weekly-service", image: "/biz-photos/swimhappy-pool-service-and-repair/essentials-weekly.webp", blurb: "Our popular plan for the average Arizona pool includes brushing, skimming, vacuuming as needed, chemistry testing, and equipment checks." },
+      { name: "Chemical Weekly Service", slug: "chemical-weekly-service", image: "/biz-photos/swimhappy-pool-service-and-repair/chemical-weekly.webp", blurb: "Affordable chemical care for well-kept pools, focused on balanced water and routine equipment checks." },
+      { name: "Preferred Weekly Service", slug: "preferred-weekly-service", image: "/biz-photos/swimhappy-pool-service-and-repair/preferred-weekly.webp", blurb: "Extended service for higher-demand or heavy-debris pools, including manual vacuuming every visit." },
+      { name: "Premier Weekly Service", slug: "premier-weekly-service", image: "/biz-photos/swimhappy-pool-service-and-repair/premier-weekly.webp", blurb: "White-glove maintenance for complex pools, with priority scheduling, more on-site time, and proactive checks." },
+      { name: "Variable-Speed Pump Installation", slug: "variable-speed-pump-installation", image: "/biz-photos/swimhappy-pool-service-and-repair/variable-speed-pump.webp", blurb: "Professional variable-speed pump installation for efficient circulation and precise flow control." },
+      { name: "Advanced Oxidation Process", slug: "advanced-oxidation-process", image: "/biz-photos/swimhappy-pool-service-and-repair/oxidation-system.webp", blurb: "Advanced oxidation upgrades designed to deliver pure-feeling water while greatly reducing chlorine demand." },
+    ],
+  },
+  // pl0007 Desert Mesa — exact official repair/maintenance lineup with original service-specific images.
+  "desert-mesa-pool-service-llc": {
+    photos: [
+      "/biz-photos/desert-mesa-pool-service-llc/hero.webp",
+      "/biz-photos/desert-mesa-pool-service-llc/swimming-pool-repair.webp",
+      "/biz-photos/desert-mesa-pool-service-llc/heater-repair.webp",
+      "/biz-photos/desert-mesa-pool-service-llc/maintenance.webp",
+      "/biz-photos/desert-mesa-pool-service-llc/leak-repair.webp",
+    ],
+    services: [
+      { name: "Swimming Pool Repair", slug: "swimming-pool-repair", image: "/biz-photos/desert-mesa-pool-service-llc/swimming-pool-repair.webp", blurb: "Experienced diagnosis and repair for pumps, filters, lighting, sanitization, controls, and circulation equipment." },
+      { name: "Pool Heater Installation & Repair", slug: "swimming-pool-heater-install-and-repair", image: "/biz-photos/desert-mesa-pool-service-llc/heater-repair.webp", blurb: "Pool-heater installation and repair for sensors, ignitors, control boards, weather damage, and other common faults." },
+      { name: "Swimming Pool Maintenance", slug: "swimming-pool-maintenance", image: "/biz-photos/desert-mesa-pool-service-llc/maintenance.webp", blurb: "Comprehensive cleaning, debris removal, filter cleaning, and backwashing for clear water and healthy flow." },
+      { name: "Pool System Leak Repair", slug: "detecting-and-fixing-pool-system-leaks", image: "/biz-photos/desert-mesa-pool-service-llc/leak-repair.webp", blurb: "Leak detection and lasting repair for pump seals, fill valves, backwash valves, and failed plumbing joints." },
+    ],
+  },
+  // pl0016-pl0020 — original Mesa pool-service photography with explicit service-page bindings.
+  "clear-water-pool-repair-llc": {
+    photos: [
+      "/biz-photos/clear-water-pool-repair-llc/hero.webp",
+      "/biz-photos/clear-water-pool-repair-llc/maintenance.webp",
+      "/biz-photos/clear-water-pool-repair-llc/repair.webp",
+    ],
+    services: [
+      { name: "Pool Leak Detection", slug: "pool-leak-detection", image: "/biz-photos/clear-water-pool-repair-llc/repair.webp", blurb: "Careful troubleshooting to locate suspected water loss and identify the right repair path." },
+      { name: "Cloudy Pool Water Fix", slug: "cloudy-pool-water-fix", image: "/biz-photos/clear-water-pool-repair-llc/maintenance.webp", blurb: "Targeted water testing, filtration checks, and treatment to restore clear, inviting water." },
+      { name: "Pool Damage Prevention", slug: "pool-damage-prevention", image: "/biz-photos/clear-water-pool-repair-llc/maintenance.webp", blurb: "Practical preventive care that helps protect pool surfaces, plumbing, and equipment." },
+      { name: "Weekly Pool Maintenance", slug: "weekly-pool-maintenance", image: "/biz-photos/clear-water-pool-repair-llc/maintenance.webp", blurb: "Consistent cleaning, water checks, and equipment monitoring for a swim-ready pool." },
+      { name: "Cracked Pool Repair", slug: "cracked-pool-repair", image: "/biz-photos/clear-water-pool-repair-llc/repair.webp", blurb: "Assessment and repair planning for visible pool cracks and related water-loss concerns." },
+      { name: "Professional Pool Repair", slug: "professional-pool-repair", image: "/biz-photos/clear-water-pool-repair-llc/repair.webp", blurb: "Professional diagnosis and repair for pool plumbing, circulation, and equipment issues." },
+    ],
+  },
+  "good-life-pool-and-spa-care-llc": {
+    photos: [
+      "/biz-photos/good-life-pool-and-spa-care-llc/hero.webp",
+      "/biz-photos/good-life-pool-and-spa-care-llc/maintenance.webp",
+      "/biz-photos/good-life-pool-and-spa-care-llc/equipment.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Service", slug: "weekly-pool-service", image: "/biz-photos/good-life-pool-and-spa-care-llc/maintenance.webp", blurb: "Reliable weekly cleaning and water care for residential and commercial pools." },
+      { name: "Green-To-Clean Service", slug: "green-to-clean-service", image: "/biz-photos/good-life-pool-and-spa-care-llc/maintenance.webp", blurb: "Focused algae treatment and cleanup to help restore neglected green water." },
+      { name: "Equipment Upgrades", slug: "equipment-upgrades", image: "/biz-photos/good-life-pool-and-spa-care-llc/equipment.webp", blurb: "Professional equipment improvements that support dependable circulation and easier care." },
+      { name: "Commercial Pool Maintenance", slug: "commercial-pool-maintenance", image: "/biz-photos/good-life-pool-and-spa-care-llc/maintenance.webp", blurb: "Consistent pool care for community and commercial properties across the East Valley." },
+    ],
+  },
+  "tropical-pool-services": {
+    photos: [
+      "/biz-photos/tropical-pool-services/hero.webp",
+      "/biz-photos/tropical-pool-services/repair.webp",
+      "/biz-photos/tropical-pool-services/maintenance.webp",
+    ],
+    services: [
+      { name: "Pool Repair", slug: "pool-repair", image: "/biz-photos/tropical-pool-services/repair.webp", blurb: "Responsive diagnosis and repair for pool plumbing, circulation, and equipment problems." },
+      { name: "Equipment Service", slug: "equipment-service", image: "/biz-photos/tropical-pool-services/repair.webp", blurb: "Careful service for pumps, filters, valves, and the components that keep water moving." },
+      { name: "Routine Pool Care", slug: "routine-pool-care", image: "/biz-photos/tropical-pool-services/maintenance.webp", blurb: "Practical cleaning and water care that helps keep Mesa pools clear and enjoyable." },
+    ],
+  },
+  "blue-clover-pool-service": {
+    photos: [
+      "/biz-photos/blue-clover-pool-service/hero.webp",
+      "/biz-photos/blue-clover-pool-service/repair.webp",
+    ],
+    services: [
+      { name: "Weekly Pool Service", slug: "pool-service", image: "/biz-photos/blue-clover-pool-service/hero.webp", blurb: "Regular cleaning, water checks, and equipment monitoring for dependable pool care." },
+      { name: "Pool Repair", slug: "pool-repair", image: "/biz-photos/blue-clover-pool-service/repair.webp", blurb: "Thorough diagnosis and practical repair solutions for common pool problems." },
+      { name: "Equipment Diagnostics", slug: "equipment-diagnostics", image: "/biz-photos/blue-clover-pool-service/repair.webp", blurb: "Focused troubleshooting for pumps, filters, plumbing, and circulation equipment." },
+    ],
+  },
+  "five-star-pool-service": {
+    photos: [
+      "/biz-photos/five-star-pool-service/hero.webp",
+      "/biz-photos/five-star-pool-service/tile-cleaning.webp",
+      "/biz-photos/five-star-pool-service/repair.webp",
+    ],
+    services: [
+      { name: "Weekly Cleaning & Chemicals", slug: "weekly-cleaning-and-chemicals", image: "/biz-photos/five-star-pool-service/hero.webp", blurb: "Scheduled cleaning and water balancing tailored to the needs of your pool." },
+      { name: "Equipment Inspections", slug: "equipment-inspections", image: "/biz-photos/five-star-pool-service/repair.webp", blurb: "Routine checks of pumps, filters, timers, and circulation equipment." },
+      { name: "One-Time Cleanups", slug: "one-time-cleanups", image: "/biz-photos/five-star-pool-service/tile-cleaning.webp", blurb: "Focused cleanup options for pools that need extra attention and a fresh start." },
+      { name: "Repairs", slug: "repairs", image: "/biz-photos/five-star-pool-service/repair.webp", blurb: "Experienced repair for pumps, motors, lights, and related pool equipment." },
+      { name: "Pool School", slug: "pool-school", image: "/biz-photos/five-star-pool-service/hero.webp", blurb: "Hands-on guidance to help owners understand pool operation and routine care." },
+      { name: "Tile Cleaning", slug: "tile-cleaning", image: "/biz-photos/five-star-pool-service/tile-cleaning.webp", blurb: "Detailed waterline tile cleaning to address visible mineral buildup." },
+    ],
+  },
+  // hv0004 Desert Diamond Air — current official positioning includes plumbing and whole-home performance
+  // alongside HVAC. Replace the single remote photo and generic six-card template with eight verified pillars,
+  // each explicitly bound to a cohesive original Phoenix service image.
+  "desert-diamond-air-cooling-and-heating": {
+    showAllServices: true,
+    yearsInBusiness: 15,
+    photos: [
+      "/biz-photos/desert-diamond-air-cooling-and-heating/hero.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/cooling.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/heating.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/plumbing.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/maintenance.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/heat-pumps.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/air-quality.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/ductwork.webp",
+      "/biz-photos/desert-diamond-air-cooling-and-heating/home-performance.webp",
+    ],
+    services: [
+      { name: "Air Conditioning", slug: "air-conditioning", image: "/biz-photos/desert-diamond-air-cooling-and-heating/cooling.webp", blurb: "Fast AC repair plus professional installation, replacement, and maintenance for all major brands, with solutions built for reliable comfort in extreme Phoenix heat." },
+      { name: "Heating Services", slug: "heating", image: "/biz-photos/desert-diamond-air-cooling-and-heating/heating.webp", blurb: "Furnace and heating repair, service, installation, and replacement to keep your home dependable and comfortable through Arizona's cooler nights." },
+      { name: "Plumbing Services", slug: "plumbing", image: "/biz-photos/desert-diamond-air-cooling-and-heating/plumbing.webp", blurb: "Residential plumbing help that protects clean water, reliable drainage, and everyday comfort, backed by prompt service and clear recommendations." },
+      { name: "HVAC Maintenance", slug: "hvac-maintenance", image: "/biz-photos/desert-diamond-air-cooling-and-heating/maintenance.webp", blurb: "Planned tune-ups that inspect, test, clean, and adjust your equipment to support efficiency, safety, reliability, and longer system life." },
+      { name: "Heat Pumps", slug: "heat-pumps", image: "/biz-photos/desert-diamond-air-cooling-and-heating/heat-pumps.webp", blurb: "Heat pump installation, replacement, repair, and maintenance for efficient year-round heating and cooling from one versatile system." },
+      { name: "Indoor Air Quality", slug: "indoor-air-quality", image: "/biz-photos/desert-diamond-air-cooling-and-heating/air-quality.webp", blurb: "Whole-home air cleaners, filtration, and tailored IAQ recommendations to help reduce desert dust, pollen, odors, and airborne contaminants." },
+      { name: "Ductwork & Duct Cleaning", slug: "ductwork-cleaning", image: "/biz-photos/desert-diamond-air-cooling-and-heating/ductwork.webp", blurb: "Duct inspection, repair, professional cleaning, fogging, and Aeroseal sealing to improve airflow, reduce dust, and keep conditioned air where it belongs." },
+      { name: "Insulation & Home Performance", slug: "home-performance", image: "/biz-photos/desert-diamond-air-cooling-and-heating/home-performance.webp", blurb: "Energy audits, air sealing, and attic insulation guided by whole-house performance expertise to improve comfort and reduce wasted energy." },
+    ],
+    generatedCopy: {
+      heroH1: "Phoenix HVAC, Plumbing & Home Performance",
+      heroSubhead: "Fast-response cooling, heating, plumbing, ductwork, air quality, and insulation service from local experts who understand what desert homes need.",
+      aboutHeading: "Whole-Home Comfort, Built for Phoenix",
+      aboutBody: [
+        "Since 2011, Desert Diamond Air has helped Greater Phoenix homeowners stay comfortable through extreme summer heat, cool desert nights, and the dust and efficiency challenges unique to Arizona homes.",
+        "Our licensed team handles more than heating and cooling. Plumbing, ductwork, indoor air quality, insulation, and energy audits let us look at how the entire home performs instead of treating one piece in isolation.",
+        "Whether you need a fast repair, a new high-efficiency system, or a plan to improve comfort throughout the house, expect clear options, careful workmanship, and help available around the clock.",
+      ],
+      metaTitle: "Desert Diamond Air | Phoenix HVAC & Plumbing",
+      metaDescription: "Desert Diamond Air provides 24/7 HVAC, plumbing, heat pump, ductwork, indoor air quality, insulation, and home-performance services across Greater Phoenix.",
+    },
+  },
+  // ro0036 #1 Desert Roofing — no active first-party site remains, so the service lineup stays narrowly
+  // grounded in matched historical listings and customer reports. Replace the single remote photo with
+  // a cohesive Chandler roofing set and explicitly bind every card to the work it describes.
+  "1-desert-roofing": {
+    photos: [
+      "/biz-photos/1-desert-roofing/hero.webp",
+      "/biz-photos/1-desert-roofing/roof-replacement.webp",
+      "/biz-photos/1-desert-roofing/roof-repair.webp",
+      "/biz-photos/1-desert-roofing/tile-roofing.webp",
+      "/biz-photos/1-desert-roofing/shingle-roofing.webp",
+      "/biz-photos/1-desert-roofing/foam-roofing.webp",
+      "/biz-photos/1-desert-roofing/roof-inspection.webp",
+    ],
+    services: [
+      { name: "Roof Replacement", slug: "roof-replacement", image: "/biz-photos/1-desert-roofing/roof-replacement.webp", blurb: "Complete residential re-roofing with careful preparation, durable materials, and clear communication from the initial evaluation through final cleanup." },
+      { name: "Roof Repair", slug: "roof-repair", image: "/biz-photos/1-desert-roofing/roof-repair.webp", blurb: "Prompt, targeted repairs for leaks, worn underlayment, flashing problems, and monsoon damage to restore your roof and help prevent further issues." },
+      { name: "Tile Roofing", slug: "tile-roofing", image: "/biz-photos/1-desert-roofing/tile-roofing.webp", blurb: "Concrete and clay tile roofing repaired or replaced with close attention to underlayment, flashing, alignment, and the details Arizona roofs depend on." },
+      { name: "Shingle Roofing", slug: "shingle-roofing", image: "/biz-photos/1-desert-roofing/shingle-roofing.webp", blurb: "Dependable dimensional shingle installation and repair for an efficient, attractive roofing system suited to your home and budget." },
+      { name: "Flat & Foam Roofing", slug: "foam-roofing", image: "/biz-photos/1-desert-roofing/foam-roofing.webp", blurb: "Seamless foam and reflective coating solutions for residential flat and low-slope roofs, with careful attention to penetrations, parapets, and drainage." },
+      { name: "Roof Inspections", slug: "roof-inspection", image: "/biz-photos/1-desert-roofing/roof-inspection.webp", blurb: "A detailed roof evaluation that identifies cracked materials, flashing concerns, underlayment wear, and other problems before repairs begin." },
+    ],
+  },
+  // ro0029 Roofing All Stars — family-owned Chandler roofers since 1999. Original image set covers the
+  // full Arizona system mix they publish: repair/replacement plus tile, shingle, foam/flat, and inspection.
+  "roofing-all-stars": {
+    yearsInBusiness: 27,
+    photos: [
+      "/biz-photos/roofing-all-stars/hero-original.webp",
+      "/biz-photos/roofing-all-stars/roof-replacement-original.webp",
+      "/biz-photos/roofing-all-stars/roof-repair-original.webp",
+      "/biz-photos/roofing-all-stars/tile-roofing-original.webp",
+      "/biz-photos/roofing-all-stars/shingle-roofing-original.webp",
+      "/biz-photos/roofing-all-stars/foam-roofing-original.webp",
+      "/biz-photos/roofing-all-stars/roof-inspection-original.webp",
+    ],
+    services: [
+      { name: "Roof Replacement", slug: "roof-replacement", image: "/biz-photos/roofing-all-stars/roof-replacement-original.webp", blurb: "A complete tear-off, deck inspection, premium underlayment, and new tile, shingle, metal, foam, or flat roof built for Arizona heat and backed by our 25-year workmanship warranty." },
+      { name: "Roof Repair", slug: "roof-repair", image: "/biz-photos/roofing-all-stars/roof-repair-original.webp", blurb: "We trace leaks to the real source — cracked tiles, failed flashing, valleys, storm damage, and roof transitions — then make a targeted repair designed to hold." },
+      { name: "Tile Roofing", slug: "tile-roofing", image: "/biz-photos/roofing-all-stars/tile-roofing-original.webp", blurb: "Concrete and clay tile installation, lift-and-relay, underlayment replacement, and repairs performed by Certified Master Roofers who understand Arizona tile systems." },
+      { name: "Shingle Roofing", slug: "shingle-roofing", image: "/biz-photos/roofing-all-stars/shingle-roofing-original.webp", blurb: "Manufacturer-certified architectural shingle systems installed with correct ventilation, flashing, and fastening for reliable protection and strong curb appeal." },
+      { name: "Flat & Foam Roofing", slug: "foam-roofing", image: "/biz-photos/roofing-all-stars/foam-roofing-original.webp", blurb: "Seamless spray foam, reflective silicone coatings, modified bitumen, and flat-roof repairs that resist UV exposure, seal out monsoon water, and reduce heat gain." },
+      { name: "Roof Inspections", slug: "roof-inspection", image: "/biz-photos/roofing-all-stars/roof-inspection-original.webp", blurb: "A careful roof walk, thermal imaging when appropriate, and photo documentation give you a clear written diagnosis and recommendation without sales pressure." },
+    ],
+    generatedCopy: {
+      heroH1: "The Roof That Outlasts the House",
+      heroSubhead: "Family-owned in Chandler since 1999, Roofing All Stars installs and repairs tile, shingle, metal, foam, and flat roofs across Maricopa County — backed by a 25-year workmanship warranty.",
+      aboutHeading: "Family-Owned. Master-Certified. Backed in Writing.",
+      aboutBody: [
+        "Roofing All Stars started with one truck and one promise: install the roof correctly and stand behind it. More than 25 years later, owner Alex Simpson remains directly involved from the first inspection through final cleanup.",
+        "Our Certified Master Roofer crew works across the systems Arizona homes depend on — tile, shingle, metal, foam, and flat roofing. We do not force every roof into the same solution, and we do not subcontract the work.",
+        "Every estimate includes clear recommendations and photo documentation. Complete installations carry a 25-year workmanship warranty in writing, alongside the strongest available manufacturer coverage.",
+      ],
+      ctaHeadline: "Get a Clear Roofing Recommendation",
+      ctaSubhead: "Schedule a free inspection and written estimate from Chandler roofers who have stood behind their work since 1999.",
+      metaTitle: "Roofing All Stars | Chandler Roof Repair & Replacement",
+      metaDescription: "Family-owned Chandler roofers for tile, shingle, metal, foam, and flat roof repair and replacement, backed by a 25-year workmanship warranty.",
+    },
+  },
+  // az0039 Grass Kings Landscaping — official positioning is Queen Creek and East Valley design,
+  // construction, and maintenance. Every verified service is bound to a matching original image.
+  "grass-kings-landscaping": {
+    photos: [
+      "/biz-photos/grass-kings-landscaping/hero.webp",
+      "/biz-photos/grass-kings-landscaping/landscape-design.webp",
+      "/biz-photos/grass-kings-landscaping/landscape-construction.webp",
+      "/biz-photos/grass-kings-landscaping/landscape-maintenance.webp",
+      "/biz-photos/grass-kings-landscaping/artificial-turf.webp",
+      "/biz-photos/grass-kings-landscaping/hardscaping-masonry.webp",
+      "/biz-photos/grass-kings-landscaping/outdoor-kitchens.webp",
+    ],
+    services: [
+      { name: "Landscape Design", slug: "landscape-design", image: "/biz-photos/grass-kings-landscaping/landscape-design.webp", blurb: "We believe the best landscapes begin with listening, and our consultants meet with you to explore your needs, assess your property, and design a tailored landscape plan that fits your aesthetic and budget." },
+      { name: "Landscape Construction", slug: "landscape-construction", image: "/biz-photos/grass-kings-landscaping/landscape-construction.webp", blurb: "Professional construction for patios, turf, pavers, irrigation, planting, and hardscape features built for lasting performance in the Arizona climate." },
+      { name: "Landscape Maintenance", slug: "landscape-maintenance", image: "/biz-photos/grass-kings-landscaping/landscape-maintenance.webp", blurb: "Proper plant care, seasonal maintenance, irrigation tuning, and ongoing support keep every landscape healthy, polished, and enjoyable year-round." },
+      { name: "Artificial Turf", slug: "artificial-turf", image: "/biz-photos/grass-kings-landscaping/artificial-turf.webp", blurb: "Waterwise artificial turf installed with careful base preparation, precise seams, and clean edges for a lush landscape with less maintenance." },
+      { name: "Hardscaping & Masonry", slug: "hardscaping-and-masonry", image: "/biz-photos/grass-kings-landscaping/hardscaping-masonry.webp", blurb: "Pavers and masonry installed with precision, durable preparation, practical layouts, and thoughtful finishing details." },
+      { name: "Outdoor Kitchens", slug: "outdoor-kitchens", image: "/biz-photos/grass-kings-landscaping/outdoor-kitchens.webp", blurb: "Custom outdoor kitchens create a comfortable, functional place to cook, gather, and enjoy Arizona evenings." },
+    ],
+    generatedCopy: {
+      heroH1: "East Valley Landscapes, Designed for Real Life",
+      heroSubhead: "Thoughtful landscape design, precise construction, and dependable ongoing care for homes in Queen Creek and across Arizona's East Valley.",
+      serviceAreaBlurb: "Grass Kings Landscaping serves Queen Creek and communities throughout the East Valley.",
+      metaTitle: "Grass Kings Landscaping | Queen Creek & East Valley, AZ",
+      metaDescription: "Grass Kings Landscaping designs, builds, and maintains outdoor spaces in Queen Creek and Arizona's East Valley, including turf, pavers, masonry, and outdoor kitchens.",
+    },
+  },
+  // az0035 NexGen Landscaping — their actual business is commercial + HOA landscape management, not the
+  // residential design/turf/patio mix in the generated record. Restore the six services published on their
+  // current site and bind each to an original Phoenix commercial-property image.
+  "nexgen-landscaping": {
+    showAllServices: true,
+    photos: [
+      "/biz-photos/nexgen-landscaping/hero.webp",
+      "/biz-photos/nexgen-landscaping/maintenance.webp",
+      "/biz-photos/nexgen-landscaping/tree-care.webp",
+      "/biz-photos/nexgen-landscaping/irrigation.webp",
+      "/biz-photos/nexgen-landscaping/installs.webp",
+      "/biz-photos/nexgen-landscaping/porter.webp",
+      "/biz-photos/nexgen-landscaping/weed-control.webp",
+    ],
+    services: [
+      { name: "Landscape Maintenance", slug: "landscape-maintenance", image: "/biz-photos/nexgen-landscaping/maintenance.webp", blurb: "Consistent commercial and HOA landscape care, including turf, garden upkeep, detail work, and seasonal cleanups that keep every property polished year-round." },
+      { name: "Tree Care", slug: "tree-care", image: "/biz-photos/nexgen-landscaping/tree-care.webp", blurb: "Professional pruning, trimming, health management, and removal keep trees across your property attractive, structurally sound, and safe." },
+      { name: "Irrigation Management", slug: "irrigation-management", image: "/biz-photos/nexgen-landscaping/irrigation.webp", blurb: "Proactive irrigation monitoring, repair, and water scheduling support healthy landscapes while reducing waste and controlling operating costs." },
+      { name: "Landscape Installation", slug: "landscape-installation", image: "/biz-photos/nexgen-landscaping/installs.webp", blurb: "From hardscape and planting improvements to complete commercial installations, our crews build durable landscapes designed for Arizona properties." },
+      { name: "Porter Service", slug: "porter-service", image: "/biz-photos/nexgen-landscaping/porter.webp", blurb: "Routine litter patrol, debris removal, and exterior detail service keep shopping centers, communities, and commercial grounds clean and welcoming." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/nexgen-landscaping/weed-control.webp", blurb: "Targeted, responsible weed-control programs remove unwanted growth and help prevent its return without compromising the landscape you want to protect." },
+    ],
+    generatedCopy: {
+      heroH1: "Arizona's Commercial Landscaping Experts",
+      heroSubhead: "NexGen installs and maintains premium landscapes for commercial properties and HOA communities across the Phoenix metro — with responsive crews, smart water management, and service that shows up on time.",
+      aboutHeading: "Landscape Management Built for Better Communities",
+      aboutBody: [
+        "NexGen Landscaping specializes in the complex needs of commercial properties and HOA communities. From shopping centers and industrial parks to municipalities and multi-housing developments, our teams protect curb appeal across every acre.",
+        "Property managers count on clear communication, proactive recommendations, and crews that arrive prepared. We combine sound horticultural practices with efficient systems to keep landscapes healthy while managing water use and long-term costs.",
+        "Maintenance, tree care, irrigation, installations, porter service, and weed control all work together under one accountable partner — giving your team fewer vendors to manage and a property everyone can take pride in.",
+      ],
+      ctaHeadline: "Build a Better-Managed Property",
+      ctaSubhead: "Tell us about your commercial property or community and request a customized landscape-management proposal.",
+      metaTitle: "NexGen Landscaping | Phoenix Commercial & HOA Landscaping",
+      metaDescription: "NexGen provides commercial and HOA landscape maintenance, tree care, irrigation, installations, porter service, and weed control across Phoenix.",
+    },
+  },
+  // az0021 Goodman's Landscape Maintenance — replace the single legacy photo plus generic demo pool with
+  // a cohesive Phoenix landscape set. Each generated service image shows the named work or finished result.
+  "goodman-s-landscape-maintenance-llc": {
+    photos: [
+      "/biz-photos/goodman-s-landscape-maintenance-llc/hero.webp",
+      "/biz-photos/goodman-s-landscape-maintenance-llc/landscape-design.webp",
+      "/biz-photos/goodman-s-landscape-maintenance-llc/xeriscaping.webp",
+      "/biz-photos/goodman-s-landscape-maintenance-llc/artificial-turf.webp",
+      "/biz-photos/goodman-s-landscape-maintenance-llc/irrigation.webp",
+      "/biz-photos/goodman-s-landscape-maintenance-llc/maintenance.webp",
+      "/biz-photos/goodman-s-landscape-maintenance-llc/hardscaping.webp",
+    ],
+    services: [
+      { name: "Landscape Design & Installation", slug: "landscape-design", image: "/biz-photos/goodman-s-landscape-maintenance-llc/landscape-design.webp", blurb: "We shape unique outdoor environments, turning your vision into a cohesive, beautiful landscape plan." },
+      { name: "Xeriscaping & Desert Landscaping", slug: "xeriscaping", image: "/biz-photos/goodman-s-landscape-maintenance-llc/xeriscaping.webp", blurb: "Discover water-efficient xeriscaping and desert landscaping solutions that thrive in the Arizona climate while minimizing upkeep." },
+      { name: "Artificial Turf Installation", slug: "artificial-turf", image: "/biz-photos/goodman-s-landscape-maintenance-llc/artificial-turf.webp", blurb: "Enjoy lush, green aesthetics year-round with our expertly installed, low-maintenance artificial turf systems." },
+      { name: "Irrigation & Drip Systems", slug: "irrigation", image: "/biz-photos/goodman-s-landscape-maintenance-llc/irrigation.webp", blurb: "Our precise irrigation and drip systems ensure optimal water delivery, keeping your landscape healthy and conserving resources." },
+      { name: "Lawn & Yard Maintenance", slug: "maintenance", image: "/biz-photos/goodman-s-landscape-maintenance-llc/maintenance.webp", blurb: "Keep your property pristine with our comprehensive lawn and yard maintenance services, tailored to your specific needs." },
+      { name: "Paver Patios & Hardscaping", slug: "hardscaping", image: "/biz-photos/goodman-s-landscape-maintenance-llc/hardscaping.webp", blurb: "Enhance your outdoor living with custom paver patios, walkways, and other hardscaping elements that add structure and style." },
+    ],
+  },
+  // az0033 Paradise Green Landscaping — the reviews consistently describe a long-term residential
+  // maintenance company, not a design/build contractor. Replace the generic demo pool with a cohesive
+  // Phoenix maintenance set and bind each grounded service to its matching original image.
+  "paradise-green-landscaping-llc": {
+    photos: [
+      "/biz-photos/paradise-green-landscaping-llc/hero.webp",
+      "/biz-photos/paradise-green-landscaping-llc/yard-maintenance.webp",
+      "/biz-photos/paradise-green-landscaping-llc/tree-shrub-trimming.webp",
+      "/biz-photos/paradise-green-landscaping-llc/irrigation-repair.webp",
+      "/biz-photos/paradise-green-landscaping-llc/weed-control.webp",
+      "/biz-photos/paradise-green-landscaping-llc/seasonal-cleanup.webp",
+      "/biz-photos/paradise-green-landscaping-llc/storm-debris.webp",
+    ],
+    services: [
+      { name: "Lawn & Yard Maintenance", slug: "maintenance", image: "/biz-photos/paradise-green-landscaping-llc/yard-maintenance.webp", blurb: "Dependable recurring care for lawns, gravel areas, walkways, and planting beds, with the consistent attention that keeps Phoenix yards looking their best." },
+      { name: "Tree & Shrub Trimming", slug: "tree-shrub-trimming", image: "/biz-photos/paradise-green-landscaping-llc/tree-shrub-trimming.webp", blurb: "Thoughtful pruning and shaping for trees, hedges, and desert shrubs to maintain healthy growth, neat lines, and safe clearance around your property." },
+      { name: "Irrigation & Drip Repair", slug: "irrigation-repair", image: "/biz-photos/paradise-green-landscaping-llc/irrigation-repair.webp", blurb: "Sprinkler and drip-system checks and repairs that find leaks, replace failed emitters, and help your landscape receive the water it needs without waste." },
+      { name: "Weed Control", slug: "weed-control", image: "/biz-photos/paradise-green-landscaping-llc/weed-control.webp", blurb: "Detailed weed removal and ongoing control for decorative rock, beds, and hardscape edges, leaving the entire yard clean and well cared for." },
+      { name: "Seasonal Yard Cleanup", slug: "seasonal-cleanup", image: "/biz-photos/paradise-green-landscaping-llc/seasonal-cleanup.webp", blurb: "One-time and seasonal cleanups for overgrown or neglected yards, including trimming, raking, debris collection, and a thorough finishing pass." },
+      { name: "Storm Debris Removal", slug: "storm-debris-removal", image: "/biz-photos/paradise-green-landscaping-llc/storm-debris.webp", blurb: "Responsive cleanup after Phoenix monsoons, with fallen limbs cut down to manageable sections, collected, and hauled away from your property." },
+    ],
+    generatedCopy: {
+      heroH1: "Reliable Phoenix Yard Care, Season After Season",
+      heroSubhead: "Family-owned landscape maintenance, trimming, irrigation repair, and cleanup from a hardworking crew trusted by local homeowners for years.",
+      aboutHeading: "The Crew Homeowners Keep Calling Back",
+      aboutBody: [
+        "Paradise Green Landscaping helps Phoenix homeowners keep their properties clean, healthy, and ready to enjoy. From the lawn and decorative rock to trees, shrubs, weeds, and watering systems, we take care of the details across the whole yard.",
+        "Many of our customers have counted on the same crew for years — some across multiple homes. They value reliable scheduling, fair pricing, clear communication, and the confidence of knowing the job will be done thoroughly each visit.",
+        "Whether your yard needs ongoing maintenance, irrigation attention, an overgrowth reset, or cleanup after a monsoon, Gregoria and the crew bring practical experience and genuine care to the work.",
+      ],
+      ctaHeadline: "Give Your Yard the Care It Deserves",
+      ctaSubhead: "Call Paradise Green Landscaping to discuss recurring maintenance, trimming, irrigation repair, or a thorough cleanup.",
+      metaTitle: "Phoenix Yard Maintenance | Paradise Green Landscaping",
+      metaDescription: "Paradise Green Landscaping provides reliable yard maintenance, trimming, irrigation repair, weed control, and cleanup in Phoenix, Arizona.",
+    },
+  },
+  // az0018 Descendants Landscaping — replace the shared /demo placeholder pool with a cohesive, original
+  // Phoenix design/build set. The hero is a completed dusk backyard; every service is explicitly bound to
+  // its matching project image so cards and service-detail pages stay semantically accurate.
+  "descendants-landscaping": {
+    photos: [
+      "/biz-photos/descendants-landscaping/hero.webp",
+      "/biz-photos/descendants-landscaping/landscape-design.webp",
+      "/biz-photos/descendants-landscaping/xeriscaping.webp",
+      "/biz-photos/descendants-landscaping/artificial-turf.webp",
+      "/biz-photos/descendants-landscaping/maintenance.webp",
+      "/biz-photos/descendants-landscaping/hardscaping.webp",
+      "/biz-photos/descendants-landscaping/irrigation.webp",
+    ],
+    services: [
+      { name: "Landscape Design & Installation", slug: "landscape-design", image: "/biz-photos/descendants-landscaping/landscape-design.webp", blurb: "We transform your ideas into comprehensive landscape plans, then meticulously install every element for a cohesive outdoor space." },
+      { name: "Xeriscaping & Desert Landscaping", slug: "xeriscaping", image: "/biz-photos/descendants-landscaping/xeriscaping.webp", blurb: "Embrace the desert's beauty with our water-efficient xeriscaping and sustainable desert landscaping solutions tailored for the Phoenix climate." },
+      { name: "Artificial Turf Installation", slug: "artificial-turf", image: "/biz-photos/descendants-landscaping/artificial-turf.webp", blurb: "Enjoy a perpetually green, low-maintenance lawn all year round with our professional artificial turf installation services." },
+      { name: "Lawn & Yard Maintenance", slug: "maintenance", image: "/biz-photos/descendants-landscaping/maintenance.webp", blurb: "Keep your yard looking pristine with our reliable lawn and yard maintenance programs, designed to fit your property's needs." },
+      { name: "Paver Patios & Hardscaping", slug: "hardscaping", image: "/biz-photos/descendants-landscaping/hardscaping.webp", blurb: "Enhance your outdoor living with custom paver patios, walkways, and other hardscaping features that add both beauty and functionality." },
+      { name: "Irrigation & Drip Systems", slug: "irrigation", image: "/biz-photos/descendants-landscaping/irrigation.webp", blurb: "Ensure your landscape thrives with expertly designed and installed irrigation and drip systems for optimal water delivery." },
+    ],
+    generatedCopy: {
+      aboutBody: [
+        "From a blank canvas of dirt to a finished backyard oasis, Descendants Landscaping helps Phoenix homeowners turn their ideas into outdoor spaces built for everyday life.",
+        "Our process is collaborative from the start. We listen to your goals, offer practical ideas that fit your property and budget, and bring the plan together with thoughtful planting, durable hardscaping, turf, and efficient irrigation.",
+        "Lidio and the Descendants Landscaping team focus on the details that make a yard feel complete — creating welcoming patios, low-maintenance desert landscapes, and green spaces made to be enjoyed year-round.",
+      ],
+    },
+  },
+  // hv0001 Parker & Sons (parkerandsons.com — Phoenix, AZ; serving the Valley since 1974). The generated
+  // profile reduced this full home-services company to six HVAC cards and reused one Google image everywhere.
+  // Their current official navigation has eight residential pillars: Cooling, Heating, Plumbing, Drain & Sewer,
+  // Electrical, Water Quality, Insulation, and Garage Renovation. This override restores that lineup and assigns
+  // an original, consistent Arizona service image to every pillar, with a dedicated wide crew/fleet hero.
+  "parker-and-sons": {
+    fontKey: "bold",
+    brandColor: "#d71920",
+    brandColor2: "#111827",
+    ctaBg: "#d71920",
+    ctaFg: "#ffffff",
+    showAllServices: true,
+    yearsInBusiness: 52,
+    photos: [
+      "/biz-photos/parker-and-sons/hero.webp",
+      "/biz-photos/parker-and-sons/ac-repair.webp",
+      "/biz-photos/parker-and-sons/plumbing.webp",
+      "/biz-photos/parker-and-sons/electrical.webp",
+      "/biz-photos/parker-and-sons/drain-sewer.webp",
+      "/biz-photos/parker-and-sons/water-quality.webp",
+      "/biz-photos/parker-and-sons/insulation.webp",
+      "/biz-photos/parker-and-sons/garage-renovation.webp",
+    ],
+    services: [
+      { name: "Cooling", slug: "cooling", image: "/biz-photos/parker-and-sons/ac-repair.webp", blurb: "From fast AC repair and 40-point tune-ups to complete system installation, our Trust Certified technicians keep Valley homes reliably cool through the toughest Arizona heat." },
+      { name: "Heating", slug: "heating", image: "/biz-photos/parker-and-sons/hero.webp", blurb: "Heating repair, seasonal tune-ups, and energy-efficient replacement for dependable warmth on cold desert nights — with help available 24 hours a day, 365 days a year." },
+      { name: "Plumbing", slug: "plumbing", image: "/biz-photos/parker-and-sons/plumbing.webp", blurb: "Leaky fixtures, water heaters, repiping, and everyday plumbing repairs handled by licensed professionals with clear recommendations and careful, clean workmanship." },
+      { name: "Drain & Sewer", slug: "drain-sewer", image: "/biz-photos/parker-and-sons/drain-sewer.webp", blurb: "Clear stubborn clogs and find hidden line problems with drain cleaning, hydro jetting, video inspections, line locating, and complete sewer or septic service." },
+      { name: "Electrical", slug: "electrical", image: "/biz-photos/parker-and-sons/electrical.webp", blurb: "Protect and power your home with electrical repairs, panel upgrades, EV chargers, generators, lighting, safety inspections, and whole-home surge protection." },
+      { name: "Water Quality", slug: "water-quality", image: "/biz-photos/parker-and-sons/water-quality.webp", blurb: "Get cleaner, better-tasting water with professional testing, whole-home water softeners, and reverse-osmosis drinking-water systems designed for Arizona's hard water." },
+      { name: "Insulation", slug: "insulation", image: "/biz-photos/parker-and-sons/insulation.webp", blurb: "Improve comfort and reduce wasted energy with attic insulation, old-insulation removal, and air sealing that helps keep conditioned air inside your home." },
+      { name: "Garage Renovation", slug: "garage-renovation", image: "/biz-photos/parker-and-sons/garage-renovation.webp", blurb: "Turn an unfinished garage into a cleaner, brighter, more useful extension of your home with durable flooring, organized storage, lighting, and comfort upgrades." },
+    ],
+    generatedCopy: {
+      heroH1: "Phoenix's One-Stop Team for Total Home Comfort",
+      heroSubhead: "Cooling, heating, plumbing, drains, electrical, water quality, insulation, and garage upgrades — delivered 24/7 by the home-service team Arizona has trusted since 1974.",
+      aboutHeading: "Home Service Made Simple Since 1974",
+      aboutBody: [
+        "For more than 50 years, Parker & Sons has helped Phoenix-area homeowners take care of the systems that make a house comfortable, safe, and dependable. One experienced team handles everything from an urgent AC breakdown or plumbing leak to electrical upgrades, cleaner water, and better insulation.",
+        "Every visit is built around fast response, straightforward communication, and work done with respect for your home. Our licensed, bonded, and insured technicians are available around the clock, including nights, weekends, and holidays.",
+        "With tens of thousands of local reviews and service across the Valley, Parker & Sons brings the depth of a full-service company and the accountability homeowners expect from a trusted neighbor.",
+      ],
+      ctaHeadline: "One Call Takes Care of Your Home",
+      ctaSubhead: "Tell us what is happening and schedule fast, reliable service anywhere in the Phoenix Valley.",
+      metaTitle: "Parker & Sons | Phoenix HVAC, Plumbing & Electrical",
+      metaDescription: "Parker & Sons provides 24/7 HVAC, plumbing, drain, electrical, water quality, insulation, and garage services across the Phoenix Valley.",
+    },
+  },
   // pl0003 AZ Mobile Pool Service (azmobilepoolservice.com — Anthony's mobile pool service in Phoenix, AZ since 2017;
   //   (602) 595-4586; 5★/82 reviews). Logo shipped as "logo.webp": a cartoon beach-ball mascot beside a blue "AZ MOBILE /
   //   POOL SERVICE" wordmark on a transparent bg — process-assets kept the cut-out as-is (alpha already transparent). It's a
@@ -2670,22 +3719,31 @@ const manual: Record<string, BusinessOverride> = {
   // No font example → default font.
   "hvac-mesa": {
     logoBadge: false,
+    photos: [
+      "/biz-photos/hvac-mesa/hero.webp",
+      "/biz-photos/hvac-mesa/heating-solutions.webp",
+      "/biz-photos/hvac-mesa/cooling-services.webp",
+      "/biz-photos/hvac-mesa/ventilation.webp",
+    ],
     services: [
       {
         name: "Heating Solutions",
         slug: "heating-solutions",
+        image: "/biz-photos/hvac-mesa/heating-solutions.webp",
         blurb:
           "Reliable heating services to keep your home warm during the cold months in Mesa, AZ.",
       },
       {
         name: "Cooling Services",
         slug: "cooling-services",
+        image: "/biz-photos/hvac-mesa/cooling-services.webp",
         blurb:
           "Efficient air conditioning solutions to ensure your comfort during the hot Arizona summers.",
       },
       {
         name: "Ventilation",
         slug: "ventilation",
+        image: "/biz-photos/hvac-mesa/ventilation.webp",
         blurb:
           "Complete ventilation services that keep air moving and your indoor environment comfortable year-round.",
       },
@@ -2917,22 +3975,31 @@ const manual: Record<string, BusinessOverride> = {
     logoBadge: false,
     logoWordmark: "ASAP Air Conditioning & Heating",
     yearsInBusiness: 42,
+    photos: [
+      "/biz-photos/asap-air-conditioning-and-heating/hero-original.webp",
+      "/biz-photos/asap-air-conditioning-and-heating/ac-heating-repair.webp",
+      "/biz-photos/asap-air-conditioning-and-heating/ac-heating-installation.webp",
+      "/biz-photos/asap-air-conditioning-and-heating/emergency-service.webp",
+    ],
     services: [
       {
         name: "A/C & Heating Repair",
         slug: "ac-repair",
+        image: "/biz-photos/asap-air-conditioning-and-heating/ac-heating-repair.webp",
         blurb:
           "Fast, dependable air conditioning and heating repair for all makes and models. We provide a flat-rate, upfront quote after diagnostics and complete 99% of repairs on the spot to bring cool comfort back to your home or business.",
       },
       {
         name: "A/C & Heating Installation",
         slug: "ac-installation",
+        image: "/biz-photos/asap-air-conditioning-and-heating/ac-heating-installation.webp",
         blurb:
           "Energy-efficient A/C, heat pump, and heating system installation and replacement. As a Trane Authorized Dealer — and Sales & Service for Goodman, Ruud, Day & Night and more — we offer same-day replacement and systems that lower your energy costs.",
       },
       {
         name: "24/7 Emergency Service",
         slug: "emergency-service",
+        image: "/biz-photos/asap-air-conditioning-and-heating/emergency-service.webp",
         blurb:
           "When the Arizona heat won't wait, neither do we. Our technicians are ready to roll 24/7, with a free service call on any repair and flat-rate pricing so there are never any surprises.",
       },
@@ -4079,16 +5146,15 @@ const manual: Record<string, BusinessOverride> = {
     chromeDark: true,
     brandColor: "#a95624",
     photos: [
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p1.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p2.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p3.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p4.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p5.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p6.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p7.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p8.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p9.webp",
-      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/p10.webp",
+      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/hero-original.webp",
+      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/new-roof-installation-original.webp",
+      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/roof-repair-restoration-original.webp",
+      "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/tile-underlayment-original.webp",
+    ],
+    services: [
+      { name: "New Roof Installation", slug: "new-roof-installation", image: "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/new-roof-installation-original.webp", blurb: "New construction and full replacement roofs installed with durable tile, shingle, metal, foam, or built-up systems selected for your home and budget." },
+      { name: "Roof Repairs & Restoration", slug: "roof-repair-restoration", image: "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/roof-repair-restoration-original.webp", blurb: "Fast, dependable repairs for leaks, cracked tiles, aging shingles, and storm or wind damage, finished with a thorough cleanup and quality check." },
+      { name: "Tile Underlayment Replacement", slug: "tile-underlayment-replacement", image: "/biz-photos/maverick-roofing-and-exteriors-gilbert-az/tile-underlayment-original.webp", blurb: "We carefully lift and preserve existing tiles, install high-quality waterproof underlayment, and reset the roof to extend its service life without a full replacement." },
     ],
   },
   // ro0055 Ironwood Roofing | Scottsdale, AZ (ironwoodroofing.com) — logo is a thin WHITE "IRONWOOD
@@ -4204,18 +5270,21 @@ const manual: Record<string, BusinessOverride> = {
   // p7 leads and the rest follow — residential roof shots first, commercial/flat after.
   "stout-roofing-inc-mesa": {
     photos: [
-      "/biz-photos/stout-roofing-inc-mesa/p7.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p4.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p10.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p5.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p9.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p6.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p12.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p1.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p2.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p3.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p8.webp",
-      "/biz-photos/stout-roofing-inc-mesa/p11.webp",
+      "/biz-photos/stout-roofing-inc-mesa/hero-original.webp",
+      "/biz-photos/stout-roofing-inc-mesa/roof-repair-original.webp",
+      "/biz-photos/stout-roofing-inc-mesa/reroof-original.webp",
+      "/biz-photos/stout-roofing-inc-mesa/tile-roofing-original.webp",
+      "/biz-photos/stout-roofing-inc-mesa/shingle-roofing-original.webp",
+      "/biz-photos/stout-roofing-inc-mesa/spray-foam-coating-original.webp",
+      "/biz-photos/stout-roofing-inc-mesa/commercial-roofing-original.webp",
+    ],
+    services: [
+      { name: "Residential Roof Repair", slug: "roof-repair", image: "/biz-photos/stout-roofing-inc-mesa/roof-repair-original.webp", blurb: "Targeted repairs for leaks, broken tiles, damaged flashing, and other trouble spots, backed by clear guidance and long-term fixes." },
+      { name: "Re-Roofing & Roof Replacement", slug: "roof-replacement", image: "/biz-photos/stout-roofing-inc-mesa/reroof-original.webp", blurb: "Complete re-roofing and new roof systems installed with quality materials and proven craftsmanship for lasting Arizona protection." },
+      { name: "Tile Roofing", slug: "tile-roofing", image: "/biz-photos/stout-roofing-inc-mesa/tile-roofing-original.webp", blurb: "Concrete tile installation, repair, and underlayment solutions that preserve curb appeal and perform in the Phoenix Valley climate." },
+      { name: "Shingle Roofing", slug: "shingle-roofing", image: "/biz-photos/stout-roofing-inc-mesa/shingle-roofing-original.webp", blurb: "Professionally installed composition shingles in a range of styles and performance levels for an attractive, dependable roof." },
+      { name: "Spray Foam & Roof Coating", slug: "spray-foam-roof-coating", image: "/biz-photos/stout-roofing-inc-mesa/spray-foam-coating-original.webp", blurb: "Seamless spray foam and reflective roof coatings add insulation value and create an efficient cool-roof system for flat roofs." },
+      { name: "Commercial Roofing", slug: "commercial-roofing", image: "/biz-photos/stout-roofing-inc-mesa/commercial-roofing-original.webp", blurb: "Commercial roof repair, re-roofing, and flat-roof systems planned around the needs of Phoenix Valley businesses." },
     ],
   },
   // ro0027 — QR record name is "Next Level Roofers Chandler", but every real asset the designer
@@ -4254,29 +5323,29 @@ const manual: Record<string, BusinessOverride> = {
     name: "Chandler Roofing",
     logoBadge: false,
     showAllServices: true,
-    // Designer pinned imgi_2_Chandler-Arizona-Roof-Replacement.jpg (processed to p3.webp) as the
-    // hero; BizHero uses photos[0], so p3 leads and the other eight follow for the gallery.
+    // Cohesive original Arizona portfolio: a dedicated finished-roof hero and one image per service.
     photos: [
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p3.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p1.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p2.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p4.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p5.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p6.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p7.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p8.webp",
-      "/biz-photos/chandler-roofing-roof-repair-and-replacement/p9.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/hero-original.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/residential-roofing.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/commercial-roofing.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-replacement.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-inspection.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-leak-repair.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/concrete-tile-roofing.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/flat-roofing.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/metal-roofing.webp",
+      "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-maintenance.webp",
     ],
     services: [
-      { name: "Residential Roofing", slug: "residential-roofing", blurb: "From new roof construction and roof replacement to roofing maintenance and roof leak repair — Chandler Roofing has all your residential roofing needs covered." },
-      { name: "Commercial Roofing", slug: "commercial-roofing", blurb: "Expert commercial roofing for warehouses, strip malls, hospitals, office buildings, schools, and government projects — we work within your budget to maximize your ROI." },
-      { name: "Roof Replacement", slug: "roof-replacement", blurb: "We make replacing your roof effortless, helping you select the best roofing materials within your budget so your roof is worry-free for years to come." },
-      { name: "Roof Inspection", slug: "roof-inspection", blurb: "Our professionals know instantly what can cause problems and what the remedy will be, evaluating your roof with a detailed maintenance checklist." },
-      { name: "Roof Leak Repair", slug: "roof-leak-repair", blurb: "Our dedicated leak-repair team responds quickly to evaluate the problem and fix your leaking roof before a small leak turns into a larger one." },
-      { name: "Concrete Tile Roofing", slug: "concrete-tile-roofing", blurb: "The same great benefits of clay tiles at a fraction of the cost — from repairing individual damaged tiles to complete roof replacements." },
-      { name: "Flat Roofing", slug: "flat-roofing", blurb: "We specialize in single-ply flat roofs — the most practical, modern, and reliable flat roofing option available." },
-      { name: "Metal Roofing", slug: "metal-roofing", blurb: "Lightweight and requiring less structural support, our highly durable metal roofs are designed to fight the harshest weather conditions." },
-      { name: "Roof Maintenance", slug: "roof-maintenance", blurb: "It's the little things we see that will soon be big things that we aim to prevent — proactive maintenance that protects your roof." },
+      { name: "Residential Roofing", slug: "residential-roofing", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/residential-roofing.webp", blurb: "From new roof construction and roof replacement to roofing maintenance and roof leak repair — Chandler Roofing has all your residential roofing needs covered." },
+      { name: "Commercial Roofing", slug: "commercial-roofing", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/commercial-roofing.webp", blurb: "Expert commercial roofing for warehouses, strip malls, hospitals, office buildings, schools, and government projects — we work within your budget to maximize your ROI." },
+      { name: "Roof Replacement", slug: "roof-replacement", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-replacement.webp", blurb: "We make replacing your roof effortless, helping you select the best roofing materials within your budget so your roof is worry-free for years to come." },
+      { name: "Roof Inspection", slug: "roof-inspection", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-inspection.webp", blurb: "Our professionals know instantly what can cause problems and what the remedy will be, evaluating your roof with a detailed maintenance checklist." },
+      { name: "Roof Leak Repair", slug: "roof-leak-repair", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-leak-repair.webp", blurb: "Our dedicated leak-repair team responds quickly to evaluate the problem and fix your leaking roof before a small leak turns into a larger one." },
+      { name: "Concrete Tile Roofing", slug: "concrete-tile-roofing", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/concrete-tile-roofing.webp", blurb: "The same great benefits of clay tiles at a fraction of the cost — from repairing individual damaged tiles to complete roof replacements." },
+      { name: "Flat Roofing", slug: "flat-roofing", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/flat-roofing.webp", blurb: "We specialize in single-ply flat roofs — the most practical, modern, and reliable flat roofing option available." },
+      { name: "Metal Roofing", slug: "metal-roofing", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/metal-roofing.webp", blurb: "Lightweight and requiring less structural support, our highly durable metal roofs are designed to fight the harshest weather conditions." },
+      { name: "Roof Maintenance", slug: "roof-maintenance", image: "/biz-photos/chandler-roofing-roof-repair-and-replacement/roof-maintenance.webp", blurb: "It's the little things we see that will soon be big things that we aim to prevent — proactive maintenance that protects your roof." },
     ],
   },
   // ro0028 Discount Roofing LLC (discountroofingllcaz.com) — extract-services scraped the site but
@@ -4442,26 +5511,27 @@ const manual: Record<string, BusinessOverride> = {
   // (drops the GMB "- Roof Repair & Replacement" SEO suffix) so nav, footer, and © all read cleanly,
   // and logoBadge:false hides the letter-badge for a text-only treatment. Services already match the
   // live site exactly (Residential, Roof Replacement, Roof Leak Repair, Commercial, Industrial, 24hr
-  // Emergency) — verified against roofing-mesa.com. 11 photos + brand color #0170ba (blue) wired via
-  // asset-overrides.json by process-assets.
+  // Emergency) — verified against roofing-mesa.com. Brand color #0170ba (blue) remains wired via
+  // asset-overrides.json; the manual layer now binds a cohesive original Arizona photo to every service.
   "mesa-roofing-roof-repair-and-replacement": {
     name: "Mesa Roofing",
     logoBadge: false,
-    // Hero = photos[0]; designer picked imgi_5_New-Roof-Mesa-AZ.jpg (processed to p4.webp), so the
-    // photo order is pinned here with p4 first (the rest follow in original order) — manual layer
-    // replaces the asset-overrides photos array wholesale.
     photos: [
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p4.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p1.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p2.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p3.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p5.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p6.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p7.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p8.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p9.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p10.webp",
-      "/biz-photos/mesa-roofing-roof-repair-and-replacement/p11.webp",
+      "/biz-photos/mesa-roofing-roof-repair-and-replacement/hero.webp",
+      "/biz-photos/mesa-roofing-roof-repair-and-replacement/residential-roofing.webp",
+      "/biz-photos/mesa-roofing-roof-repair-and-replacement/roof-replacement.webp",
+      "/biz-photos/mesa-roofing-roof-repair-and-replacement/roof-leak-repair.webp",
+      "/biz-photos/mesa-roofing-roof-repair-and-replacement/commercial-roofing.webp",
+      "/biz-photos/mesa-roofing-roof-repair-and-replacement/industrial-roofing.webp",
+      "/biz-photos/mesa-roofing-roof-repair-and-replacement/emergency-service.webp",
+    ],
+    services: [
+      { name: "Residential Roofing", slug: "residential-roofing", image: "/biz-photos/mesa-roofing-roof-repair-and-replacement/residential-roofing.webp", blurb: "New construction, replacement, maintenance, and leak repair for Mesa homes, delivered with experienced craftsmanship and careful attention to your property." },
+      { name: "Mesa Roof Replacement", slug: "mesa-roof-replacement", image: "/biz-photos/mesa-roofing-roof-repair-and-replacement/roof-replacement.webp", blurb: "A straightforward replacement process with a detailed assessment and practical material guidance to help you choose a durable roof that fits your budget." },
+      { name: "Mesa Roof Leak Repair", slug: "mesa-roof-leak-repair", image: "/biz-photos/mesa-roofing-roof-repair-and-replacement/roof-leak-repair.webp", blurb: "Prompt diagnosis and lasting repair for roof leaks, missing materials, damaged flashing, and other trouble spots before minor damage becomes a major problem." },
+      { name: "Commercial Roofing", slug: "commercial-roofing", image: "/biz-photos/mesa-roofing-roof-repair-and-replacement/commercial-roofing.webp", blurb: "Commercial roof construction, maintenance, re-roofing, and leak repair for buildings of every size, planned around code, budget, and long-term return on investment." },
+      { name: "Industrial Roofing", slug: "industrial-roofing", image: "/biz-photos/mesa-roofing-roof-repair-and-replacement/industrial-roofing.webp", blurb: "Flat and low-slope industrial roofing expertise for warehouses and facilities, including TPO, PVC, modified bitumen, built-up, foam, metal, and restoration coatings." },
+      { name: "24 Hour Emergency Service", slug: "24-hour-emergency-service", image: "/biz-photos/mesa-roofing-roof-repair-and-replacement/emergency-service.webp", blurb: "A 24/7 response team ready to secure storm or leak damage quickly and help make your home or business safely watertight in an urgent situation." },
     ],
   },
   // ro0017 Right Way Roofing, Inc. (azroof.com) — extract-services couldn't run (dead Gemini key +
@@ -4856,31 +5926,37 @@ const manual: Record<string, BusinessOverride> = {
     fontKey: "modern",
     showAllServices: true,
     photos: [
-      "/biz-photos/panda-roofing-and-construction/p1.webp",
-      "/biz-photos/panda-roofing-and-construction/p2.webp",
-      "/biz-photos/panda-roofing-and-construction/p3.webp",
-      "/biz-photos/panda-roofing-and-construction/p4.webp",
-      "/biz-photos/panda-roofing-and-construction/p5.webp",
-      "/biz-photos/panda-roofing-and-construction/p6.webp",
-      "/biz-photos/panda-roofing-and-construction/p7.webp",
-      "/biz-photos/panda-roofing-and-construction/p8.webp",
-      "/biz-photos/panda-roofing-and-construction/p9.webp",
+      "/biz-photos/panda-roofing-and-construction/hero-original.webp",
+      "/biz-photos/panda-roofing-and-construction/retrofit-roof.webp",
+      "/biz-photos/panda-roofing-and-construction/storm-damage-restoration.webp",
+      "/biz-photos/panda-roofing-and-construction/roofing-siding.webp",
+      "/biz-photos/panda-roofing-and-construction/roof-insulation.webp",
+      "/biz-photos/panda-roofing-and-construction/roof-replacement.webp",
+      "/biz-photos/panda-roofing-and-construction/residential-roofing.webp",
+      "/biz-photos/panda-roofing-and-construction/commercial-roofing.webp",
+      "/biz-photos/panda-roofing-and-construction/foam-roofing.webp",
+      "/biz-photos/panda-roofing-and-construction/flat-roofing.webp",
+      "/biz-photos/panda-roofing-and-construction/shingle-roofing.webp",
+      "/biz-photos/panda-roofing-and-construction/tile-roofing.webp",
+      "/biz-photos/panda-roofing-and-construction/metal-roofing.webp",
+      "/biz-photos/panda-roofing-and-construction/kitchen-remodel.webp",
+      "/biz-photos/panda-roofing-and-construction/bathroom-remodel.webp",
     ],
     services: [
-      { name: "Retrofit Roof", slug: "retrofit-roof", blurb: "Retrofit roofing solutions that upgrade and reinforce your existing roof system for better performance and longevity without a full tear-off." },
-      { name: "Storm Damage Restoration", slug: "storm-damage-restoration", blurb: "Fast, reliable repairs for roofing issues and other damage caused by storms, ensuring your home is protected and restored." },
-      { name: "Roofing Siding", slug: "roofing-siding", blurb: "Roofing siding services that enhance your property's curb appeal while safeguarding what matters most." },
-      { name: "Roof Insulation", slug: "roof-insulation", blurb: "Roof insulation that improves energy efficiency and comfort, keeping your home cooler in the Arizona heat and lowering utility bills." },
-      { name: "Roof Replacement", slug: "roof-replacement", blurb: "Upgrade your home's protection and curb appeal with a complete, expertly installed roof replacement built to last." },
-      { name: "Residential Roofing", slug: "residential-roofing", blurb: "Complete residential roofing — installation, replacement, and repair — handled with precision and clear communication start to finish." },
-      { name: "Commercial Roofing", slug: "commercial-roofing", blurb: "Durable commercial roofing systems installed and maintained to protect your business and minimize disruption." },
-      { name: "Foam Roofing", slug: "foam-roofing", blurb: "Discover the energy-efficient benefits of foam roofing, providing a seamless, long-lasting barrier for your property." },
-      { name: "Flat Roofing", slug: "flat-roofing", blurb: "Flat roofing systems engineered to shed water and stand up to the desert sun and monsoon season." },
-      { name: "Shingle Roofing", slug: "shingle-roofing", blurb: "Choose from a variety of durable, stylish shingle options for a classic look and reliable protection." },
-      { name: "Tile Roofing", slug: "tile-roofing", blurb: "Enhance your home's aesthetic and durability with our specialized tile roofing installation and maintenance." },
-      { name: "Metal Roofing", slug: "metal-roofing", blurb: "Strong, modern metal roofing built for decades of low-maintenance protection and standout curb appeal." },
-      { name: "Kitchen Remodel", slug: "kitchen-remodel", blurb: "Your kitchen is where family gathers and traditions are made. We bring your vision to life with thoughtful, expertly built remodels." },
-      { name: "Bathroom Remodel", slug: "bathroom-remodel", blurb: "Your bathroom should offer comfort, calm, and a place to recharge. We craft remodels that reflect your lifestyle and personal taste." },
+      { name: "Retrofit Roof", slug: "retrofit-roof", image: "/biz-photos/panda-roofing-and-construction/retrofit-roof.webp", blurb: "Retrofit roofing solutions that upgrade and reinforce your existing roof system for better performance and longevity without a full tear-off." },
+      { name: "Storm Damage Restoration", slug: "storm-damage-restoration", image: "/biz-photos/panda-roofing-and-construction/storm-damage-restoration.webp", blurb: "Fast, reliable repairs for roofing issues and other damage caused by storms, ensuring your home is protected and restored." },
+      { name: "Roofing Siding", slug: "roofing-siding", image: "/biz-photos/panda-roofing-and-construction/roofing-siding.webp", blurb: "Roofing siding services that enhance your property's curb appeal while safeguarding what matters most." },
+      { name: "Roof Insulation", slug: "roof-insulation", image: "/biz-photos/panda-roofing-and-construction/roof-insulation.webp", blurb: "Roof insulation that improves energy efficiency and comfort, keeping your home cooler in the Arizona heat and lowering utility bills." },
+      { name: "Roof Replacement", slug: "roof-replacement", image: "/biz-photos/panda-roofing-and-construction/roof-replacement.webp", blurb: "Upgrade your home's protection and curb appeal with a complete, expertly installed roof replacement built to last." },
+      { name: "Residential Roofing", slug: "residential-roofing", image: "/biz-photos/panda-roofing-and-construction/residential-roofing.webp", blurb: "Complete residential roofing — installation, replacement, and repair — handled with precision and clear communication start to finish." },
+      { name: "Commercial Roofing", slug: "commercial-roofing", image: "/biz-photos/panda-roofing-and-construction/commercial-roofing.webp", blurb: "Durable commercial roofing systems installed and maintained to protect your business and minimize disruption." },
+      { name: "Foam Roofing", slug: "foam-roofing", image: "/biz-photos/panda-roofing-and-construction/foam-roofing.webp", blurb: "Discover the energy-efficient benefits of foam roofing, providing a seamless, long-lasting barrier for your property." },
+      { name: "Flat Roofing", slug: "flat-roofing", image: "/biz-photos/panda-roofing-and-construction/flat-roofing.webp", blurb: "Flat roofing systems engineered to shed water and stand up to the desert sun and monsoon season." },
+      { name: "Shingle Roofing", slug: "shingle-roofing", image: "/biz-photos/panda-roofing-and-construction/shingle-roofing.webp", blurb: "Choose from a variety of durable, stylish shingle options for a classic look and reliable protection." },
+      { name: "Tile Roofing", slug: "tile-roofing", image: "/biz-photos/panda-roofing-and-construction/tile-roofing.webp", blurb: "Enhance your home's aesthetic and durability with our specialized tile roofing installation and maintenance." },
+      { name: "Metal Roofing", slug: "metal-roofing", image: "/biz-photos/panda-roofing-and-construction/metal-roofing.webp", blurb: "Strong, modern metal roofing built for decades of low-maintenance protection and standout curb appeal." },
+      { name: "Kitchen Remodel", slug: "kitchen-remodel", image: "/biz-photos/panda-roofing-and-construction/kitchen-remodel.webp", blurb: "Your kitchen is where family gathers and traditions are made. We bring your vision to life with thoughtful, expertly built remodels." },
+      { name: "Bathroom Remodel", slug: "bathroom-remodel", image: "/biz-photos/panda-roofing-and-construction/bathroom-remodel.webp", blurb: "Your bathroom should offer comfort, calm, and a place to recharge. We craft remodels that reflect your lifestyle and personal taste." },
     ],
     serviceMenu: [
       { label: "Roofing", children: [
@@ -5917,6 +6993,23 @@ const manual: Record<string, BusinessOverride> = {
   "organic-landscape-services": {
     logoBadge: false,
     logoWordmark: "OLS Landscape Design & Construction",
+    photos: [
+      "/biz-photos/organic-landscape-services/hero.webp",
+      "/biz-photos/organic-landscape-services/landscape-design.webp",
+      "/biz-photos/organic-landscape-services/xeriscaping.webp",
+      "/biz-photos/organic-landscape-services/artificial-turf.webp",
+      "/biz-photos/organic-landscape-services/hardscaping.webp",
+      "/biz-photos/organic-landscape-services/irrigation.webp",
+      "/biz-photos/organic-landscape-services/maintenance.webp",
+    ],
+    services: [
+      { name: "Landscape Design & Installation", slug: "landscape-design", image: "/biz-photos/organic-landscape-services/landscape-design.webp", blurb: "We craft custom landscape designs and manage the full installation, bringing your outdoor vision to life with precision and creativity." },
+      { name: "Xeriscaping & Desert Landscaping", slug: "xeriscaping", image: "/biz-photos/organic-landscape-services/xeriscaping.webp", blurb: "Embrace the beauty of the desert with our water-efficient xeriscaping and desert landscaping solutions, perfectly suited for Arizona's climate." },
+      { name: "Artificial Turf Installation", slug: "artificial-turf", image: "/biz-photos/organic-landscape-services/artificial-turf.webp", blurb: "Enjoy a perpetually green, low-maintenance lawn with our professional artificial turf installation services." },
+      { name: "Paver Patios & Hardscaping", slug: "hardscaping", image: "/biz-photos/organic-landscape-services/hardscaping.webp", blurb: "Enhance your outdoor living with custom paver patios, walkways, and other hardscaping elements that add structure and appeal." },
+      { name: "Irrigation & Drip Systems", slug: "irrigation", image: "/biz-photos/organic-landscape-services/irrigation.webp", blurb: "Ensure your plants thrive with expertly designed and installed irrigation and drip systems for optimal water delivery." },
+      { name: "Lawn & Yard Maintenance", slug: "maintenance", image: "/biz-photos/organic-landscape-services/maintenance.webp", blurb: "Keep your outdoor space pristine and healthy with our comprehensive lawn and yard maintenance programs." },
+    ],
   },
   // az0067 M&N Complete Landscaping LLC — no logo. Nav = wordmark only, "M and N Complete
   // Landscaping" (designer's spelling, no badge). Live site (mnlandscapingaz.com) is down/parked,
@@ -6480,6 +7573,79 @@ const manual: Record<string, BusinessOverride> = {
       "/biz-photos/hunter-brothers-heating-and-ac/p1.webp",
       "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFvU9E-_8xAW8yUBPmq18-Y-I9WcdqbaIcWdkVctr66ilGIruBsrB2M4kNGDz_Xe8nbIGUgFcNPTlvMB0GbeZ9M2w5tkbEZ3Z8hvI3_WboK_YMUYRaBL_GjIK94XgnMpoRpl2bI=w800-h500-k-no",
     ],
+  },
+
+  // pl0008–pl0011 — verified Arizona pool-service lineups with original, explicitly bound imagery.
+  "aqua-harmony-pools": {
+    photos: ["/biz-photos/aqua-harmony-pools/hero.webp", "/biz-photos/aqua-harmony-pools/weekly-maintenance.webp", "/biz-photos/aqua-harmony-pools/equipment-repair.webp", "/biz-photos/aqua-harmony-pools/green-to-blue.webp", "/biz-photos/aqua-harmony-pools/filter-restoration.webp"],
+    services: [
+      { name: "Weekly Pool Maintenance", slug: "weekly-pool-maintenance", image: "/biz-photos/aqua-harmony-pools/weekly-maintenance.webp", blurb: "Scheduled cleaning, water testing and balancing, filter care, and equipment checks keep your pool swim-ready throughout the year." },
+      { name: "Pool Equipment Repairs", slug: "pool-equipment-repairs", image: "/biz-photos/aqua-harmony-pools/equipment-repair.webp", blurb: "Professional diagnosis and repair for pool pumps, filters, heaters, and other essential circulation equipment." },
+      { name: "Green-to-Blue Recovery", slug: "green-to-blue", image: "/biz-photos/aqua-harmony-pools/green-to-blue.webp", blurb: "Targeted treatment and thorough cleaning restore algae-affected water to a clear, healthy, inviting pool." },
+      { name: "Filter Cleaning & Pool Restoration", slug: "filter-cleaning-restoration", image: "/biz-photos/aqua-harmony-pools/filter-restoration.webp", blurb: "Detailed filter cleaning, tile care, and acid-wash restoration address buildup and refresh tired pool surfaces." },
+    ],
+  },
+  "aaa-pool-services": {
+    photos: ["/biz-photos/aaa-pool-services/hero.webp", "/biz-photos/aaa-pool-services/weekly-cleaning.webp", "/biz-photos/aaa-pool-services/equipment-install.webp", "/biz-photos/aaa-pool-services/green-cleanup.webp", "/biz-photos/aaa-pool-services/pool-inspection.webp"],
+    services: [
+      { name: "Weekly Full-Service Cleaning", slug: "weekly-pool-cleaning", image: "/biz-photos/aaa-pool-services/weekly-cleaning.webp", blurb: "Consistent cleaning and chemical care from certified technicians keeps Phoenix and Scottsdale pools clear and balanced." },
+      { name: "Pool Repair & Equipment Installation", slug: "pool-repair-equipment", image: "/biz-photos/aaa-pool-services/equipment-install.webp", blurb: "Repairs and new equipment installations for pumps, filters, heaters, and pool systems across brands and models." },
+      { name: "Green Pool Cleanup", slug: "green-pool-cleanup", image: "/biz-photos/aaa-pool-services/green-cleanup.webp", blurb: "An aggressive, carefully managed cleanup plan eliminates algae and restores neglected water to safe swimming condition." },
+      { name: "Pool Inspections", slug: "pool-inspections", image: "/biz-photos/aaa-pool-services/pool-inspection.webp", blurb: "Detailed equipment and condition inspections help prospective homeowners understand a pool before they buy." },
+    ],
+  },
+  "jstarr-pool-service-and-repair": {
+    photos: ["/biz-photos/jstarr-pool-service-and-repair/hero.webp", "/biz-photos/jstarr-pool-service-and-repair/monthly-service.webp", "/biz-photos/jstarr-pool-service-and-repair/green-to-clean.webp", "/biz-photos/jstarr-pool-service-and-repair/equipment-repair.webp", "/biz-photos/jstarr-pool-service-and-repair/tile-cleaning.webp"],
+    services: [
+      { name: "Monthly Pool Service", slug: "monthly-pool-service", image: "/biz-photos/jstarr-pool-service-and-repair/monthly-service.webp", blurb: "Customized maintenance includes cleaning, chemical balancing, and equipment checks for dependable Arizona pool care." },
+      { name: "Green to Clean", slug: "green-to-clean", image: "/biz-photos/jstarr-pool-service-and-repair/green-to-clean.webp", blurb: "Pool-recovery treatments remove algae and restore water clarity so your backyard oasis is ready to enjoy again." },
+      { name: "Equipment Maintenance, Repair & Upgrades", slug: "pool-equipment", image: "/biz-photos/jstarr-pool-service-and-repair/equipment-repair.webp", blurb: "Diagnosis, maintenance, repair, and upgrades keep pumps, filters, heaters, and related equipment working reliably." },
+      { name: "Calcium Removal & Tile Cleaning", slug: "calcium-tile-cleaning", image: "/biz-photos/jstarr-pool-service-and-repair/tile-cleaning.webp", blurb: "Specialized cleaning removes Arizona mineral buildup and refreshes the appearance of pool tile and waterlines." },
+    ],
+  },
+  "swimming-pool-service-and-repair": {
+    photos: ["/biz-photos/swimming-pool-service-and-repair/hero.webp", "/biz-photos/swimming-pool-service-and-repair/resurfacing-remodel.webp", "/biz-photos/swimming-pool-service-and-repair/equipment-pump.webp", "/biz-photos/swimming-pool-service-and-repair/plumbing-lighting.webp", "/biz-photos/swimming-pool-service-and-repair/heater-safety.webp"],
+    services: [
+      { name: "Pool Resurfacing & Remodeling", slug: "pool-resurfacing-remodeling", image: "/biz-photos/swimming-pool-service-and-repair/resurfacing-remodel.webp", blurb: "Resurfacing, tile work, and thoughtful renovations restore aging Phoenix pools and update their appearance." },
+      { name: "Pool Equipment & Pump Repair", slug: "pool-equipment-pump-repair", image: "/biz-photos/swimming-pool-service-and-repair/equipment-pump.webp", blurb: "Expert repair and replacement keeps pumps, filters, and essential pool equipment circulating efficiently." },
+      { name: "Pool Plumbing & Lighting", slug: "pool-plumbing-lighting", image: "/biz-photos/swimming-pool-service-and-repair/plumbing-lighting.webp", blurb: "Pool-specific plumbing repairs and lighting upgrades improve reliability, visibility, and enjoyment." },
+      { name: "Pool Heaters & Safety Equipment", slug: "pool-heaters-safety", image: "/biz-photos/swimming-pool-service-and-repair/heater-safety.webp", blurb: "Heater repair plus professionally installed handrails and safety equipment make the pool more comfortable and accessible." },
+    ],
+  },
+
+  // hv0010 Hobaica Services — Phoenix home-comfort company serving the Valley since 1952.
+  // Official Phoenix service lineup: air conditioning, heating, plumbing, drain/sewer,
+  // electrical, and water treatment. Original Arizona-specific imagery is explicitly bound.
+  "hobaica-services": {
+    photos: [
+      "/biz-photos/hobaica-services/hero.webp",
+      "/biz-photos/hobaica-services/air-conditioning.webp",
+      "/biz-photos/hobaica-services/heating.webp",
+      "/biz-photos/hobaica-services/plumbing.webp",
+      "/biz-photos/hobaica-services/drain-sewer.webp",
+      "/biz-photos/hobaica-services/electrical.webp",
+      "/biz-photos/hobaica-services/water-treatment.webp",
+    ],
+    services: [
+      { name: "Air Conditioning", slug: "air-conditioning", image: "/biz-photos/hobaica-services/air-conditioning.webp", blurb: "Emergency AC repair, preventive tune-ups, complete replacements, and ductwork services that keep Phoenix homes cool and efficient." },
+      { name: "Heating Services", slug: "heating-services", image: "/biz-photos/hobaica-services/heating.webp", blurb: "Furnace repair and maintenance, heating system replacement, and heat-pump service for dependable comfort on cool desert nights." },
+      { name: "Plumbing Services", slug: "plumbing-services", image: "/biz-photos/hobaica-services/plumbing.webp", blurb: "Licensed help for emergency plumbing, water heaters, and kitchen or bathroom plumbing, with same-day service available." },
+      { name: "Drain & Sewer", slug: "drain-sewer", image: "/biz-photos/hobaica-services/drain-sewer.webp", blurb: "Drain cleaning, sewer-line repair, camera inspections, and hydro-jetting that diagnose problems accurately and restore proper flow." },
+      { name: "Electrical Services", slug: "electrical-services", image: "/biz-photos/hobaica-services/electrical.webp", blurb: "Safe, code-compliant panel work, lighting, outlets, switches, ceiling fans, and other residential electrical solutions." },
+      { name: "Water Treatment", slug: "water-treatment", image: "/biz-photos/hobaica-services/water-treatment.webp", blurb: "Water softeners, filtration, reverse osmosis, and testing designed around Phoenix hard-water conditions and your family's needs." },
+    ],
+    generatedCopy: {
+      heroH1: "Phoenix Home Comfort, Covered Since 1952",
+      heroSubhead: "Cooling, heating, plumbing, drains, electrical, and water treatment from one family-operated Phoenix team available 24/7.",
+      aboutHeading: "The Most Likable People You'll Ever Meet",
+      aboutBody: [
+        "Hobaica Services has served Phoenix families since 1952, growing from a one-person refrigeration shop into a full home-comfort team while keeping the personal care of a family-operated business.",
+        "Our licensed professionals provide straightforward recommendations and upfront pricing across air conditioning, heating, plumbing, drain and sewer, electrical, and water-treatment work.",
+        "With same-day service available and 24/7 response, we are ready to protect the systems your home depends on through every Arizona season.",
+      ],
+      metaTitle: "Hobaica Services | Phoenix HVAC, Plumbing & Electrical",
+      metaDescription: "Hobaica Services provides 24/7 AC, heating, plumbing, drain, electrical, and water-treatment service across Phoenix, AZ. Serving the Valley since 1952.",
+    },
   },
 
   // hv0097 Bradford Heating and Cooling (bradfordheatcool.com — Surprise AZ, 4.8★/283). Same narrow directive as Hunter Brothers:
