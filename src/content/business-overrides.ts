@@ -71,6 +71,9 @@ const pestPhotos = (slug: string): string[] => [
 ];
 
 const manual: Record<string, BusinessOverride> = {
+  // (merged from branding branch) white-wordmark logos → forced dark nav
+  "outdoor-xscapes": { chromeDark: true },
+  "stonecreek-roofing": { chromeDark: true },
   // pc0011-pc0020 — original Arizona heroes plus a compatible pest-specialty photo library.
   "eco-valley-pest-control": {
     photos: ["/biz-photos/eco-valley-pest-control/hero-original.webp", "/biz-photos/eco-valley-pest-control/general.webp", "/biz-photos/eco-valley-pest-control/termite.webp", "/biz-photos/eco-valley-pest-control/mosquito.webp", "/biz-photos/eco-valley-pest-control/wildlife.webp"],
@@ -83,6 +86,7 @@ const manual: Record<string, BusinessOverride> = {
     ],
   },
   "rainbow-pest-control": {
+    logoBadge: false,
     photos: ["/biz-photos/rainbow-pest-control/hero-original.webp", "/biz-photos/rainbow-pest-control/ant.webp", "/biz-photos/rainbow-pest-control/scorpion.webp", "/biz-photos/rainbow-pest-control/rodent.webp"],
     services: [
       { name: "Ant Control", slug: "ant-control", image: "/biz-photos/rainbow-pest-control/ant.webp", blurb: "Precise ant identification and treatment addresses trails, entry points, and nesting activity." },
@@ -191,6 +195,7 @@ const manual: Record<string, BusinessOverride> = {
     services: pestServiceOverrides("cape-pest-control"),
   },
   "iron-mantis-pest-control": {
+    chromeDark: true,
     photos: pestPhotos("iron-mantis-pest-control"),
     services: pestServiceOverrides("iron-mantis-pest-control"),
   },
@@ -220,6 +225,7 @@ const manual: Record<string, BusinessOverride> = {
   },
   // pc0001–pc0010 pest-control image pass: unique heroes plus a vetted, specialty-matched service library.
   "urban-desert-pest-control": {
+    chromeDark: true,
     photos: ["/biz-photos/urban-desert-pest-control/hero.webp", "/biz-photos/urban-desert-pest-control/termite-control.webp", "/biz-photos/urban-desert-pest-control/rodent-control.webp", "/biz-photos/urban-desert-pest-control/scorpion-control.webp", "/biz-photos/urban-desert-pest-control/mosquito-control.webp", "/biz-photos/urban-desert-pest-control/weed-treatment.webp", "/biz-photos/urban-desert-pest-control/bed-bug-control.webp"],
     services: [
       { name: "Termite Control", slug: "termite-control", image: "/biz-photos/urban-desert-pest-control/termite-control.webp", blurb: "Comprehensive termite treatment designed to protect your home from hidden structural damage." },
@@ -358,6 +364,7 @@ const manual: Record<string, BusinessOverride> = {
   },
   // pl0032 Arizona Pool Service — official extracted maintenance and repair lineup.
   "arizona-pool-service": {
+    logoBadge: false, logoWordmark: "Arizona Pool Service",
     photos: [
       "/biz-photos/arizona-pool-service/hero.webp", "/biz-photos/arizona-pool-service/weekly-pool-service.webp", "/biz-photos/arizona-pool-service/green-pool-cleanup.webp", "/biz-photos/arizona-pool-service/acid-washes-and-tile-cleans.webp", "/biz-photos/arizona-pool-service/equipment-installation.webp", "/biz-photos/arizona-pool-service/filter-cleaning.webp",
     ],
@@ -409,6 +416,7 @@ const manual: Record<string, BusinessOverride> = {
   },
   // pl0021 Blue Tide Pool Care — services limited to work documented consistently in customer reviews.
   "blue-tide-pool-care": {
+    logoBadge: false, logoWordmark: "Blue Tide Pool Care", logoScale: 1.4,
     photos: [
       "/biz-photos/blue-tide-pool-care/hero.webp", "/biz-photos/blue-tide-pool-care/weekly-service.webp",
       "/biz-photos/blue-tide-pool-care/pool-repair.webp", "/biz-photos/blue-tide-pool-care/equipment-maintenance.webp",
@@ -501,6 +509,7 @@ const manual: Record<string, BusinessOverride> = {
     ],
   },
   "larimar-pool-services": {
+    chromeDark: true,
     photos: ["/biz-photos/larimar-pool-services/hero.webp", "/biz-photos/larimar-pool-services/weekly-maintenance.webp", "/biz-photos/larimar-pool-services/filter-cleaning.webp", "/biz-photos/larimar-pool-services/equipment-repair.webp"],
     services: [
       { name: "Weekly Pool Maintenance", slug: "weekly-pool-maintenance", image: "/biz-photos/larimar-pool-services/weekly-maintenance.webp", blurb: "Dependable weekly cleaning and water care keeps residential pools balanced, clear, and ready to enjoy." },
@@ -584,6 +593,7 @@ const manual: Record<string, BusinessOverride> = {
     ],
   },
   "pelican-pools-llc": {
+    chromeDark: true,
     showAllServices: true,
     photos: [
       "/biz-photos/pelican-pools-llc/hero.webp",
@@ -612,6 +622,7 @@ const manual: Record<string, BusinessOverride> = {
     ],
   },
   "baker-pool-maintenance-llc": {
+    logoBadge: false, logoWordmark: "Baker Pool Maintenance",
     photos: ["/biz-photos/baker-pool-maintenance-llc/hero.webp", "/biz-photos/baker-pool-maintenance-llc/pool-drain.webp", "/biz-photos/baker-pool-maintenance-llc/chlorine-wash.webp", "/biz-photos/baker-pool-maintenance-llc/acid-wash.webp", "/biz-photos/baker-pool-maintenance-llc/filter-clean.webp", "/biz-photos/baker-pool-maintenance-llc/diagnostic-visit.webp"],
     services: [
       { name: "Pool Drain", slug: "pool-drain", image: "/biz-photos/baker-pool-maintenance-llc/pool-drain.webp", blurb: "A professional pool drain lets you start fresh with new water and properly balanced chemicals." },
@@ -632,6 +643,7 @@ const manual: Record<string, BusinessOverride> = {
     ],
   },
   "can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install": {
+    logoBadge: false, logoWordmark: "Can You Fix My Pool",
     name: "Can You Fix My Pool LLC",
     yearsInBusiness: 25,
     photos: ["/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/hero.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/cleaning-services.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/equipment-repair.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/salt-water-conversion.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/tile-cleaning.webp", "/biz-photos/can-you-fix-my-pool-llc-heaters-pumps-filters-repair-install/green-pool-cleanup.webp"],
@@ -645,6 +657,7 @@ const manual: Record<string, BusinessOverride> = {
   },
   // pl0002 Hollywood Pools — official extracted lineup with a dedicated original image per service.
   "phoenix-pool-service-hollywood-pools": {
+    chromeDark: true,
     photos: [
       "/biz-photos/phoenix-pool-service-hollywood-pools/hero.webp",
       "/biz-photos/phoenix-pool-service-hollywood-pools/pool-pump-repairs.webp",
@@ -661,6 +674,7 @@ const manual: Record<string, BusinessOverride> = {
   },
   // pl0005 K&K Pool Service — parked domain, so services are limited to work repeatedly documented in reviews.
   "kandk-pool-service": {
+    logoBadge: false, logoWordmark: "K&K Pool Service",
     name: "K&K Pool Service",
     photos: [
       "/biz-photos/kandk-pool-service/hero.webp",
@@ -745,6 +759,7 @@ const manual: Record<string, BusinessOverride> = {
     ],
   },
   "tropical-pool-services": {
+    logoBadge: false, logoWordmark: "Tropical Pool Services",
     photos: [
       "/biz-photos/tropical-pool-services/hero.webp",
       "/biz-photos/tropical-pool-services/repair.webp",
@@ -757,6 +772,7 @@ const manual: Record<string, BusinessOverride> = {
     ],
   },
   "blue-clover-pool-service": {
+    logoBadge: false, logoWordmark: "Blue Clover Pool Service", logoScale: 1.4,
     photos: [
       "/biz-photos/blue-clover-pool-service/hero.webp",
       "/biz-photos/blue-clover-pool-service/repair.webp",
@@ -826,6 +842,7 @@ const manual: Record<string, BusinessOverride> = {
   // grounded in matched historical listings and customer reports. Replace the single remote photo with
   // a cohesive Chandler roofing set and explicitly bind every card to the work it describes.
   "1-desert-roofing": {
+    logoBadge: false, logoWordmark: "#1 Desert Roofing",
     photos: [
       "/biz-photos/1-desert-roofing/hero.webp",
       "/biz-photos/1-desert-roofing/roof-replacement.webp",
@@ -970,6 +987,7 @@ const manual: Record<string, BusinessOverride> = {
   // maintenance company, not a design/build contractor. Replace the generic demo pool with a cohesive
   // Phoenix maintenance set and bind each grounded service to its matching original image.
   "paradise-green-landscaping-llc": {
+    logoBadge: false, logoWordmark: "Paradise Green Landscaping",
     photos: [
       "/biz-photos/paradise-green-landscaping-llc/hero.webp",
       "/biz-photos/paradise-green-landscaping-llc/yard-maintenance.webp",
@@ -1006,6 +1024,7 @@ const manual: Record<string, BusinessOverride> = {
   // Phoenix design/build set. The hero is a completed dusk backyard; every service is explicitly bound to
   // its matching project image so cards and service-detail pages stay semantically accurate.
   "descendants-landscaping": {
+    logoBadge: false, logoWordmark: "Descendants Landscaping", logoScale: 1.4,
     photos: [
       "/biz-photos/descendants-landscaping/hero.webp",
       "/biz-photos/descendants-landscaping/landscape-design.webp",
