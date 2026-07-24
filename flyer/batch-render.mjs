@@ -37,7 +37,8 @@ const ONLY = args.slug ? String(args.slug) : null;
 
 // ── CSV ──
 function parseCsv(txt){const R=[];let r=[],f='',q=false;for(let i=0;i<txt.length;i++){const c=txt[i];if(q){if(c=='"'){if(txt[i+1]=='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c=='"')q=true;else if(c==','){r.push(f);f='';}else if(c=='\n'){r.push(f);R.push(r);r=[];f='';}else if(c!='\r')f+=c;}if(f.length||r.length){r.push(f);R.push(r);}return R;}
-const rows = parseCsv(fs.readFileSync(path.join(__dirname,'lob-batch1-2026-07-09.csv'),'utf8').trim());
+const CSV_FILE = args.csv ? (path.isAbsolute(args.csv)?args.csv:path.join(__dirname,args.csv)) : path.join(__dirname,'lob-batch1-2026-07-09.csv');
+const rows = parseCsv(fs.readFileSync(CSV_FILE,'utf8').trim());
 const hdr = rows[0]; const col=(n)=>hdr.indexOf(n);
 const SKIP = !!args['skip-existing'];
 const both = (slug)=>fs.existsSync(path.join(OUT_FLYERS,`${slug}-front.png`)) && fs.existsSync(path.join(OUT_FLYERS,`${slug}-back.png`));

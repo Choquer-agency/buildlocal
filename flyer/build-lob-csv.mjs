@@ -14,8 +14,8 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const BASE = "https://demo.buildlocal.agency";
-const SRC = path.join(__dirname, "lob-batch1-2026-07-09.csv");
-const OUT = path.join(__dirname, "lob-upload-batch1.csv");
+const SRC = path.join(__dirname, process.env.SRC_CSV || "lob-batch1-2026-07-09.csv");
+const OUT = path.join(__dirname, process.env.OUT_CSV || "lob-upload-batch1.csv");
 
 function parseCsv(t){const R=[];let r=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c=='"')q=true;else if(c==','){r.push(f);f='';}else if(c=='\n'){r.push(f);R.push(r);r=[];f='';}else if(c!='\r')f+=c;}if(f.length||r.length){r.push(f);R.push(r);}return R;}
 const cell=(v)=>/[",\n]/.test(String(v??''))?`"${String(v).replace(/"/g,'""')}"`:String(v??'');
