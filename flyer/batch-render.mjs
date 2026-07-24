@@ -82,11 +82,18 @@ for(const b of biz){
       // retry once (handles a transient dev recompile 404/500). Keeps existing new.jpg on failure.
       const capture = async () => {
         await capPage.setViewportSize({width:1440,height:900});  // natural hero (100svh = 900px)
-        const resp = await capPage.goto(`${DEV}/p/${b.slug}`,{waitUntil:'domcontentloaded',timeout:20000});
+        const resp = await capPage.goto(`${DEV}/p/${b.slug}`,{waitUntil:'networkidle',timeout:25000});
         if(resp && resp.status()>=400) throw new Error('status '+resp.status());
-        await capPage.waitForTimeout(1000);
-        await capPage.evaluate(async()=>{ for(let y=0;y<=3000;y+=600){ window.scrollTo(0,y); await new Promise(r=>setTimeout(r,120)); } window.scrollTo(0,0); });
-        await capPage.waitForTimeout(400);
+        await capPage.waitForTimeout(1500);
+        // scroll through to trigger lazy sections + their fonts/styles, then settle at top
+        await capPage.evaluate(async()=>{ for(let y=0;y<=3500;y+=500){ window.scrollTo(0,y); await new Promise(r=>setTimeout(r,180)); } window.scrollTo(0,0); });
+        await capPage.evaluate(()=>document.fonts && document.fonts.ready).catch(()=>{});
+        await capPage.waitForTimeout(700);
+        // fullPage screenshots mis-place position:fixed navs (they stick to a scroll
+        // position mid-page). Pin the fixed header to the top of the document so it
+        // renders over the hero as it does live.
+        await capPage.addStyleTag({content:'header[class*="fixed"]{position:absolute!important;top:1rem!important;}'});
+        await capPage.waitForTimeout(150);
         const full = await capPage.screenshot({fullPage:true, type:'png'});
         const meta = await sharp(full).metadata();
         await sharp(full).extract({left:0, top:0, width:1440, height:Math.min(NEW_H, meta.height)})
