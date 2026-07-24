@@ -34,6 +34,7 @@ const LIMIT = args.limit ? parseInt(args.limit,10) : Infinity;
 const NO_CAPTURE = !!args['no-capture'];              // reuse existing new.jpg
 const SIDES = args.side ? [args.side] : ['front','back'];  // --side=back to re-render only backs
 const ONLY = args.slug ? String(args.slug) : null;
+const ONLYSET = args.slugfile ? new Set(fs.readFileSync(args.slugfile,'utf8').split('\n').map(s=>s.trim()).filter(Boolean)) : null;
 
 // ── CSV ──
 function parseCsv(txt){const R=[];let r=[],f='',q=false;for(let i=0;i<txt.length;i++){const c=txt[i];if(q){if(c=='"'){if(txt[i+1]=='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c=='"')q=true;else if(c==','){r.push(f);f='';}else if(c=='\n'){r.push(f);R.push(r);r=[];f='';}else if(c!='\r')f+=c;}if(f.length||r.length){r.push(f);R.push(r);}return R;}
@@ -76,6 +77,7 @@ let done=0, failed=[];
 for(const b of biz){
   try{
     if(ONLY && b.slug!==ONLY) continue;
+    if(ONLYSET && !ONLYSET.has(b.slug)) continue;
     // 1) fresh NEW-site screenshot (portrait 1440x1800 from the top of the rebranded site)
     if(!NO_CAPTURE){
       // per-page hard timeout so one slow/broken page never hangs the whole batch;
