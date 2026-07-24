@@ -46,6 +46,49 @@ function pestPhotoOverride(slug: string, services: OverrideService[]): BusinessO
   };
 }
 
+function poolSharedOverride(): BusinessOverride {
+  const services: BusinessProfile["services"] = [
+    { name: "Weekly Pool Service", slug: "pool-service", image: "/biz-photos/pool-shared/pool-service.webp", blurb: "Reliable weekly cleaning, water testing, chemical balancing, and equipment checks that keep your pool clear and ready to enjoy." },
+    { name: "Pool Repair", slug: "pool-repair", image: "/biz-photos/pool-shared/pool-repair.webp", blurb: "Accurate diagnostics and dependable repairs for pumps, filters, plumbing, heaters, automation, and other pool systems." },
+    { name: "Equipment Installation", slug: "equipment", image: "/biz-photos/pool-shared/equipment.webp", blurb: "Professional installation of modern, energy-efficient pumps, filters, heaters, sanitizers, and pool-control equipment." },
+    { name: "Pool Remodeling", slug: "remodeling", image: "/biz-photos/pool-shared/remodeling.webp", blurb: "Refresh an aging pool with new interior finishes, waterline tile, coping, decking, lighting, and updated features." },
+    { name: "Green-to-Clean", slug: "green-to-clean", image: "/biz-photos/pool-shared/green-to-clean.webp", blurb: "Targeted cleanup and water treatment that restores neglected or algae-filled pools to clean, balanced swimming conditions." },
+    { name: "Pool Inspections", slug: "inspection", image: "/biz-photos/pool-shared/inspection.webp", blurb: "Thorough inspections of the pool structure, water quality, equipment, plumbing, safety features, and visible wear." },
+  ];
+  return {
+    showAllServices: true,
+    services,
+    photos: [
+      "/biz-photos/pool-shared/hero.webp",
+      ...services.map((service) => service.image!),
+    ],
+  };
+}
+
+function pestSharedOverride(): BusinessOverride {
+  const services: BusinessProfile["services"] = [
+    { name: "General Pest Control", slug: "pest-control", image: "/biz-photos/pest-shared/general.webp", blurb: "Targeted exterior and interior pest control for common household insects, spiders, and seasonal invaders." },
+    { name: "Scorpion Control", slug: "scorpion-control", image: "/biz-photos/pest-shared/scorpion.webp", blurb: "Arizona-focused inspections and treatments that reduce scorpion activity around foundations, walls, and entry points." },
+    { name: "Termite Control", slug: "termite-control", image: "/biz-photos/pest-shared/termite.webp", blurb: "Detailed termite inspections and property-appropriate treatment designed to protect vulnerable structures." },
+    { name: "Rodent Control", slug: "rodent-control", image: "/biz-photos/pest-shared/rodent.webp", blurb: "Rodent inspection, removal, exclusion, and monitoring that addresses entry points and recurring activity." },
+    { name: "Bed Bug Treatment", slug: "bed-bug", image: "/biz-photos/pest-shared/bedbug.webp", blurb: "Careful bed bug inspection and targeted treatment for affected sleeping areas, furniture, and adjoining spaces." },
+    { name: "Weed & Bee Control", slug: "weed-bee", image: "/biz-photos/pest-shared/weed.webp", blurb: "Focused weed management and careful control of problematic bee or wasp activity around the property." },
+  ];
+  return {
+    showAllServices: true,
+    services,
+    photos: [
+      "/biz-photos/pest-shared/general.webp",
+      "/biz-photos/pest-shared/scorpion.webp",
+      "/biz-photos/pest-shared/termite.webp",
+      "/biz-photos/pest-shared/rodent.webp",
+      "/biz-photos/pest-shared/bedbug.webp",
+      "/biz-photos/pest-shared/weed.webp",
+      "/biz-photos/pest-shared/commercial.webp",
+    ],
+  };
+}
+
 /**
  * MANUAL touch-ups (copy, font, services, name). Edit this object by hand.
  * Image/logo paths are managed automatically in asset-overrides.json by
@@ -71,6 +114,22 @@ const pestPhotos = (slug: string): string[] => [
 ];
 
 const manual: Record<string, BusinessOverride> = {
+  // Shared photorealistic service libraries for pool and pest businesses whose
+  // scraped records contain no usable photos. Each service is bound to its own
+  // relevant image; photos[0] supplies the hero and the remaining section slots.
+  "aloha-desert-pool-service-of-gilbert": poolSharedOverride(),
+  "arizona-quality-pool-service-and-repair-llc": poolSharedOverride(),
+  "ph-balanced-pool-service": poolSharedOverride(),
+  "rnr-service-solutions": poolSharedOverride(),
+  "scottsdale-pool-service-and-repair": poolSharedOverride(),
+  "priority-pool-service": poolSharedOverride(),
+  "pool-pilots-pool-service-and-repair": poolSharedOverride(),
+  "paradise-pool": poolSharedOverride(),
+  "orkin": pestSharedOverride(),
+  "cape-pest-control-gilbert": pestSharedOverride(),
+  "terminix": pestSharedOverride(),
+  "pest-control-solutions": pestSharedOverride(),
+
   // (merged from branding branch) white-wordmark logos → forced dark nav
   "outdoor-xscapes": { chromeDark: true },
   "stonecreek-roofing": { chromeDark: true },

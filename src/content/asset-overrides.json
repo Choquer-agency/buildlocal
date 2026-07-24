@@ -13835,32 +13835,38 @@
       {
         "name": "Landscaping",
         "slug": "landscaping",
-        "blurb": "Transform your Phoenix property with sustainable, desert-friendly landscaping using native plants and innovative designs for beauty and functionality."
+        "blurb": "Transform your Phoenix property with sustainable, desert-friendly landscaping using native plants and innovative designs for beauty and functionality.",
+        "image": "/biz-photos/outdoor-xscapes/landscape-design.webp"
       },
       {
         "name": "Pool Design",
         "slug": "pool-design",
-        "blurb": "Transform your Phoenix backyard into a luxurious oasis with our custom, energy-efficient pool designs that blend beauty and functionality."
+        "blurb": "Transform your Phoenix backyard into a luxurious oasis with our custom, energy-efficient pool designs that blend beauty and functionality.",
+        "image": "/biz-photos/outdoor-xscapes/pool-design.webp"
       },
       {
         "name": "Pool Installation",
         "slug": "pool-installation",
-        "blurb": "Experience seamless pool installation with our expert team, using durable materials for Phoenix’s climate to ensure lasting beauty."
+        "blurb": "Experience seamless pool installation with our expert team, using durable materials for Phoenix’s climate to ensure lasting beauty.",
+        "image": "/biz-photos/outdoor-xscapes/pool-installation.webp"
       },
       {
         "name": "Pool Remodeling",
         "slug": "pool-remodeling",
-        "blurb": "Transform your pool with our expert remodeling services, updating its style and adding custom features to enhance aesthetics."
+        "blurb": "Transform your pool with our expert remodeling services, updating its style and adding custom features to enhance aesthetics.",
+        "image": "/biz-photos/outdoor-xscapes/pool-remodeling.webp"
       },
       {
         "name": "Hardscaping",
         "slug": "hardscaping",
-        "blurb": "Transform your Phoenix property with custom hardscaping, including patios and pathways designed to enhance beauty and durability."
+        "blurb": "Transform your Phoenix property with custom hardscaping, including patios and pathways designed to enhance beauty and durability.",
+        "image": "/biz-photos/outdoor-xscapes/hardscaping.webp"
       },
       {
         "name": "Artificial Grass",
         "slug": "artificial-grass",
-        "blurb": "Elevate your Phoenix landscape with premium artificial grass, offering a vibrant, low-maintenance lawn that withstands heat and heavy use."
+        "blurb": "Elevate your Phoenix landscape with premium artificial grass, offering a vibrant, low-maintenance lawn that withstands heat and heavy use.",
+        "image": "/biz-photos/outdoor-xscapes/artificial-turf.webp"
       }
     ],
     "generatedCopy": {
@@ -13872,7 +13878,18 @@
     "yearsInBusiness": 17,
     "logo": "/biz-photos/outdoor-xscapes/logo.webp",
     "brandColor": "#ffe45e",
-    "photos": []
+    "photos": [
+      "/biz-photos/outdoor-xscapes/hero-pool-oasis.webp",
+      "/biz-photos/outdoor-xscapes/landscape-design.webp",
+      "/biz-photos/outdoor-xscapes/pool-design.webp",
+      "/biz-photos/outdoor-xscapes/pool-installation.webp",
+      "/biz-photos/outdoor-xscapes/pool-remodeling.webp",
+      "/biz-photos/outdoor-xscapes/hardscaping.webp",
+      "/biz-photos/outdoor-xscapes/xeriscaping.webp",
+      "/biz-photos/outdoor-xscapes/artificial-turf.webp",
+      "/biz-photos/outdoor-xscapes/irrigation.webp",
+      "/biz-photos/outdoor-xscapes/maintenance.webp"
+    ]
   },
   "overson-roofing": {
     "services": [
