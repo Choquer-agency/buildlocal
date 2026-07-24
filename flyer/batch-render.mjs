@@ -28,6 +28,9 @@ fs.mkdirSync(OUT_FLYERS, { recursive: true });
 
 const args = Object.fromEntries(process.argv.slice(2).map((a) => { const [k,v]=a.replace(/^--/,'').split('='); return [k, v??true]; }));
 const LIMIT = args.limit ? parseInt(args.limit,10) : Infinity;
+const NO_CAPTURE = !!args['no-capture'];              // reuse existing new.jpg
+const SIDES = args.side ? [args.side] : ['front','back'];  // --side=back to re-render only backs
+const ONLY = args.slug ? String(args.slug) : null;
 
 // ── CSV ──
 function parseCsv(txt){const R=[];let r=[],f='',q=false;for(let i=0;i<txt.length;i++){const c=txt[i];if(q){if(c=='"'){if(txt[i+1]=='"'){f+='"';i++;}else q=false;}else f+=c;}else if(c=='"')q=true;else if(c==','){r.push(f);f='';}else if(c=='\n'){r.push(f);R.push(r);r=[];f='';}else if(c!='\r')f+=c;}if(f.length||r.length){r.push(f);R.push(r);}return R;}
@@ -68,8 +71,9 @@ const flyerPage=await browser.newContext({viewport:{width:W,height:H},deviceScal
 let done=0, failed=[];
 for(const b of biz){
   try{
+    if(ONLY && b.slug!==ONLY) continue;
     // 1) fresh NEW-site screenshot (portrait 1440x1800 from the top of the rebranded site)
-    try{
+    if(!NO_CAPTURE) try{
       await capPage.setViewportSize({width:1440,height:900});
       await capPage.goto(`${DEV}/p/${b.slug}`,{waitUntil:'networkidle',timeout:30000});
       await capPage.waitForTimeout(1800);
@@ -80,7 +84,8 @@ for(const b of biz){
     const vars={ business_name:b.name, deserves_line:b.deserves, headline_font:b.font, qr_image_url:qr,
       old_shot_url:(b.hasOld && shot(`${b.slug}-old.jpg`))||noWebsite, new_shot_url:shot(`${b.slug}-new.jpg`)||'' };
 
-    for(const [side,tpl] of [['front',frontTpl],['back',backTpl]]){
+    const tpls={front:frontTpl,back:backTpl};
+    for(const side of SIDES){ const tpl=tpls[side];
       const html=fill(inlineAssets(tpl),vars);
       const tmp=path.join(__dirname,`_bf-${side}.html`); fs.writeFileSync(tmp,html);
       await flyerPage.goto('file://'+tmp,{waitUntil:'networkidle',timeout:30000});
