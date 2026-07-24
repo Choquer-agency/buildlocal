@@ -17,11 +17,14 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import QRCode from "qrcode";
+import sharp from "sharp";
+
+const NEW_H = 2000; // px of the site to show on the New card (hero + 1-2 sections)
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const BASE = "https://demo.buildlocal.agency";     // what the QR encodes
-const DEV = "http://localhost:7790";               // where we capture rebranded sites
+const DEV = process.env.CAP_BASE || "http://localhost:7790"; // fast local dev (warm)
 const OUT_FLYERS = path.join(ROOT, "public", "m", "flyers");
 const OUT_SHOTS = path.join(ROOT, "public", "m");
 fs.mkdirSync(OUT_FLYERS, { recursive: true });
@@ -73,12 +76,25 @@ for(const b of biz){
   try{
     if(ONLY && b.slug!==ONLY) continue;
     // 1) fresh NEW-site screenshot (portrait 1440x1800 from the top of the rebranded site)
-    if(!NO_CAPTURE) try{
-      await capPage.setViewportSize({width:1440,height:900});
-      await capPage.goto(`${DEV}/p/${b.slug}`,{waitUntil:'networkidle',timeout:30000});
-      await capPage.waitForTimeout(1800);
-      await capPage.screenshot({path:path.join(OUT_SHOTS,`${b.slug}-new.jpg`),clip:{x:0,y:0,width:1440,height:1800},type:'jpeg',quality:88});
-    }catch(e){ /* keep any existing new.jpg */ }
+    if(!NO_CAPTURE){
+      // per-page hard timeout so one slow/broken page never hangs the whole batch;
+      // retry once (handles a transient dev recompile 404/500). Keeps existing new.jpg on failure.
+      const capture = async () => {
+        await capPage.setViewportSize({width:1440,height:900});  // natural hero (100svh = 900px)
+        const resp = await capPage.goto(`${DEV}/p/${b.slug}`,{waitUntil:'domcontentloaded',timeout:20000});
+        if(resp && resp.status()>=400) throw new Error('status '+resp.status());
+        await capPage.waitForTimeout(1000);
+        await capPage.evaluate(async()=>{ for(let y=0;y<=3000;y+=600){ window.scrollTo(0,y); await new Promise(r=>setTimeout(r,120)); } window.scrollTo(0,0); });
+        await capPage.waitForTimeout(400);
+        const full = await capPage.screenshot({fullPage:true, type:'png'});
+        const meta = await sharp(full).metadata();
+        await sharp(full).extract({left:0, top:0, width:1440, height:Math.min(NEW_H, meta.height)})
+          .jpeg({quality:86}).toFile(path.join(OUT_SHOTS,`${b.slug}-new.jpg`));
+      };
+      const withTimeout = (p,ms)=>Promise.race([p, new Promise((_,r)=>setTimeout(()=>r(new Error('timeout')),ms))]);
+      try { await withTimeout(capture(),30000); }
+      catch(e){ try { await withTimeout(capture(),30000); } catch(e2){ failed.push(`${b.slug} capture: ${e2.message}`); } }
+    }
 
     const qr=await qrUri(b.code);
     const vars={ business_name:b.name, deserves_line:b.deserves, headline_font:b.font, qr_image_url:qr,
