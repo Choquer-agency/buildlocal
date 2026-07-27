@@ -2,9 +2,7 @@
   "pristine-green-llc-landscaping": {
     "status": "new",
     "buildStage": "customized",
-    "scans": [
-      "2026-06-02T21:45:58.233Z"
-    ],
+    "scans": [],
     "updatedAt": "2026-06-02T21:49:18.989Z",
     "themeOverride": {
       "accent": "#1f9d55"
@@ -21,31 +19,15 @@
     "updatedAt": "2026-06-02T21:48:59.138Z"
   },
   "divine-design-landscaping": {
-    "status": "scanned",
+    "status": "new",
     "buildStage": "template",
-    "scans": [
-      "2026-06-02T23:14:23.641Z"
-    ],
-    "activity": [
-      {
-        "ts": "2026-06-02T23:14:23.642Z",
-        "label": "QR scanned ⚡"
-      }
-    ],
+    "scans": [],
     "updatedAt": "2026-06-02T23:14:23.642Z"
   },
   "always-green-turf-az": {
-    "status": "scanned",
+    "status": "new",
     "buildStage": "template",
-    "scans": [
-      "2026-06-02T23:16:32.351Z"
-    ],
-    "activity": [
-      {
-        "ts": "2026-06-02T23:16:32.351Z",
-        "label": "QR scanned ⚡"
-      }
-    ],
+    "scans": [],
     "updatedAt": "2026-06-02T23:16:32.351Z"
   }
 }
