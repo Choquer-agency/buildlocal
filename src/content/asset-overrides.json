@@ -2230,7 +2230,8 @@
         "With a variety of swimming pool service companies to choose from, Arizona Quality Pool Service, Repair and Landscape strives to stand out by cleaning the dirty and fixing the broken, ensuring your pool and landscape needs are met with excellence."
       ]
     },
-    "photos": []
+    "photos": [],
+    "brandColor": "#628FCD"
   },
   "arizona-roof-rescue": {
     "services": [
@@ -13777,7 +13778,8 @@
       ]
     },
     "photos": [],
-    "logo": "/biz-photos/orkin/logo.webp"
+    "logo": "/biz-photos/orkin/logo.webp",
+    "brandColor": "#BB2A36"
   },
   "orkin-glendale": {
     "services": [
@@ -14057,7 +14059,8 @@
       ]
     },
     "photos": [],
-    "logo": "/biz-photos/paradise-pool/logo.webp"
+    "logo": "/biz-photos/paradise-pool/logo.webp",
+    "brandColor": "#7BC3D9"
   },
   "parker-and-sons": {
     "generatedCopy": {},
@@ -14263,7 +14266,9 @@
     },
     "yearsInBusiness": 9,
     "photos": [],
-    "logo": "/biz-photos/pest-control-solutions/logo.webp"
+    "logo": "/biz-photos/pest-control-solutions/logo.webp",
+    "brandColor": "#C54947",
+    "brandColor2": "#502324"
   },
   "phillip-s-landscaping-services": {
     "services": [
@@ -15018,7 +15023,8 @@
       ]
     },
     "photos": [],
-    "logo": "/biz-photos/pool-pilots-pool-service-and-repair/logo.webp"
+    "logo": "/biz-photos/pool-pilots-pool-service-and-repair/logo.webp",
+    "brandColor": "#65DBE4"
   },
   "pool-service-gilbert": {
     "logo": "/biz-photos/pool-service-gilbert/logo.webp",
@@ -15457,7 +15463,8 @@
     },
     "yearsInBusiness": 20,
     "photos": [],
-    "logo": "/biz-photos/priority-pool-service/logo.webp"
+    "logo": "/biz-photos/priority-pool-service/logo.webp",
+    "brandColor": "#5CBFD7"
   },
   "priority-pool-service-scottsdale": {
     "services": [
@@ -17144,7 +17151,8 @@
       ]
     },
     "photos": [],
-    "logo": "/biz-photos/scottsdale-pool-service-and-repair/logo.webp"
+    "logo": "/biz-photos/scottsdale-pool-service-and-repair/logo.webp",
+    "brandColor": "#459AF7"
   },
   "scottsdale-pool-service-and-repair-scottsdale": {
     "services": [
@@ -18674,7 +18682,9 @@
   "terminix": {
     "generatedCopy": {},
     "photos": [],
-    "logo": "/biz-photos/terminix/logo.webp"
+    "logo": "/biz-photos/terminix/logo.webp",
+    "brandColor": "#051556",
+    "brandColor2": "#51AB52"
   },
   "terminix-glendale": {
     "generatedCopy": {},
@@ -20568,9 +20578,14 @@
     "brandColor2": "#cea449"
   },
   "aloha-desert-pool-service-of-gilbert": {
-    "logo": "/biz-photos/aloha-desert-pool-service-of-gilbert/logo.webp"
+    "logo": "/biz-photos/aloha-desert-pool-service-of-gilbert/logo.webp",
+    "brandColor": "#47165D"
   },
   "cape-pest-control-gilbert": {
-    "logo": "/biz-photos/cape-pest-control-gilbert/logo.webp"
+    "logo": "/biz-photos/cape-pest-control-gilbert/logo.webp",
+    "brandColor": "#3D473E"
+  },
+  "ph-balanced-pool-service": {
+    "brandColor": "#7AABF8"
   }
 }
