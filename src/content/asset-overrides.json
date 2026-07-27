@@ -13776,7 +13776,8 @@
         "The Orkin Difference is built on expert training, environmental responsibility, a commitment to education, and community involvement, ensuring comprehensive and thoughtful pest management."
       ]
     },
-    "photos": []
+    "photos": [],
+    "logo": "/biz-photos/orkin/logo.webp"
   },
   "orkin-glendale": {
     "services": [
@@ -14055,7 +14056,8 @@
         "Our Clear Water promise means we don't just clean your pool; we proactively protect it, focusing on consistency of service even through harsh Arizona summers and monsoons. We are licensed and insured, offering reliable support and fast, responsive customer service to ensure peace of mind for all Scottsdale pool owners."
       ]
     },
-    "photos": []
+    "photos": [],
+    "logo": "/biz-photos/paradise-pool/logo.webp"
   },
   "parker-and-sons": {
     "generatedCopy": {},
@@ -14260,7 +14262,8 @@
       ]
     },
     "yearsInBusiness": 9,
-    "photos": []
+    "photos": [],
+    "logo": "/biz-photos/pest-control-solutions/logo.webp"
   },
   "phillip-s-landscaping-services": {
     "services": [
@@ -15014,7 +15017,8 @@
         "Our mission is to make pool care easy and predictable for homeowners in the Phoenix metro area. We specialize in proper cleaning, accurate water chemistry, and early problem detection to keep pools looking great and prevent costly repairs. Homeowners trust Pool Pilots because we show up on schedule, communicate clearly, treat backyards with respect, fix issues correctly the first time, and price our services fairly and transparently."
       ]
     },
-    "photos": []
+    "photos": [],
+    "logo": "/biz-photos/pool-pilots-pool-service-and-repair/logo.webp"
   },
   "pool-service-gilbert": {
     "logo": "/biz-photos/pool-service-gilbert/logo.webp",
@@ -15452,7 +15456,8 @@
       ]
     },
     "yearsInBusiness": 20,
-    "photos": []
+    "photos": [],
+    "logo": "/biz-photos/priority-pool-service/logo.webp"
   },
   "priority-pool-service-scottsdale": {
     "services": [
@@ -17138,7 +17143,8 @@
         "We pride ourselves on meticulous service, providing before & after photos at every visit. Our goal is to take care of your pool investment so you can focus on relaxation."
       ]
     },
-    "photos": []
+    "photos": [],
+    "logo": "/biz-photos/scottsdale-pool-service-and-repair/logo.webp"
   },
   "scottsdale-pool-service-and-repair-scottsdale": {
     "services": [
@@ -18667,7 +18673,8 @@
   },
   "terminix": {
     "generatedCopy": {},
-    "photos": []
+    "photos": [],
+    "logo": "/biz-photos/terminix/logo.webp"
   },
   "terminix-glendale": {
     "generatedCopy": {},
@@ -20559,5 +20566,11 @@
     ],
     "brandColor": "#163c25",
     "brandColor2": "#cea449"
+  },
+  "aloha-desert-pool-service-of-gilbert": {
+    "logo": "/biz-photos/aloha-desert-pool-service-of-gilbert/logo.webp"
+  },
+  "cape-pest-control-gilbert": {
+    "logo": "/biz-photos/cape-pest-control-gilbert/logo.webp"
   }
 }
