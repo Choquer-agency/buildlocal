@@ -5903,6 +5903,7 @@ const manual: Record<string, BusinessOverride> = {
   // Foam, Modified Bitumen, and Elastomeric Coatings. GAF Master Elite, 12+ years. Logo + 9 photos +
   // brand color #fe0000 wired via asset-overrides.json by process-assets.
   "arizona-roofers": {
+    chromeDark: true, // white logo → force dark (near-black) nav so it's visible (was white-on-white)
     bgOverride: "#F2F2F2", // light grey — replaces the red-tinted (blush pink) section washes; red stays the accent
     // Designer pinned imgi_61_IMG_2018-scaled (→ p6.webp) as the hero; BizHero uses photos[0], so p6
     // leads and the other 8 follow for the gallery.
