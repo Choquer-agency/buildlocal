@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { businessMap } from "@/content/businesses";
-import { getRecords, patchRecord } from "@/lib/crm-store";
+import { getRecords } from "@/lib/crm-store";
 import { CrmTable, CrmRow } from "@/components/admin/CrmTable";
 import { ConvexClientProvider } from "@/components/admin/ConvexClientProvider";
 
@@ -30,7 +30,7 @@ const isCampaign = (b: { qrCode?: string }) => /^[a-z]{2}\d{4}$/.test(b.qrCode |
 // pillar (qr xx0001–xx0040). Exactly matches flyer/lob-batch1-2026-07-09.csv (200).
 const isFirstCampaign = (b: { qrCode?: string }) => /^[a-z]{2}\d{4}$/.test(b.qrCode || "") && qrNum(b) <= 40;
 
-export default async function CrmPage({ searchParams }: { searchParams?: { reset?: string } }) {
+export default async function CrmPage() {
   // Campaign first (grouped by pillar, then number), then overflow by number.
   const businesses = Object.values(businessMap).sort((a, b) => {
     const ca = isCampaign(a), cb = isCampaign(b);
@@ -41,17 +41,18 @@ export default async function CrmPage({ searchParams }: { searchParams?: { reset
     }
     return qrNum(a) - qrNum(b);
   });
-  let records = await getRecords(businesses.map((b) => b.slug));
+  const records = await getRecords(businesses.map((b) => b.slug));
 
-  // One-off maintenance: /admin/businesses?reset=scans clears test scans + statuses
-  // in THIS function's store (scans are written per-instance, so hit it a few times).
-  if (searchParams?.reset === "scans") {
-    for (const [slug, rec] of Object.entries(records)) {
-      if ((rec.scans?.length || 0) > 0 || rec.status !== "new") {
-        await patchRecord(slug, { scans: [], status: "new", activity: [] });
-      }
-    }
-    records = await getRecords(businesses.map((b) => b.slug));
+  // Everything before go-live was internal QR testing — those scans/statuses are
+  // noise. Ignore any scan older than SCAN_CUTOFF so the CRM starts clean; real
+  // scans (from mailed postcards) land after this date and show normally.
+  const SCAN_CUTOFF = process.env.NEXT_PUBLIC_SCAN_CUTOFF || "2026-07-28T00:00:00.000Z";
+  for (const rec of Object.values(records)) {
+    const realScans = (rec.scans || []).filter((ts) => ts >= SCAN_CUTOFF);
+    rec.scans = realScans;
+    // a status of "scanned" was derived from a (now-filtered) test scan → reset it
+    if (realScans.length === 0 && rec.status === "scanned") rec.status = "new";
+    if (rec.activity) rec.activity = rec.activity.filter((a) => a.ts >= SCAN_CUTOFF);
   }
 
   const rows: CrmRow[] = businesses.map((b) => ({
