@@ -29,5 +29,15 @@
     "buildStage": "template",
     "scans": [],
     "updatedAt": "2026-06-02T23:16:32.351Z"
+  },
+  "west-coast-pest-control": {
+    "status": "new",
+    "buildStage": "template",
+    "scans": []
+  },
+  "artificial-grass-masters": {
+    "status": "new",
+    "buildStage": "template",
+    "scans": []
   }
 }
