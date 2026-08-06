@@ -9,6 +9,7 @@
  */
 
 import type * as crm from "../crm.js";
+import type * as intel from "../intel.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +19,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   crm: typeof crm;
+  intel: typeof intel;
 }>;
 
 /**

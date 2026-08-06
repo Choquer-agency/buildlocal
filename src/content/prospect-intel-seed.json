@@ -1,0 +1,97 @@
+{
+  "julio-tree-care-and-landscaping": {
+    "slug": "julio-tree-care-and-landscaping",
+    "name": "Julio Tree Care & Landscaping",
+    "domain": "juliotreeserviceinaz.us",
+    "existingWebsite": "https://juliotreeserviceinaz.us/",
+    "fetchedAt": "2026-08-06T00:19:11.000Z",
+    "source": "seed",
+    "traffic": {
+      "history": [
+        { "ym": "2025-08", "label": "Aug 25", "traffic": 3, "keywords": 14 },
+        { "ym": "2025-09", "label": "Sep 25", "traffic": 2, "keywords": 9 },
+        { "ym": "2025-10", "label": "Oct 25", "traffic": 3, "keywords": 14 },
+        { "ym": "2025-11", "label": "Nov 25", "traffic": 3, "keywords": 14 },
+        { "ym": "2025-12", "label": "Dec 25", "traffic": 2, "keywords": 13 },
+        { "ym": "2026-01", "label": "Jan 26", "traffic": 4, "keywords": 13 },
+        { "ym": "2026-02", "label": "Feb 26", "traffic": 4, "keywords": 13 },
+        { "ym": "2026-03", "label": "Mar 26", "traffic": 3, "keywords": 13 },
+        { "ym": "2026-04", "label": "Apr 26", "traffic": 17, "keywords": 28 },
+        { "ym": "2026-05", "label": "May 26", "traffic": 58, "keywords": 34 },
+        { "ym": "2026-06", "label": "Jun 26", "traffic": 50, "keywords": 44 },
+        { "ym": "2026-07", "label": "Jul 26", "traffic": 41, "keywords": 43 },
+        { "ym": "2026-08", "label": "Aug 26", "traffic": 41, "keywords": 43 }
+      ],
+      "currentMonthly": 41,
+      "peak": { "ym": "2026-05", "traffic": 58 },
+      "keywordsCount": 43,
+      "trafficValue": 281
+    },
+    "topKeywords": [
+      { "keyword": "lawn care mesa az", "position": 1, "volume": 170, "difficulty": 8, "cpc": 6.37, "localPack": true, "organicPosition": 27 },
+      { "keyword": "lawn care services mesa az", "position": 1, "volume": 170, "difficulty": 5, "cpc": 6.37, "localPack": true, "organicPosition": 24 },
+      { "keyword": "mesa az lawn service", "position": 1, "volume": 170, "difficulty": 6, "cpc": 6.37, "localPack": true, "organicPosition": 22 },
+      { "keyword": "lawn maintenance mesa az", "position": 1, "volume": 170, "difficulty": 7, "cpc": 6.37, "localPack": true, "organicPosition": 16 },
+      { "keyword": "lawn care mesa", "position": 1, "volume": 170, "difficulty": 5, "cpc": 6.37, "localPack": true, "organicPosition": 34 },
+      { "keyword": "landscaping services mesa az", "position": 1, "volume": 90, "difficulty": 7, "cpc": 9.26, "localPack": true, "organicPosition": 22 },
+      { "keyword": "landscaping services mesa", "position": 1, "volume": 90, "difficulty": 7, "cpc": 9.26, "localPack": true, "organicPosition": 32 },
+      { "keyword": "yard maintenance mesa az", "position": 1, "volume": 70, "difficulty": 4, "cpc": 5.96, "localPack": true, "organicPosition": 33 },
+      { "keyword": "yard service mesa az", "position": 1, "volume": 70, "difficulty": 5, "cpc": 5.96, "localPack": true, "organicPosition": 35 },
+      { "keyword": "mesa az landscaping companies", "position": 1, "volume": 50, "difficulty": 6, "cpc": 8.04, "localPack": true }
+    ],
+    "opportunities": [
+      { "keyword": "tree service mesa az", "position": 31, "volume": 210, "difficulty": 10, "cpc": 5.84, "clicksAtTop3": 63 },
+      { "keyword": "mesa tree service", "position": 41, "volume": 210, "difficulty": 6, "cpc": 5.84, "clicksAtTop3": 63 },
+      { "keyword": "tree trimming mesa az", "position": 34, "volume": 140, "difficulty": 7, "cpc": 8.84, "clicksAtTop3": 42 },
+      { "keyword": "mesa tree trimming", "position": 36, "volume": 140, "difficulty": 5, "cpc": 8.84, "clicksAtTop3": 42 },
+      { "keyword": "tree removal mesa", "position": 42, "volume": 110, "difficulty": 7, "cpc": 11.77, "clicksAtTop3": 33 },
+      { "keyword": "tree removal mesa arizona", "position": 41, "volume": 110, "difficulty": 9, "cpc": 11.77, "clicksAtTop3": 33 },
+      { "keyword": "arborist mesa az", "position": 54, "volume": 70, "difficulty": 11, "cpc": 9.13, "clicksAtTop3": 21 },
+      { "keyword": "mesa arborist", "position": 45, "volume": 70, "difficulty": 9, "cpc": 9.13, "clicksAtTop3": 21 },
+      { "keyword": "mesa tree removal", "position": 56, "volume": 50, "difficulty": 4, "cpc": 5.98, "clicksAtTop3": 15 },
+      { "keyword": "tree removal service mesa az", "position": 43, "volume": 50, "difficulty": 7, "cpc": 5.98, "clicksAtTop3": 15 }
+    ],
+    "issues": [
+      {
+        "label": "Description missing",
+        "count": 15,
+        "severity": "warning",
+        "why": "15 of their 16 pages have no meta description — Google writes its own snippet, so they have no control over what a searcher reads before deciding to click."
+      },
+      {
+        "label": "Alt text missing",
+        "count": 15,
+        "severity": "warning",
+        "why": "Image alt text is missing on 15 images, so Google can't read their job photos — and none of that work ever surfaces in image search."
+      },
+      {
+        "label": "4XX images (Not Found)",
+        "count": 4,
+        "severity": "error",
+        "why": "Four images are 404ing on the live site — visitors land on the page and see broken/empty boxes where the work photos should be."
+      },
+      {
+        "label": "No inbound links",
+        "count": 1,
+        "severity": "error",
+        "why": "An orphan page: nothing on the site links to it, so Google barely crawls it and it can't rank."
+      },
+      {
+        "label": "Slow page loading speed",
+        "count": 3,
+        "severity": "warning",
+        "why": "Three pages load slowly. On mobile — where most 'tree service near me' searches happen — people leave before a slow page ever paints."
+      }
+    ],
+    "audit": {
+      "score": 77,
+      "pages": 16,
+      "errors": 5,
+      "warnings": 36,
+      "domainTrust": 6,
+      "backlinks": 197,
+      "refDomains": 91
+    },
+    "headline": "Ranks #1 on the map for \"lawn care mesa az\" but the website sits at #27 — and it's #31 for \"tree service mesa az\" (210/mo), their own core service."
+  }
+}

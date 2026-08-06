@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useQuery, useMutation } from "convex/react";
-import { Link2, ExternalLink, Copy, Check, X, ChevronDown, ChevronUp, Download } from "lucide-react";
+import { Link2, ExternalLink, Copy, Check, X, ChevronDown, ChevronUp, Download, FileSearch } from "lucide-react";
 import {
   CrmRecord, SALES_STATUSES, statusMeta, DEFAULT_CRM,
 } from "@/lib/crm-types";
@@ -290,6 +290,12 @@ export function CrmTable({ rows: allRows }: { rows: CrmRow[]; publishedBase?: st
                         {r.existingWebsite && (
                           <a href={r.existingWebsite} target="_blank" rel="noreferrer" title="Their old website" className="grid place-items-center w-7 h-7 rounded-md border border-dark/15 bg-white hover:bg-dark/5">
                             <ExternalLink size={14} className="text-dark" />
+                          </a>
+                        )}
+                        {/* Dark box → the pre-call brief (traffic, rankings, site issues) */}
+                        {r.existingWebsite && (
+                          <a href={`/admin/prospect/${r.slug}`} title="Pre-call brief" className="grid place-items-center w-7 h-7 rounded-md bg-dark hover:opacity-80">
+                            <FileSearch size={14} className="text-brand" />
                           </a>
                         )}
                       </div>

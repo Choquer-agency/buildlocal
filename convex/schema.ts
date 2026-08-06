@@ -16,4 +16,14 @@ export default defineSchema({
     activity: v.optional(v.array(v.object({ ts: v.string(), label: v.string() }))),
     updatedAt: v.optional(v.string()),
   }).index("by_slug", ["slug"]),
+
+  // Cached SE Ranking intel per business (keyed by slug). Written by
+  // /api/intel, read by the /admin/prospect/[slug] call-prep page.
+  intel: defineTable({
+    slug: v.string(),
+    fetchedAt: v.string(),
+    // The whole ProspectIntel payload (see src/lib/prospect-intel.ts). Stored
+    // opaquely so the report shape can evolve without a schema migration.
+    payload: v.any(),
+  }).index("by_slug", ["slug"]),
 });
