@@ -3,6 +3,7 @@ import { waitUntil } from "@vercel/functions";
 import { getBusinessByQrCode } from "@/content/businesses";
 import { recordScan } from "@/lib/crm-store";
 import { getOrBuildIntel, seedKeywordFor } from "@/lib/prospect-intel";
+import { notifyScan } from "@/lib/slack";
 
 export const dynamic = "force-dynamic";
 // The background intel build (SE Ranking pull + site audit) runs past the redirect.
@@ -18,7 +19,7 @@ export async function GET(req: NextRequest, { params }: { params: { code: string
 
   try {
     await recordScan(biz.slug);
-    await notifySlack(biz);
+    await notifyScan(biz);
     if (biz.existingWebsite) {
       waitUntil(
         getOrBuildIntel(
@@ -38,57 +39,4 @@ export async function GET(req: NextRequest, { params }: { params: { code: string
   }
 
   return NextResponse.redirect(new URL(`/p/${biz.slug}`, req.url));
-}
-
-interface ScanBiz {
-  slug: string;
-  name: string;
-  phone: string;
-  owner?: string;
-  existingWebsite?: string;
-  address: { locality: string; region: string };
-}
-
-async function notifySlack(biz: ScanBiz) {
-  const hook = process.env.SLACK_WEBHOOK_URL;
-  if (!hook) return;
-  const base = process.env.NEXT_PUBLIC_PUBLISHED_BASE || "https://buildlocal.agency";
-  const brief = `${base}/admin/prospect/${biz.slug}`;
-  const site = `${base}/p/${biz.slug}`;
-  const owner = biz.owner && biz.owner.trim().toLowerCase() !== biz.name.trim().toLowerCase() ? biz.owner : null;
-
-  const text = `🔔 QR scanned — ${biz.name} · ${biz.phone || "no phone on file"}`;
-  const body = {
-    text, // notification fallback
-    blocks: [
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text:
-            `🔔 *QR scanned — call them now*\n\n` +
-            `*${biz.name}*${owner ? `\n👤 ${owner}` : ""}\n` +
-            `📞 *${biz.phone || "No phone on file"}*\n` +
-            `📍 ${biz.address.locality}, ${biz.address.region}`,
-        },
-      },
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: `*<${brief}|📋 Open the pre-call brief>* — traffic, rankings + what's broken on their site\n<${site}|The site we built them>`,
-        },
-      },
-      {
-        type: "context",
-        elements: [{ type: "mrkdwn", text: biz.existingWebsite ? `Their current site: ${biz.existingWebsite}` : "No existing website on file" }],
-      },
-    ],
-  };
-
-  await fetch(hook, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  }).catch(() => {});
 }

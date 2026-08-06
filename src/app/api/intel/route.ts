@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { businessMap } from "@/content/businesses";
-import { getIntel, getOrBuildIntel, seedKeywordFor } from "@/lib/prospect-intel";
+import { getIntel, getOrBuildIntel, opportunityTotals, seedKeywordFor } from "@/lib/prospect-intel";
+import { notifyScan } from "@/lib/slack";
 
 export const dynamic = "force-dynamic";
 // The audit poll can run ~2 min; Fluid Compute allows well beyond that.
@@ -13,10 +14,15 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ intel: await getIntel(slug) });
 }
 
-// POST { slug, force? } → build/refresh the SE Ranking brief for a business.
-// Called by the scan handler (warm-up) and the Refresh button.
+// POST { slug, force?, slack? } → build/refresh the SE Ranking brief, and
+// optionally re-send the brief link to Slack. Called by the Refresh and
+// "Send to Slack" buttons on the brief page.
 export async function POST(req: NextRequest) {
-  const { slug, force } = (await req.json().catch(() => ({}))) as { slug?: string; force?: boolean };
+  const { slug, force, slack } = (await req.json().catch(() => ({}))) as {
+    slug?: string;
+    force?: boolean;
+    slack?: boolean;
+  };
   if (!slug) return NextResponse.json({ error: "slug required" }, { status: 400 });
 
   const b = businessMap[slug];
@@ -36,5 +42,19 @@ export async function POST(req: NextRequest) {
       { status: 503 }
     );
   }
-  return NextResponse.json({ ok: true, intel });
+
+  let slackSent: boolean | undefined;
+  if (slack) {
+    slackSent = await notifyScan(b, {
+      reason: "manual",
+      highlights: {
+        headline: intel.headline,
+        monthlyTraffic: intel.traffic.currentMonthly,
+        healthScore: intel.audit?.score ?? null,
+        missedClicks: opportunityTotals(intel.opportunities).clicks,
+      },
+    });
+  }
+
+  return NextResponse.json({ ok: true, slackSent, intel });
 }
